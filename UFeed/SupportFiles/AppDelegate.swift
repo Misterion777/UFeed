@@ -8,24 +8,32 @@
 
 import UIKit
 import FacebookCore
+import SwiftyVK
+    
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    
+    var vkDelegateReference : SwiftyVKDelegate?
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        vkDelegateReference = VKDelegate()
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return SDKApplicationDelegate.shared.application(application, open: url, options: options)
+        let app = options[.sourceApplication] as? String
+        VK.handle(url: url, sourceApplication: app)
+//        SDKApplicationDelegate.shared.application(application, open: url, options: options)
+        return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

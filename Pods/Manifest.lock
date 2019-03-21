@@ -24,11 +24,13 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.40.0):
     - FBSDKCoreKit
+  - SwiftyVK (3.3.1)
 
 DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
   - FacebookShare
+  - SwiftyVK
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -39,6 +41,7 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
+    - SwiftyVK
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -48,7 +51,8 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: ae214474b25033399c131dc81d258e412582a2ba
   FBSDKLoginKit: 7a1e411d46acc8834588eca437daf34de42e1d52
   FBSDKShareKit: 0e45916f4150da485928ae2a17ca021950b194f5
+  SwiftyVK: 5a10472a1aeee70eb6463ca3d5628860a51c7bce
 
-PODFILE CHECKSUM: f0d3b12c8e12cdd4b1931d05deb11e54f817e3a4
+PODFILE CHECKSUM: 50ca0b7bdb53ccf8e9766cf0e13d1c0d9e454262
 
 COCOAPODS: 1.6.1

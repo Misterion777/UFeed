@@ -7,17 +7,18 @@
 //
 
 import UIKit
-import FacebookLogin
+
 import Foundation
-import FacebookCore
+
+import SwiftyVK
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let loginButton = UIButton(type: .custom)
-
+        
         
         loginButton.frame = CGRect(x: 0, y: 0, width: 180, height: 40)
         loginButton.backgroundColor = UIColor.darkGray
@@ -28,29 +29,29 @@ class ViewController: UIViewController {
         
         view.addSubview(loginButton)
     }
-
+    
     @objc func loginButtonClicked() {
-        let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [.publicProfile], viewController: self) { loginResult in
-            self.loginManagerDidComplete(loginResult)
-            
+        
+        VK.sessions.default.logIn(
+            onSuccess: { info in
+                print("SwiftyVK: success authorize with", info)
+        },
+            onError: { error in
+                print("SwiftyVK: authorize failed with", error)
         }
+        )
+        
+        VK.API.Users.get(.empty)
+            .onSuccess {
+                print("result: \n \($0	)")
+                
+            }
+            .onError {
+                print("Fail: \($0)")
+            }
+            .send()
         
     }
-    
-    func loginManagerDidComplete(_ result: LoginResult){
-        let alertController: UIAlertController
-        switch result {
-        case .cancelled:
-            alertController = UIAlertController(title: "Canceled", message: "Canceled by user", preferredStyle: .alert)
-        case .failed(let error):
-            alertController = UIAlertController(title: "Failed", message: "Error: \(error)", preferredStyle: .alert)
-        case .success(_, _, let accessToken):
-            alertController = UIAlertController(title: "Success", message: "Cool, token: \(accessToken.userId ?? "no user id")", preferredStyle: .alert)
-        }
-        self.present(alertController, animated:true, completion: nil)
-    }
-    
 
 }
 

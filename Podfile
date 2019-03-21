@@ -9,4 +9,6 @@ target 'UFeed' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  
+  pod 'SwiftyVK'
 end
