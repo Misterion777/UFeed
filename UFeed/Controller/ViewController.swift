@@ -10,15 +10,16 @@ import UIKit
 
 import Foundation
 
-import SwiftyVK
+import VK_ios_sdk
 
 class ViewController: UIViewController {
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let loginButton = UIButton(type: .custom)
-        
         
         loginButton.frame = CGRect(x: 0, y: 0, width: 180, height: 40)
         loginButton.backgroundColor = UIColor.darkGray
@@ -31,27 +32,16 @@ class ViewController: UIViewController {
     }
     
     @objc func loginButtonClicked() {
-        
-        VK.sessions.default.logIn(
-            onSuccess: { info in
-                print("SwiftyVK: success authorize with", info)
-        },
-            onError: { error in
-                print("SwiftyVK: authorize failed with", error)
+        print("clicked")
+        if !VKSdk.isLoggedIn() {
+            VKSdk.authorize(VKDelegate.SCOPE)
         }
-        )
         
-        VK.API.Users.get(.empty)
-            .onSuccess {
-                print("result: \n \($0	)")
-                
-            }
-            .onError {
-                print("Fail: \($0)")
-            }
-            .send()
-        
+        VKApiWorker.getNewsFeed()
     }
+    
+    
+    
 
 }
 

@@ -7,17 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		093A1C372244EE4600D276DA /* UIAppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A1C362244EE4600D276DA /* UIAppExtension.swift */; };
+		093A1C392244F32700D276DA /* VKApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A1C382244F32700D276DA /* VKApiWorker.swift */; };
+		093A1C3D2244F66600D276DA /* VKPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A1C3C2244F66600D276DA /* VKPost.swift */; };
+		09D42EF3224426A8006B0B3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09D42EF2224426A8006B0B3D /* GoogleService-Info.plist */; };
 		843E950F22206BB10016242F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E950E22206BB10016242F /* ViewController.swift */; };
 		843E951A22206BE70016242F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843E951322206BE70016242F /* Assets.xcassets */; };
 		843E951B22206BE70016242F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843E951422206BE70016242F /* LaunchScreen.storyboard */; };
 		843E951C22206BE70016242F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843E951622206BE70016242F /* Main.storyboard */; };
 		843E951D22206BE70016242F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E951822206BE70016242F /* AppDelegate.swift */; };
-		843E952022209AD30016242F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 843E951F22209AD30016242F /* GoogleService-Info.plist */; };
 		84FB75DE2243A3F6000A35F1 /* VKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */; };
 		D8FCBD5666FBD7C7DF64DAB1 /* Pods_UFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2414C977387E017A8CF82E /* Pods_UFeed.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		093A1C362244EE4600D276DA /* UIAppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIAppExtension.swift; path = UFeed/UIAppExtension.swift; sourceTree = SOURCE_ROOT; };
+		093A1C382244F32700D276DA /* VKApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiWorker.swift; sourceTree = "<group>"; };
+		093A1C3C2244F66600D276DA /* VKPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPost.swift; sourceTree = "<group>"; };
+		09D42EF2224426A8006B0B3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0E2414C977387E017A8CF82E /* Pods_UFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31157A1D50A527C3FE29DA49 /* Pods-UFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.debug.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		843E94F722205CF90016242F /* UFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -27,7 +34,6 @@
 		843E951722206BE70016242F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		843E951822206BE70016242F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		843E951922206BE70016242F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		843E951F22209AD30016242F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKDelegate.swift; sourceTree = "<group>"; };
 		FBA6ABE7BBFED8E1F4F51417 /* Pods-UFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.release.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,6 +50,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		093A1C3A2244F56500D276DA /* VK */ = {
+			isa = PBXGroup;
+			children = (
+				093A1C3B2244F63E00D276DA /* Entity */,
+				093A1C382244F32700D276DA /* VKApiWorker.swift */,
+				84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */,
+			);
+			path = VK;
+			sourceTree = "<group>";
+		};
+		093A1C3B2244F63E00D276DA /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				093A1C3C2244F66600D276DA /* VKPost.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		73044C9D1B139AA9A78752A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +118,8 @@
 		843E951022206BD20016242F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				093A1C3A2244F56500D276DA /* VK */,
+				093A1C362244EE4600D276DA /* UIAppExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -108,13 +134,12 @@
 		843E951222206BE70016242F /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
-				84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */,
+				09D42EF2224426A8006B0B3D /* GoogleService-Info.plist */,
 				843E951322206BE70016242F /* Assets.xcassets */,
 				843E951422206BE70016242F /* LaunchScreen.storyboard */,
 				843E951622206BE70016242F /* Main.storyboard */,
 				843E951822206BE70016242F /* AppDelegate.swift */,
 				843E951922206BE70016242F /* Info.plist */,
-				843E951F22209AD30016242F /* GoogleService-Info.plist */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
@@ -189,7 +214,7 @@
 			files = (
 				843E951A22206BE70016242F /* Assets.xcassets in Resources */,
 				843E951C22206BE70016242F /* Main.storyboard in Resources */,
-				843E952022209AD30016242F /* GoogleService-Info.plist in Resources */,
+				09D42EF3224426A8006B0B3D /* GoogleService-Info.plist in Resources */,
 				843E951B22206BE70016242F /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,7 +238,8 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyVK/SwiftyVK.framework",
+				"${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework",
+				"${BUILT_PRODUCTS_DIR}/VK-ios-sdk/VK_ios_sdk.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -226,7 +252,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyVK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VK_ios_sdk.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -264,7 +291,10 @@
 			files = (
 				843E951D22206BE70016242F /* AppDelegate.swift in Sources */,
 				843E950F22206BB10016242F /* ViewController.swift in Sources */,
+				093A1C392244F32700D276DA /* VKApiWorker.swift in Sources */,
 				84FB75DE2243A3F6000A35F1 /* VKDelegate.swift in Sources */,
+				093A1C3D2244F66600D276DA /* VKPost.swift in Sources */,
+				093A1C372244EE4600D276DA /* UIAppExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

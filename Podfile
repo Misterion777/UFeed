@@ -10,5 +10,7 @@ target 'UFeed' do
   pod 'FacebookLogin'
   pod 'FacebookShare'
   
-  pod 'SwiftyVK'
+  pod 'VK-ios-sdk'
+  
+  pod 'ModelMapper'
 end

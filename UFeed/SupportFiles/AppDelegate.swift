@@ -8,28 +8,31 @@
 
 import UIKit
 import FacebookCore
-import SwiftyVK
+import VK_ios_sdk
     
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
-    var vkDelegateReference : SwiftyVKDelegate?
+    var vkDelegate : VKDelegate?
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        vkDelegateReference = VKDelegate()
+        vkDelegate = VKDelegate()
+
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        
         let app = options[.sourceApplication] as? String
-        VK.handle(url: url, sourceApplication: app)
+        VKSdk.processOpen(url, fromApplication: app)
+//        VK.handle(url: url, sourceApplication: app)
 //        SDKApplicationDelegate.shared.application(application, open: url, options: options)
         return true
     }

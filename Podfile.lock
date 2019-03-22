@@ -18,19 +18,23 @@ PODS:
     - FacebookCore (~> 0.5)
     - FBSDKCoreKit (~> 4.37)
     - FBSDKShareKit (~> 4.37)
-  - FBSDKCoreKit (4.40.0):
+  - FBSDKCoreKit (4.42.0):
     - Bolts (~> 1.9)
-  - FBSDKLoginKit (4.40.0):
+  - FBSDKLoginKit (4.42.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.40.0):
+  - FBSDKShareKit (4.42.0):
     - FBSDKCoreKit
-  - SwiftyVK (3.3.1)
+  - ModelMapper (9.0.1):
+    - ModelMapper/Core (= 9.0.1)
+  - ModelMapper/Core (9.0.1)
+  - VK-ios-sdk (1.4.6)
 
 DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
   - FacebookShare
-  - SwiftyVK
+  - ModelMapper
+  - VK-ios-sdk
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -41,18 +45,20 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
-    - SwiftyVK
+    - ModelMapper
+    - VK-ios-sdk
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FacebookCore: 74288d0add931d361b1596beae787ab72c438249
   FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
   FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
-  FBSDKCoreKit: ae214474b25033399c131dc81d258e412582a2ba
-  FBSDKLoginKit: 7a1e411d46acc8834588eca437daf34de42e1d52
-  FBSDKShareKit: 0e45916f4150da485928ae2a17ca021950b194f5
-  SwiftyVK: 5a10472a1aeee70eb6463ca3d5628860a51c7bce
+  FBSDKCoreKit: aa42f1c384775f8b075f53a43080474278e9701d
+  FBSDKLoginKit: 373830c68aa48c9e8f0bfed93a3e32d2ca8963a0
+  FBSDKShareKit: 387749259d79e4070ebb304b3fd256e4b4bc4298
+  ModelMapper: 89a61430a75e6265040dc9555ab1feddeb25b986
+  VK-ios-sdk: 7fd48bc5aaa6b96c3197c1987eb6593f2ea67331
 
-PODFILE CHECKSUM: 50ca0b7bdb53ccf8e9766cf0e13d1c0d9e454262
+PODFILE CHECKSUM: c3d3c340561110838afe0c116cdb7af33acdb851
 
 COCOAPODS: 1.6.1
