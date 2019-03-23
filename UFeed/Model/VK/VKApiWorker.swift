@@ -16,22 +16,15 @@ class VKApiWorker {
         
         getFeed?.execute(resultBlock: { response in
             
-            guard let jsonResponse = response?.json as? String else {
-                print("Error!")
-                return
-            }
-            
-            let data = jsonResponse.data(using: .utf8)!
-            do {
-                if let jsonArray = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [Dictionary<String, Any>] {
-                    print(jsonArray)
+            if let jsonResponse = response?.json {
+
+                if let dictionary = jsonResponse as? [String:Any] {
+                    
+                    if let items = dictionary["items"] as? [[String:Any]]{
+                        print(items)
+                        VKPostMapper.jsonArrayToPostsArray(items)
+                    }
                 }
-                else {
-                    print("bad json")
-                }
-                
-            } catch let error as NSError {
-                print(error)
             }
             
         }, errorBlock: { error in

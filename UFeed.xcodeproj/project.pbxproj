@@ -11,13 +11,14 @@
 		093A1C392244F32700D276DA /* VKApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A1C382244F32700D276DA /* VKApiWorker.swift */; };
 		093A1C3D2244F66600D276DA /* VKPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A1C3C2244F66600D276DA /* VKPost.swift */; };
 		09D42EF3224426A8006B0B3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09D42EF2224426A8006B0B3D /* GoogleService-Info.plist */; };
+		14EE4EB38E493E297AD9D935 /* Pods_UFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C9E6C65C8741EC82F53B69 /* Pods_UFeed.framework */; };
 		843E950F22206BB10016242F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E950E22206BB10016242F /* ViewController.swift */; };
 		843E951A22206BE70016242F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843E951322206BE70016242F /* Assets.xcassets */; };
 		843E951B22206BE70016242F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843E951422206BE70016242F /* LaunchScreen.storyboard */; };
 		843E951C22206BE70016242F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843E951622206BE70016242F /* Main.storyboard */; };
 		843E951D22206BE70016242F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E951822206BE70016242F /* AppDelegate.swift */; };
 		84FB75DE2243A3F6000A35F1 /* VKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */; };
-		D8FCBD5666FBD7C7DF64DAB1 /* Pods_UFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2414C977387E017A8CF82E /* Pods_UFeed.framework */; };
+		84FB75E022454C46000A35F1 /* VKPostMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75DF22454C46000A35F1 /* VKPostMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +26,6 @@
 		093A1C382244F32700D276DA /* VKApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiWorker.swift; sourceTree = "<group>"; };
 		093A1C3C2244F66600D276DA /* VKPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPost.swift; sourceTree = "<group>"; };
 		09D42EF2224426A8006B0B3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0E2414C977387E017A8CF82E /* Pods_UFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		31157A1D50A527C3FE29DA49 /* Pods-UFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.debug.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		843E94F722205CF90016242F /* UFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		843E950E22206BB10016242F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		843E951322206BE70016242F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -35,7 +34,10 @@
 		843E951822206BE70016242F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		843E951922206BE70016242F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKDelegate.swift; sourceTree = "<group>"; };
-		FBA6ABE7BBFED8E1F4F51417 /* Pods-UFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.release.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.release.xcconfig"; sourceTree = "<group>"; };
+		84FB75DF22454C46000A35F1 /* VKPostMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPostMapper.swift; sourceTree = "<group>"; };
+		89C9E6C65C8741EC82F53B69 /* Pods_UFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2272C55A0F81BC5B72E91A5 /* Pods-UFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.debug.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.debug.xcconfig"; sourceTree = "<group>"; };
+		F67D2447176187C169FF49AC /* Pods-UFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.release.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8FCBD5666FBD7C7DF64DAB1 /* Pods_UFeed.framework in Frameworks */,
+				14EE4EB38E493E297AD9D935 /* Pods_UFeed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +57,7 @@
 			children = (
 				093A1C3B2244F63E00D276DA /* Entity */,
 				093A1C382244F32700D276DA /* VKApiWorker.swift */,
+				84FB75DF22454C46000A35F1 /* VKPostMapper.swift */,
 				84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */,
 			);
 			path = VK;
@@ -71,8 +74,8 @@
 		73044C9D1B139AA9A78752A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				31157A1D50A527C3FE29DA49 /* Pods-UFeed.debug.xcconfig */,
-				FBA6ABE7BBFED8E1F4F51417 /* Pods-UFeed.release.xcconfig */,
+				C2272C55A0F81BC5B72E91A5 /* Pods-UFeed.debug.xcconfig */,
+				F67D2447176187C169FF49AC /* Pods-UFeed.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -82,7 +85,7 @@
 			children = (
 				843E94F922205CF90016242F /* UFeed */,
 				73044C9D1B139AA9A78752A8 /* Pods */,
-				CB2A17EF02523CFD474BE32D /* Frameworks */,
+				F4CFB465F7EA2E81CC3348F0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,10 +147,10 @@
 			path = SupportFiles;
 			sourceTree = "<group>";
 		};
-		CB2A17EF02523CFD474BE32D /* Frameworks */ = {
+		F4CFB465F7EA2E81CC3348F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0E2414C977387E017A8CF82E /* Pods_UFeed.framework */,
+				89C9E6C65C8741EC82F53B69 /* Pods_UFeed.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,11 +162,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 843E950922205CFE0016242F /* Build configuration list for PBXNativeTarget "UFeed" */;
 			buildPhases = (
-				E14315756C3FCABAE6F6D0AD /* [CP] Check Pods Manifest.lock */,
+				9E4DEB47E9BE29683D26831B /* [CP] Check Pods Manifest.lock */,
 				843E94F322205CF90016242F /* Sources */,
 				843E94F422205CF90016242F /* Frameworks */,
 				843E94F522205CF90016242F /* Resources */,
-				2CE76347AF1526DEDAB5DB41 /* [CP] Embed Pods Frameworks */,
+				25A9C878B71BFF43637B511F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -222,7 +225,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2CE76347AF1526DEDAB5DB41 /* [CP] Embed Pods Frameworks */ = {
+		25A9C878B71BFF43637B511F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -260,7 +263,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UFeed/Pods-UFeed-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E14315756C3FCABAE6F6D0AD /* [CP] Check Pods Manifest.lock */ = {
+		9E4DEB47E9BE29683D26831B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -292,6 +295,7 @@
 				843E951D22206BE70016242F /* AppDelegate.swift in Sources */,
 				843E950F22206BB10016242F /* ViewController.swift in Sources */,
 				093A1C392244F32700D276DA /* VKApiWorker.swift in Sources */,
+				84FB75E022454C46000A35F1 /* VKPostMapper.swift in Sources */,
 				84FB75DE2243A3F6000A35F1 /* VKDelegate.swift in Sources */,
 				093A1C3D2244F66600D276DA /* VKPost.swift in Sources */,
 				093A1C372244EE4600D276DA /* UIAppExtension.swift in Sources */,
@@ -438,7 +442,7 @@
 		};
 		843E950A22205CFE0016242F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31157A1D50A527C3FE29DA49 /* Pods-UFeed.debug.xcconfig */;
+			baseConfigurationReference = C2272C55A0F81BC5B72E91A5 /* Pods-UFeed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -457,7 +461,7 @@
 		};
 		843E950B22205CFE0016242F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBA6ABE7BBFED8E1F4F51417 /* Pods-UFeed.release.xcconfig */;
+			baseConfigurationReference = F67D2447176187C169FF49AC /* Pods-UFeed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

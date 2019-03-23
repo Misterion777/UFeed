@@ -11,16 +11,16 @@ import Mapper
 
 struct VKPost : Mappable {
     let id : String
-    let type: String
-    let text: String
+    let type: String    
     let date: NSDate
+    let text: String?
     
     
     init(map: Mapper) throws {
         try id = map.from("post_id")
         try type = map.from("type")
-        try text = map.from("text")
         try date = map.from("date", transformation: extractDate)
+        text = map.optionalFrom("text")
     }
     
 }
