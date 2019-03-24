@@ -21,7 +21,7 @@ class VKApiWorker {
                 if let dictionary = jsonResponse as? [String:Any] {
                     
                     if let items = dictionary["items"] as? [[String:Any]]{
-                        print(items)
+                        
                         VKPostMapper.jsonArrayToPostsArray(items)
                     }
                 }

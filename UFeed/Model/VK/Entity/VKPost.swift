@@ -9,27 +9,44 @@
 import Foundation
 import Mapper
 
+enum AttachmentType {
+    case photo, audio, video, doc, link, graffiti, note,poll,page, album, market, market_album, sticker, pretty_cards
+
+}
+
 struct VKPost : Mappable {
-    let id : String
-    let type: String    
-    let date: NSDate
+    let id : Int
+    let ownerId : Int
+    
+    let commentsCount : Int
+    let likesCount : Int
+    let repostsCount : Int
+    let date: Date
+    
+    let type: String
     let text: String?
     
     
+    
     init(map: Mapper) throws {
+        
         try id = map.from("post_id")
+        try ownerId = map.from("source_id")
+        try commentsCount = map.from("comments.count")
+        try likesCount = map.from("likes.count")
+        try repostsCount = map.from("reposts.count")
         try type = map.from("type")
         try date = map.from("date", transformation: extractDate)
         text = map.optionalFrom("text")
+        
     }
     
 }
 
-private func extractDate(object: Any?) throws -> NSDate {
-    guard let date = object as? String else {
+private func extractDate(object: Any?) throws -> Date {
+    guard let dateValue = object as? Double else {
         throw MapperError.convertibleError(value: object, type: String.self)
     }
     
-    return NSDate(timeIntervalSince1970: Double(date)!)
-    
+    return Date(timeIntervalSince1970: dateValue)
 }

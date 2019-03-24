@@ -12,14 +12,16 @@ import VK_ios_sdk
 class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate {
 
     static let SCOPE = ["friends", "wall"]
-    let VK_APP_ID = "6908309"    
+    let VK_APP_ID = "6908309"
+    //https://vk.com/dev/versions
+    let LATEST_VERSION = "5.92"
     
     override init() {
         super.init()
-        let vkInstance = VKSdk.initialize(withAppId: VK_APP_ID)
+        let vkInstance = VKSdk.initialize(withAppId: VK_APP_ID, apiVersion: LATEST_VERSION)
         vkInstance?.register(self)
         vkInstance?.uiDelegate = self
-        
+                
         VKSdk.wakeUpSession(VKDelegate.SCOPE, complete: { state, error in
             if state == VKAuthorizationState.authorized {
                 print("Allready authorized")
