@@ -16,7 +16,6 @@ target 'UFeed' do
   pod 'ImageSlideshow'
   pod 'ImageSlideshow/SDWebImage'
   
-  pod 'AudioPlayerSwift'
   pod 'NAKPlaybackIndicatorView'
   
 end
