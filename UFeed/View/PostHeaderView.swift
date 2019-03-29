@@ -1,17 +1,12 @@
-//
-//  PostHeaderView.swift
-//  UFeed
-//
-//  Created by Ilya on 3/25/19.
-//  Copyright © 2019 Admin. All rights reserved.
-//
-
 import UIKit
 
 import SDWebImage
 
 class PostHeaderView: UIView {
 
+    
+    
+    
     lazy var ownerImage: UIImageView = {
 
         let imageURL = "https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/42/9a/45/429a4561-abc7-04d1-22d1-9c9dd5d5f6c5/source/256x256bb.jpg"
@@ -29,21 +24,19 @@ class PostHeaderView: UIView {
 //        })
 //
         
-        
-        
         imageView.sd_setImage(with: URL(string: imageURL), placeholderImage: #imageLiteral(resourceName: "placeholder"))
         
         
         return imageView
     }()
     
-    func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
-        image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: newSize.width, height: newSize.height)))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
+//    func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+//        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+//        image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: newSize.width, height: newSize.height)))
+//        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+//        UIGraphicsEndImageContext()
+//        return newImage
+//    }
     
     
     lazy var ownerNameLabel: UILabel = {
@@ -62,18 +55,27 @@ class PostHeaderView: UIView {
         return date
     }()
     
-    
-    override init(frame: CGRect){
-        super.init(frame: frame)
-        setup()
+    private func parseDate(date: Date) -> String{
+        return "ololo"
     }
     
-    init(){
+    
+//    override init(frame: CGRect){
+//        super.init(frame: frame)
+//        setup()
+//    }
+    
+    init(ownerImage : String, ownerName: String, date: Date){
         super.init(frame: CGRect.zero)
-        setup()
+        setup(ownerImg: ownerImage,ownerName: ownerName, date: date)
     }
     
-    private func setup(){
+    private func setup(ownerImg : String, ownerName: String, date: Date){
+        
+        ownerImage.sd_setImage(with: URL(string: ownerImg), placeholderImage: #imageLiteral(resourceName: "placeholder"))
+        ownerNameLabel.text = ownerName
+        dateLabel.text = parseDate(date)
+        
         
         addSubview(ownerImage)
         addSubview(ownerNameLabel)
@@ -94,12 +96,4 @@ class PostHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

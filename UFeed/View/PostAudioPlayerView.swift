@@ -16,6 +16,9 @@ class PostAudioPlayerView: UIView {
     let audioUrl = "https://vk.com/mp3/audio_api_unavailable.mp3"
     var isPlaying = false
     
+    
+    
+    //TODO:
     lazy var audioItem : AVPlayerItem = {
         return AVPlayerItem(url: URL(string: audioUrl)!)
     }()
