@@ -116,7 +116,7 @@ struct VKPost : Mappable {
 }
 
 
-private func extractAttachments(object: Any?) throws -> Date {
+private func extractAttachments(object: Any?) throws -> [Attachment]? {
     guard let attachments = object as? [[String:Any]] else {
         throw MapperError.convertibleError(value: object, type: String.self)
     }
@@ -141,6 +141,7 @@ private func extractAttachments(object: Any?) throws -> Date {
         }
         
     }
+    return [Attachment]()
 
 }
 
