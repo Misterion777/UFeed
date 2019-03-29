@@ -23,29 +23,76 @@ class PostTableViewCell : UITableViewCell {
     
     var post : Post? {
         didSet {
-            var id : Int
-            postHeader.ownerImage.image = post?.ownerImage
-            var ownerName : String
-            var date : Date
-            var  text : String
-            var attachments: [Attachment]
-            postTextView.text = post?.text
+            initFields(post : post!)
         }
     }
     
-    private let postHeader : PostHeaderView = {
-        let header = PostHeaderView()
-        return header
-    }()
+    private func initFields(post : Post){
+        postTextView!.text = post.text
+        postHeader = PostHeaderView(ownerImage: post.ownerImage, ownerName: post.ownerName,date: post.date)
+        
+        if post.attachments {
+            
+            for attach in post.attachments {
+                
+                if let audioAttach = attach as AudioAttachment{
+//                    ...
+                }
+                if let audioAttach = attach as VideoAttachment{
+                    //                    ...
+                }
+                if let audioAttach = attach as LinkAttachment{
+                    //                    ...
+                }
+                if let audioAttach = attach as DocAttachment{
+                    //                    ...
+                }
+                
+                
+                
+            }
+            
+            
+        }
+     
+        
+//        subviewFields()
+    }
+    
+//    private func subviewFields() {
+//        imageSlideShow.setImageInputs(imageInputs as! [InputSource])
+//
+//        addSubview(postHeader)
+//
+//        addSubview(imageSlideShow)
+//
+//
+//        addSubview(postTextView)
+//
+//        addSubview(fileView)
+//        addSubview(audioView)
+//
+//        postHeader.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+//
+//        postTextView.anchor(top: postHeader.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+//
+//        //TODO: CHANGE SIZE!
+//        imageSlideShow.anchor(top: postTextView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 400, enableInsets: false)
+//
+//        fileView.anchor(top: imageSlideShow.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+//
+//        audioView.anchor(top: fileView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+//    }
+    
 
-    private let imageSlideShow : ImageSlideshow = {
+    private let imageSlideShow : ImageSlideshow? = {
         let instance = ImageSlideshow()
         instance.backgroundColor = .black
         return instance
     }()
     
     
-    private let postTextView : UITextView = {
+    private let postTextView : UITextView? = {
         let textView = UITextView()
         textView.textColor = .black
         textView.font = UIFont.systemFont(ofSize: 16)
@@ -62,41 +109,15 @@ class PostTableViewCell : UITableViewCell {
         return textView
     }()
     
-    
-    private let fileView : PostFileView = {
-        let view = PostFileView()
-        return view
-    }()
-    
-    private let audioView : PostAudioPlayerView = {
-        let view = PostAudioPlayerView()
-        return view
-    }()
-    
-    
+    private var postHeader : PostHeaderView?
+    private let fileView : [PostFileView]?
+    private let audioView : [PostAudioView]?
+    private var likesLabel : UILabel
+    private var commentsLabel : UILabel
+    private var repostsLabel : UILabel
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        imageSlideShow.setImageInputs(imageInputs as! [InputSource])
-        addSubview(postHeader)
-        addSubview(postTextView)
-        addSubview(imageSlideShow)
-        addSubview(fileView)
-        addSubview(audioView)
-        
-        postHeader.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-                
-        postTextView.anchor(top: postHeader.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-        
-        //TODO: CHANGE SIZE!
-        imageSlideShow.anchor(top: postTextView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 400, enableInsets: false)
-        
-        fileView.anchor(top: imageSlideShow.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-       
-        audioView.anchor(top: fileView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

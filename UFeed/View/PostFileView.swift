@@ -10,17 +10,17 @@ import UIKit
 
 class PostFileView: UIView {
 
-    lazy var fileIcon: UIImageView = {
-        
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "placeholder"))
-        
-        
-        return imageView
-    }()
+    lazy var fileIcon = UIImageView(image: #imageLiteral(resourceName: "document-file-icon"))
     
-    lazy var fileLabel: UILabel = {
+//    lazy var fileIcon: UIImageView = {
+//
+//        let imageView = UIImageView(image: #imageLiteral(resourceName: "document-file-icon"))
+//
+//        return imageView
+//    }()
+//
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "File name!"
         return label
     }()
     
@@ -30,34 +30,31 @@ class PostFileView: UIView {
         size.font = UIFont.boldSystemFont(ofSize: 16)
         size.textAlignment = .left
         
-        size.text = "88MB"
         return size
     }()
     
     
-    override init(frame: CGRect){
-        super.init(frame: frame)
-        setup()
-    }
-    
-    init(){
+    init(fileName: String, fileSize: String, fileLink: String ){
         super.init(frame: CGRect.zero)
-        setup()
+        setup(fileName: fileName, fileSize: fileSize, fileLink: fileLink)
     }
-    
-    private func setup(){
+        
+    private func setup(fileName: String, fileSize: String, fileLink: String){
+        
+        nameLabel.text = fileName
+        sizeLabel.text = fileSize
         
         addSubview(fileIcon)
-        addSubview(fileLabel)
+        addSubview(nameLabel)
         addSubview(sizeLabel)
         
         
         fileIcon.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 50, height: 50, enableInsets: false)
         
         
-        fileLabel.anchor(top: topAnchor, left: fileIcon.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        nameLabel.anchor(top: topAnchor, left: fileIcon.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
-        sizeLabel.anchor(top: fileLabel.bottomAnchor, left: fileIcon.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        sizeLabel.anchor(top: nameLabel.bottomAnchor, left: fileIcon.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
     }
     
