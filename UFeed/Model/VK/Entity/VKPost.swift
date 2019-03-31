@@ -15,31 +15,34 @@ enum AttachmentType {
 
 }
 
-class Attachment {
-    
-    
+class Attachment:Mappable {
+    required init(map: Mapper) throws {
+    }
 }
 
 class PhotoAttachment : Attachment {
-    var url : String
-    var height : Int
-    var width: Int
+    var url : String?
+    var height : Int?
+    var width: Int?
     
-    init(url: String, height: Int, width: Int) {
-        self.url = url
-        self.height = height
-        self.width = width
-    }
-    override init(){
+//    init(url: String, height: Int, width: Int) {
+//        self.url = url
+//        self.height = height
+//        self.width = width
+//    }
+    required init(map: Mapper) throws {
+        try self.url = map.from("url")
+        try self.height = map.from("height")
+        try self.width = map.from("width")
         
     }
 }
 
 class AudioAttachment : Attachment {
-    var url: String
-    var title: String
-    var duration: Int
-    var artist : String
+    var url: String?
+    var title: String?
+    var duration: Int?
+    var artist : String?
     
     init(url: String, title: String, duration: Int, artist: String) {
         self.url = url
@@ -53,9 +56,9 @@ class AudioAttachment : Attachment {
 }
 
 class LinkAttachment : Attachment {
-    var url: String
-    var title: String
-    var description: String
+    var url: String?
+    var title: String?
+    var description: String?
     var photo : PhotoAttachment?
     
     init(url: String, title: String, description: String, photo: PhotoAttachment?) {
@@ -71,9 +74,9 @@ class LinkAttachment : Attachment {
 
 
 class FileAttachment : Attachment {
-    var url: String
-    var title: String
-    var size: Int
+    var url: String?
+    var title: String?
+    var size: Int?
     
     init(url: String, title: String, size: Int) {
         self.url = url
@@ -124,11 +127,11 @@ private func extractAttachments(object: Any?) throws -> [Attachment]? {
     for attach in attachments {
         let type = attach["type"] as! String
         
-        
-        var attachObj : Attachment
         switch type {
         case "photo":
+            
             attachObj = PhotoAttachment()
+            
         case "audio":
             attachObj = AudioAttachment()
         case "link":
