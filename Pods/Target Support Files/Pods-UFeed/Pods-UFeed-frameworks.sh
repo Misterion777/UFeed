@@ -153,6 +153,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+<<<<<<< HEAD
+=======
+  install_framework "${BUILT_PRODUCTS_DIR}/AudioPlayerSwift/AudioPlayer.framework"
+>>>>>>> 8c2502ae8f6fe9954ebafbc959ada165782b011b
   install_framework "${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework"
@@ -160,10 +164,22 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework"
+<<<<<<< HEAD
   install_framework "${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/VK-ios-sdk/VK_ios_sdk.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+=======
+  install_framework "${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/NAKPlaybackIndicatorView/NAKPlaybackIndicatorView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ReadMoreTextView/ReadMoreTextView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/VK-ios-sdk/VK_ios_sdk.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/AudioPlayerSwift/AudioPlayer.framework"
+>>>>>>> 8c2502ae8f6fe9954ebafbc959ada165782b011b
   install_framework "${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework"
@@ -171,7 +187,15 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework"
+<<<<<<< HEAD
   install_framework "${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework"
+=======
+  install_framework "${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/NAKPlaybackIndicatorView/NAKPlaybackIndicatorView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ReadMoreTextView/ReadMoreTextView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
+>>>>>>> 8c2502ae8f6fe9954ebafbc959ada165782b011b
   install_framework "${BUILT_PRODUCTS_DIR}/VK-ios-sdk/VK_ios_sdk.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
