@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:UFeed/SupportFiles/../../AppDelegate.swift">
+   </FileRef>
+   <FileRef
       location = "group:UFeed.xcodeproj">
    </FileRef>
    <FileRef
