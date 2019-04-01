@@ -10,6 +10,9 @@
 		093A1C372244EE4600D276DA /* UIAppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A1C362244EE4600D276DA /* UIAppExtension.swift */; };
 		093A1C392244F32700D276DA /* VKApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A1C382244F32700D276DA /* VKApiWorker.swift */; };
 		093A1C3D2244F66600D276DA /* VKPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A1C3C2244F66600D276DA /* VKPost.swift */; };
+		094F94712251F69E008A1B47 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F94702251F69E008A1B47 /* Post.swift */; };
+		094F94732251F6D5008A1B47 /* Attachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F94722251F6D5008A1B47 /* Attachments.swift */; };
+		094F94752252197A008A1B47 /* AttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F94742252197A008A1B47 /* AttachmentFactory.swift */; };
 		09D42EF3224426A8006B0B3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09D42EF2224426A8006B0B3D /* GoogleService-Info.plist */; };
 		4BCFC35FB7FEC99B6A2E9F06 /* Pods_UFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72478C13F46CC151AB514895 /* Pods_UFeed.framework */; };
 		843E950F22206BB10016242F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E950E22206BB10016242F /* ViewController.swift */; };
@@ -19,14 +22,17 @@
 		843E951D22206BE70016242F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E951822206BE70016242F /* AppDelegate.swift */; };
 		84FB75DE2243A3F6000A35F1 /* VKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */; };
 		84FB75E022454C46000A35F1 /* VKPostMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75DF22454C46000A35F1 /* VKPostMapper.swift */; };
-		84FB75E32250E6C5000A35F1 /* AttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75E22250E6C5000A35F1 /* AttachmentFactory.swift */; };
-		84FB75E52250E6F4000A35F1 /* Attachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75E42250E6F4000A35F1 /* Attachments.swift */; };
+		84FB75E32250E6C5000A35F1 /* VKAttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75E22250E6C5000A35F1 /* VKAttachmentFactory.swift */; };
+		84FB75E52250E6F4000A35F1 /* VKAttachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB75E42250E6F4000A35F1 /* VKAttachments.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		093A1C362244EE4600D276DA /* UIAppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIAppExtension.swift; path = UFeed/UIAppExtension.swift; sourceTree = SOURCE_ROOT; };
 		093A1C382244F32700D276DA /* VKApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiWorker.swift; sourceTree = "<group>"; };
 		093A1C3C2244F66600D276DA /* VKPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPost.swift; sourceTree = "<group>"; };
+		094F94702251F69E008A1B47 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		094F94722251F6D5008A1B47 /* Attachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachments.swift; sourceTree = "<group>"; };
+		094F94742252197A008A1B47 /* AttachmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentFactory.swift; sourceTree = "<group>"; };
 		09D42EF2224426A8006B0B3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		72478C13F46CC151AB514895 /* Pods_UFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		843E94F722205CF90016242F /* UFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,8 +44,8 @@
 		843E951922206BE70016242F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84FB75DD2243A3F6000A35F1 /* VKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKDelegate.swift; sourceTree = "<group>"; };
 		84FB75DF22454C46000A35F1 /* VKPostMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPostMapper.swift; sourceTree = "<group>"; };
-		84FB75E22250E6C5000A35F1 /* AttachmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentFactory.swift; sourceTree = "<group>"; };
-		84FB75E42250E6F4000A35F1 /* Attachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachments.swift; sourceTree = "<group>"; };
+		84FB75E22250E6C5000A35F1 /* VKAttachmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAttachmentFactory.swift; sourceTree = "<group>"; };
+		84FB75E42250E6F4000A35F1 /* VKAttachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAttachments.swift; sourceTree = "<group>"; };
 		8D6A213EF14EAE8BC1ECA7A3 /* Pods-UFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.debug.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		FF7D0987F99A50724FDA91FD /* Pods-UFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.release.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +78,16 @@
 			children = (
 				84FB75E12250E69A000A35F1 /* Attachments */,
 				093A1C3C2244F66600D276DA /* VKPost.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		094F9476225219F0008A1B47 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				094F94702251F69E008A1B47 /* Post.swift */,
+				094F94722251F6D5008A1B47 /* Attachments.swift */,
+				094F94742252197A008A1B47 /* AttachmentFactory.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -134,6 +150,7 @@
 		843E951022206BD20016242F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				094F9476225219F0008A1B47 /* Entity */,
 				093A1C3A2244F56500D276DA /* VK */,
 				093A1C362244EE4600D276DA /* UIAppExtension.swift */,
 			);
@@ -163,8 +180,8 @@
 		84FB75E12250E69A000A35F1 /* Attachments */ = {
 			isa = PBXGroup;
 			children = (
-				84FB75E22250E6C5000A35F1 /* AttachmentFactory.swift */,
-				84FB75E42250E6F4000A35F1 /* Attachments.swift */,
+				84FB75E22250E6C5000A35F1 /* VKAttachmentFactory.swift */,
+				84FB75E42250E6F4000A35F1 /* VKAttachments.swift */,
 			);
 			path = Attachments;
 			sourceTree = "<group>";
@@ -309,12 +326,15 @@
 				843E951D22206BE70016242F /* AppDelegate.swift in Sources */,
 				843E950F22206BB10016242F /* ViewController.swift in Sources */,
 				093A1C392244F32700D276DA /* VKApiWorker.swift in Sources */,
-				84FB75E32250E6C5000A35F1 /* AttachmentFactory.swift in Sources */,
-				84FB75E52250E6F4000A35F1 /* Attachments.swift in Sources */,
+				84FB75E32250E6C5000A35F1 /* VKAttachmentFactory.swift in Sources */,
+				094F94732251F6D5008A1B47 /* Attachments.swift in Sources */,
+				84FB75E52250E6F4000A35F1 /* VKAttachments.swift in Sources */,
 				84FB75E022454C46000A35F1 /* VKPostMapper.swift in Sources */,
 				84FB75DE2243A3F6000A35F1 /* VKDelegate.swift in Sources */,
 				093A1C3D2244F66600D276DA /* VKPost.swift in Sources */,
 				093A1C372244EE4600D276DA /* UIAppExtension.swift in Sources */,
+				094F94712251F69E008A1B47 /* Post.swift in Sources */,
+				094F94752252197A008A1B47 /* AttachmentFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

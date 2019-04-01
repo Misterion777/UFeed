@@ -8,11 +8,7 @@
 
 import Foundation
 
-class AttachmentFactory {
-    
-    enum AttachmentParseError : Error {
-        case runtimeError(String)
-    }
+class VKAttachmentFactory :AttachmentFactory {
     
     static func getAttachment(json : [String:Any], type: String) -> Attachment?{
         
@@ -25,13 +21,13 @@ class AttachmentFactory {
         case "photo":
             return getPhoto(json: attach)
         case "audio":
-            return AudioAttachment.from(attach)
+            return VKAudioAttachment.from(attach)
             
         case "link":
-            return LinkAttachment.from(attach)
+            return VKLinkAttachment.from(attach)
             
         case "doc":
-            return FileAttachment.from(attach)
+            return VKFileAttachment.from(attach)
             
         default:
             print("\(type) parsing is not implemented!")
@@ -44,7 +40,7 @@ class AttachmentFactory {
         
         let lastSize = photoSizes[photoSizes.count-1]
         
-        return PhotoAttachment.from(lastSize)
+        return VKPhotoAttachment.from(lastSize)
     }
 }
 

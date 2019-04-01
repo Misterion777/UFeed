@@ -9,12 +9,12 @@
 import Foundation
 import Mapper
 
-class Attachment:Mappable {
-    required init(map: Mapper) throws {
-    }
-}
+//class Attachment:Mappable {
+//    required init(map: Mapper) throws {
+//    }
+//}
 
-class PhotoAttachment : Attachment {
+class VKPhotoAttachment : PhotoAttachment {
     
     var url : String
     var height : Int
@@ -24,12 +24,17 @@ class PhotoAttachment : Attachment {
         try self.url = map.from("url")
         try self.height = map.from("height")
         try self.width = map.from("width")
-        try super.init(map:map)
+    }
+    
+    init(url:String, height:Int, width:Int){
+        self.url = url
+        self.height = height
+        self.width = width
     }
     
 }
 
-class AudioAttachment : Attachment {
+class VKAudioAttachment : AudioAttachment {
     var url: String
     var title: String
     var duration: Int
@@ -39,12 +44,11 @@ class AudioAttachment : Attachment {
         try self.url = map.from("url")
         try self.title = map.from("title")
         try self.duration = map.from("duration")
-        try self.artist = map.from("artist")
-        try super.init(map:map)
+        try self.artist = map.from("artist")       
     }
 }
 
-class LinkAttachment : Attachment {
+class VKLinkAttachment : LinkAttachment {
     var url: String
     var title: String?
     var description: String?
@@ -56,8 +60,6 @@ class LinkAttachment : Attachment {
         try self.description = map.from("description")
         self.photo = map.optionalFrom("photo", transformation: extractPhoto)
         
-        try super.init(map:map)
-        
     }
 }
 private func extractPhoto(object: Any?) throws -> PhotoAttachment? {
@@ -68,7 +70,7 @@ private func extractPhoto(object: Any?) throws -> PhotoAttachment? {
     return AttachmentFactory.getPhoto(json: photo)
 }
 
-class FileAttachment : Attachment {
+class VKFileAttachment : FileAttachment {
     var url: String
     var title: String
     var size: Int
@@ -77,7 +79,6 @@ class FileAttachment : Attachment {
         try self.url = map.from("url")
         try self.title = map.from("title")
         try self.size = map.from("size")
-        try super.init(map:map)
     }
 }
 
