@@ -38,9 +38,14 @@ class PostAudioView: UIView {
     }()
     
     init(audioName: String, audioUrl : String, duration : Int){
-        audioItem = AVPlayerItem(url: URL(string: audioUrl)!)
+        if let url = URL(string: audioUrl) {
+            audioItem = AVPlayerItem(url: url)
+        }
+        //CAUTION: SHIT!
+        else {
+            audioItem = AVPlayerItem(url: URL(string: "vk.com/mp3/audio_api_unavailable.mp3")!)
+        }
         super.init(frame: CGRect.zero)
-        
         setup(audioName: audioName, duration : duration)
     }
     

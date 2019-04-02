@@ -37,7 +37,7 @@
 		84A140742250CF530063C31F /* SignInCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A140722250CF530063C31F /* SignInCollectionViewController.xib */; };
 		84A140762250D11D0063C31F /* SignInCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A140752250D11D0063C31F /* SignInCollectionViewCell.swift */; };
 		84CB460D2240225600CD4445 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84CB460C2240225600CD4445 /* GoogleService-Info.plist */; };
-		84CB46112243A04500CD4445 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB46102243A04500CD4445 /* FeedTableViewController.swift */; };
+		84CB46112243A04500CD4445 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB46102243A04500CD4445 /* FeedViewController.swift */; };
 		F8F4773241D25330A26FEDA1 /* Pods_UFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43016E2D3F4E03598A197ADB /* Pods_UFeed.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +76,7 @@
 		84A140722250CF530063C31F /* SignInCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInCollectionViewController.xib; sourceTree = "<group>"; };
 		84A140752250D11D0063C31F /* SignInCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCollectionViewCell.swift; sourceTree = "<group>"; };
 		84CB460C2240225600CD4445 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		84CB46102243A04500CD4445 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
+		84CB46102243A04500CD4445 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		E748D81D55D5971257FD888B /* Pods-UFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.release.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,7 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				843E950E22206BB10016242F /* ViewController.swift */,
-				84CB46102243A04500CD4445 /* FeedTableViewController.swift */,
+				84CB46102243A04500CD4445 /* FeedViewController.swift */,
 				09433CB922482BC800352CAC /* Extension.swift */,
 				84A140712250CF530063C31F /* SignInCollectionViewController.swift */,
 				84A140722250CF530063C31F /* SignInCollectionViewController.xib */,
@@ -403,7 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				843E951D22206BE70016242F /* AppDelegate.swift in Sources */,
-				84CB46112243A04500CD4445 /* FeedTableViewController.swift in Sources */,
+				84CB46112243A04500CD4445 /* FeedViewController.swift in Sources */,
 				84A140762250D11D0063C31F /* SignInCollectionViewCell.swift in Sources */,
 				094F948D22524011008A1B47 /* VKApiClient.swift in Sources */,
 				094F948A22524011008A1B47 /* VKAttachments.swift in Sources */,

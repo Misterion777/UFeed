@@ -19,13 +19,19 @@ class VKApiClient : ApiClient {
         didSet {
             print("Owners info changed: \(ownersInfoFetched)")
             if ownersInfoFetched == VKApiClient.feedSize {
-                fetchPostsCompletion!(Result.success(PagedPostResponse(posts: posts!, total: posts!.count, nextFrom: nextFrom!)))
+                ownersInfoFetched = 0
+                fetchPostsCompletion!(Result.success(PagedPostResponse(posts: posts!, nextFrom: nextFrom!)))
             }
         }
     }
     
-    func fetchPosts(nextFrom: String, completion: @escaping (Result<PagedPostResponse, DataResponseError>) -> Void) {
-        let getFeed = VKRequest(method: "newsfeed.get", parameters:["filters": "post", "count": VKApiClient.feedSize, "start_from": nextFrom])
+    func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedPostResponse, DataResponseError>) -> Void) {
+        var parameters = ["filters": "post", "count": VKApiClient.feedSize] as [String : Any]
+        if nextFrom != nil {
+            parameters["start_from"]=nextFrom
+        }
+        
+        let getFeed = VKRequest(method: "newsfeed.get", parameters:parameters)
         
         fetchPostsCompletion = completion
         getFeed?.execute(resultBlock: { response in

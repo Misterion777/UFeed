@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ApiClient : class {
-    func fetchPosts(nextFrom: String, completion: @escaping (Result<PagedPostResponse, DataResponseError>)->Void)
+    func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedPostResponse, DataResponseError>)->Void)
 }

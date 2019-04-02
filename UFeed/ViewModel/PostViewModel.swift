@@ -18,17 +18,12 @@ final class PostsViewModel {
     
     private var posts: [Post] = []
     private var currentPage = ""
-    private var total = 0
     private var isFetchInProgress = false
     
     let apiClient = VKApiClient()
     
     init(delegate: PostsViewModelDelegate) {
         self.delegate = delegate
-    }
-    
-    var totalCount : Int {
-        return total
     }
     
     var currentCount: Int {
@@ -58,10 +53,8 @@ final class PostsViewModel {
                 
                 DispatchQueue.main.async {
                     // 1
-                   
                     self.isFetchInProgress = false
-                    // 2
-                    self.total += response.total
+                    // 2                    
                     self.posts.append(contentsOf: response.posts)
                     
                     // 3

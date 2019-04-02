@@ -6,13 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
         <scene sceneID="Z3h-qK-zaS">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="MCc-Yp-5Js" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="MCc-Yp-5Js" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" itemPositioning="centered" id="d7c-64-mWF">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -21,61 +22,13 @@
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <segue destination="skV-cK-M6v" kind="relationship" relationship="viewControllers" id="dbf-Vq-Wtx"/>
                         <segue destination="LeJ-QD-Inh" kind="relationship" relationship="viewControllers" id="qda-hh-gJA"/>
-                        <segue destination="RyB-RT-lYr" kind="relationship" relationship="viewControllers" id="Z0F-2d-Oh1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1dG-j5-Lij" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-84" y="133.5832083958021"/>
-        </scene>
-        <!--Feed-->
-        <scene sceneID="NHI-Tc-UTK">
-            <objects>
-                <tableViewController storyboardIdentifier="FeedViewController" id="RyB-RT-lYr" customClass="FeedTableViewController" customModule="UFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="68c-8q-6Qp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="keN-Kl-Wcb" customClass="PostTableViewCell" customModule="UFeed" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="keN-Kl-Wcb" id="KP8-ep-Aea" customClass="PostTableViewCell" customModule="UFeed" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" text="SFSDFSSDFSDFSDFSDFSDFSDFSDFSDFSDFSDFSDFSDFSDFSD123123123123123123123123123" textAlignment="center" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="04m-59-19i">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" id="fci-eZ-m17"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="04m-59-19i" firstAttribute="top" secondItem="KP8-ep-Aea" secondAttribute="top" id="Std-mG-Vhh"/>
-                                        <constraint firstItem="04m-59-19i" firstAttribute="leading" secondItem="KP8-ep-Aea" secondAttribute="leading" id="f9J-KG-Ag3"/>
-                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="04m-59-19i" secondAttribute="bottom" id="qSa-wc-V3l"/>
-                                        <constraint firstAttribute="trailing" secondItem="04m-59-19i" secondAttribute="trailing" id="sK4-fP-SWm"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="textView" destination="04m-59-19i" id="W8N-Nn-Gbu"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="RyB-RT-lYr" id="A3C-Qy-X22"/>
-                            <outlet property="delegate" destination="RyB-RT-lYr" id="EXe-RZ-Olj"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" tag="1" title="Feed" id="jkg-M5-4uc"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6t7-Cp-v5A" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="717.60000000000002" y="133.5832083958021"/>
         </scene>
         <!--Login-->
         <scene sceneID="UqJ-c4-ZYV">
@@ -111,6 +64,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kIS-aT-NQA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-84" y="874"/>
+        </scene>
+        <!--Feed View Controller-->
+        <scene sceneID="arl-py-GVT">
+            <objects>
+                <viewController title="Feed View Controller" id="skV-cK-M6v" customClass="FeedViewController" customModule="UFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oNf-Ou-Kkc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="68c-8q-6Qp">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4NY-hd-YIj">
+                                <rect key="frame" x="169" y="300.5" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kBl-RJ-TCU" firstAttribute="leading" secondItem="68c-8q-6Qp" secondAttribute="leading" id="DUs-lY-zVd"/>
+                            <constraint firstItem="kBl-RJ-TCU" firstAttribute="trailing" secondItem="68c-8q-6Qp" secondAttribute="trailing" id="YQ7-cd-zsO"/>
+                            <constraint firstItem="4NY-hd-YIj" firstAttribute="centerX" secondItem="kBl-RJ-TCU" secondAttribute="centerX" id="dWg-E1-Yj7"/>
+                            <constraint firstItem="kBl-RJ-TCU" firstAttribute="top" secondItem="68c-8q-6Qp" secondAttribute="top" id="l4I-F7-OVm"/>
+                            <constraint firstItem="kBl-RJ-TCU" firstAttribute="bottom" secondItem="68c-8q-6Qp" secondAttribute="bottom" id="tBJ-T2-nHb"/>
+                            <constraint firstItem="4NY-hd-YIj" firstAttribute="centerY" secondItem="kBl-RJ-TCU" secondAttribute="centerY" id="vcp-Nw-tdm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kBl-RJ-TCU"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Feed" id="sEN-BG-uzr"/>
+                    <connections>
+                        <outlet property="indicatorView" destination="4NY-hd-YIj" id="hxa-mo-weX"/>
+                        <outlet property="tableView" destination="68c-8q-6Qp" id="cwR-Wy-KA2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o9B-Tw-6yS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="882" y="-107"/>
         </scene>
     </scenes>
 </document>

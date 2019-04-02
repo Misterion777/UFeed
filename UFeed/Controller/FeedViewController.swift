@@ -2,41 +2,44 @@ import UIKit
 
 
 
-class FeedTableViewController: UITableViewController {
+class FeedViewController:UIViewController {
     
     let cellId = "cellId"
-
     private var viewModel : PostsViewModel!
-    var indicatorView : UIActivityIndicatorView!
+        
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 300
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellId)
+    tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellId)
+        
         tableView.dataSource = self
         tableView.prefetchDataSource = self
+        
         tableView.isHidden = true
         
-        
-        indicatorView = UIActivityIndicatorView()
         indicatorView.color = .green
-        indicatorView.center = view.center
-        self.view.addSubview(indicatorView)        
-//        indicatorView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-        
         indicatorView.startAnimating()
         
         viewModel = PostsViewModel(delegate: self)
         viewModel.fetchPosts()
+        
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+}
+
+extension FeedViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 1
-        return viewModel.totalCount
+        return viewModel.currentCount + VKApiClient.feedSize
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostTableViewCell
         if isLoadingCell(for: indexPath) {
             cell.configure(with: .none)
@@ -45,19 +48,31 @@ class FeedTableViewController: UITableViewController {
         }
         return cell
     }
+    
 }
 
-extension FeedTableViewController: PostsViewModelDelegate {
+extension FeedViewController: PostsViewModelDelegate {
     func onFetchCompleted(with newIndexPathToReload: [IndexPath]?) {
-        guard let newIndexPathsToReload = newIndexPathToReload else {
-            indicatorView.stopAnimating()
-            tableView.isHidden = false
-            tableView.reloadData()
-            return
-        }
-        // 2
-        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
-        tableView.reloadRows(at: indexPathsToReload, with: .automatic)
+        indicatorView.stopAnimating()
+        tableView.isHidden = false
+        tableView.reloadData()
+        
+//        indicatorView.stopAnimating()
+//        tableView.isHidden = false
+//        tableView.beginUpdates()
+//        tableView.insertRows(at: newIndexPathToReload!, with: <#T##UITableView.RowAnimation#>)
+//        tableView.endUpdates()
+//
+        
+//        guard let newIndexPathsToReload = newIndexPathToReload else {
+//            indicatorView.stopAnimating()
+//            tableView.isHidden = false
+//            tableView.reloadData()
+//            return
+//        }
+//        // 2
+//        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
+//        tableView.reloadRows(at: indexPathsToReload, with: .automatic)
     }
     
     func onFetchFailed(with reason: String) {
@@ -74,7 +89,7 @@ extension FeedTableViewController: PostsViewModelDelegate {
     }
 }
 
-extension FeedTableViewController: UITableViewDataSourcePrefetching {
+extension FeedViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isLoadingCell) {
             viewModel.fetchPosts()
@@ -82,7 +97,7 @@ extension FeedTableViewController: UITableViewDataSourcePrefetching {
     }
 }
 
-private extension FeedTableViewController {
+private extension FeedViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= viewModel.currentCount
     }
