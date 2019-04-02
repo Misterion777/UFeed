@@ -18,11 +18,16 @@
 		094F948A22524011008A1B47 /* VKAttachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F947F22524011008A1B47 /* VKAttachments.swift */; };
 		094F948B22524011008A1B47 /* VKAttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F948022524011008A1B47 /* VKAttachmentFactory.swift */; };
 		094F948C22524011008A1B47 /* VKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F948122524011008A1B47 /* VKDelegate.swift */; };
-		094F948D22524011008A1B47 /* VKApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F948222524011008A1B47 /* VKApiWorker.swift */; };
+		094F948D22524011008A1B47 /* VKApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F948222524011008A1B47 /* VKApiClient.swift */; };
 		094F948E22524011008A1B47 /* AttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F948422524011008A1B47 /* AttachmentFactory.swift */; };
 		094F948F22524011008A1B47 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F948522524011008A1B47 /* Post.swift */; };
 		094F949022524011008A1B47 /* Attachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F948622524011008A1B47 /* Attachments.swift */; };
 		094F9493225345D6008A1B47 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F9492225345D6008A1B47 /* DateUtility.swift */; };
+		094F949722536E43008A1B47 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949622536E43008A1B47 /* PostViewModel.swift */; };
+		094F94992253751B008A1B47 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F94982253751B008A1B47 /* Result.swift */; };
+		094F949B22537521008A1B47 /* DataResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949A22537520008A1B47 /* DataResponseError.swift */; };
+		094F949D2253752B008A1B47 /* PagedPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949C2253752B008A1B47 /* PagedPostResponse.swift */; };
+		094F949F2253766C008A1B47 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949E2253766C008A1B47 /* ApiClient.swift */; };
 		843E950F22206BB10016242F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E950E22206BB10016242F /* ViewController.swift */; };
 		843E951A22206BE70016242F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843E951322206BE70016242F /* Assets.xcassets */; };
 		843E951B22206BE70016242F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843E951422206BE70016242F /* LaunchScreen.storyboard */; };
@@ -48,11 +53,16 @@
 		094F947F22524011008A1B47 /* VKAttachments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKAttachments.swift; sourceTree = "<group>"; };
 		094F948022524011008A1B47 /* VKAttachmentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKAttachmentFactory.swift; sourceTree = "<group>"; };
 		094F948122524011008A1B47 /* VKDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKDelegate.swift; sourceTree = "<group>"; };
-		094F948222524011008A1B47 /* VKApiWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKApiWorker.swift; sourceTree = "<group>"; };
+		094F948222524011008A1B47 /* VKApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKApiClient.swift; sourceTree = "<group>"; };
 		094F948422524011008A1B47 /* AttachmentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentFactory.swift; sourceTree = "<group>"; };
 		094F948522524011008A1B47 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		094F948622524011008A1B47 /* Attachments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachments.swift; sourceTree = "<group>"; };
 		094F9492225345D6008A1B47 /* DateUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
+		094F949622536E43008A1B47 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		094F94982253751B008A1B47 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		094F949A22537520008A1B47 /* DataResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataResponseError.swift; sourceTree = "<group>"; };
+		094F949C2253752B008A1B47 /* PagedPostResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagedPostResponse.swift; sourceTree = "<group>"; };
+		094F949E2253766C008A1B47 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		43016E2D3F4E03598A197ADB /* Pods_UFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81638BC9E0F5D1C0C6A9C45F /* Pods-UFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.debug.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		843E94F722205CF90016242F /* UFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,7 +98,7 @@
 				094F947C22524011008A1B47 /* Entity */,
 				094F947B22524011008A1B47 /* VKPostMapper.swift */,
 				094F948122524011008A1B47 /* VKDelegate.swift */,
-				094F948222524011008A1B47 /* VKApiWorker.swift */,
+				094F948222524011008A1B47 /* VKApiClient.swift */,
 			);
 			path = VK;
 			sourceTree = "<group>";
@@ -129,6 +139,26 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		094F949422536DB4008A1B47 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				094F949C2253752B008A1B47 /* PagedPostResponse.swift */,
+				094F949A22537520008A1B47 /* DataResponseError.swift */,
+				094F94982253751B008A1B47 /* Result.swift */,
+				094F947A22524011008A1B47 /* VK */,
+				094F949E2253766C008A1B47 /* ApiClient.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		094F949522536E2F008A1B47 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				094F949622536E43008A1B47 /* PostViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		73044C9D1B139AA9A78752A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +189,8 @@
 		843E94F922205CF90016242F /* UFeed */ = {
 			isa = PBXGroup;
 			children = (
+				094F949522536E2F008A1B47 /* ViewModel */,
+				094F949422536DB4008A1B47 /* API */,
 				843E951222206BE70016242F /* SupportFiles */,
 				843E951122206BDF0016242F /* View */,
 				843E951022206BD20016242F /* Model */,
@@ -184,7 +216,6 @@
 			children = (
 				094F9491225345AD008A1B47 /* Utility */,
 				094F948322524011008A1B47 /* Entity */,
-				094F947A22524011008A1B47 /* VK */,
 				093DE78A224A46F2003B7689 /* SingleAudioPlayer.swift */,
 			);
 			path = Model;
@@ -374,7 +405,7 @@
 				843E951D22206BE70016242F /* AppDelegate.swift in Sources */,
 				84CB46112243A04500CD4445 /* FeedTableViewController.swift in Sources */,
 				84A140762250D11D0063C31F /* SignInCollectionViewCell.swift in Sources */,
-				094F948D22524011008A1B47 /* VKApiWorker.swift in Sources */,
+				094F948D22524011008A1B47 /* VKApiClient.swift in Sources */,
 				094F948A22524011008A1B47 /* VKAttachments.swift in Sources */,
 				84A140732250CF530063C31F /* SignInCollectionViewController.swift in Sources */,
 				09433CBC22482CE100352CAC /* PostTableViewCell.swift in Sources */,
@@ -382,14 +413,19 @@
 				094F948822524011008A1B47 /* VKPostMapper.swift in Sources */,
 				843E950F22206BB10016242F /* ViewController.swift in Sources */,
 				094F9493225345D6008A1B47 /* DateUtility.swift in Sources */,
+				094F949D2253752B008A1B47 /* PagedPostResponse.swift in Sources */,
 				094F949022524011008A1B47 /* Attachments.swift in Sources */,
 				09433CBA22482BC800352CAC /* Extension.swift in Sources */,
+				094F94992253751B008A1B47 /* Result.swift in Sources */,
 				09433CC222490A1900352CAC /* PostFileView.swift in Sources */,
 				094F948C22524011008A1B47 /* VKDelegate.swift in Sources */,
 				093DE78B224A46F2003B7689 /* SingleAudioPlayer.swift in Sources */,
 				09433CBE2248C4BC00352CAC /* PostHeaderView.swift in Sources */,
 				094F948922524011008A1B47 /* VKPost.swift in Sources */,
+				094F949722536E43008A1B47 /* PostViewModel.swift in Sources */,
+				094F949F2253766C008A1B47 /* ApiClient.swift in Sources */,
 				093BFA63224E4F67003AA08C /* PostAudioView.swift in Sources */,
+				094F949B22537521008A1B47 /* DataResponseError.swift in Sources */,
 				094F948E22524011008A1B47 /* AttachmentFactory.swift in Sources */,
 				094F948F22524011008A1B47 /* Post.swift in Sources */,
 			);

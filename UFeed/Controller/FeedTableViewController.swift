@@ -2,8 +2,8 @@ import UIKit
 
 
 
-class FeedTableViewController: UITableViewController{
-
+class FeedTableViewController: UITableViewController, UITableViewDataSourcePrefetching {
+    
     let cellId = "cellId"
 
     var posts = [Post]()
@@ -17,7 +17,7 @@ class FeedTableViewController: UITableViewController{
         tableView.estimatedRowHeight = 300
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellId)
-        
+        tableView.prefetchDataSource = self
         VKApiWorker.getNewsFeed(onResponse: setupPosts)
     }
     
@@ -76,8 +76,13 @@ class FeedTableViewController: UITableViewController{
             
             cell.post = currentLastItem
             
-            
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        <#code#>
+    }
+    
 }
