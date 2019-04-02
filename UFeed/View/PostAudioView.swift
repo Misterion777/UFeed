@@ -37,19 +37,23 @@ class PostAudioView: UIView {
         return time
     }()
     
-    init(audioName: String, audioUrl : String, duration : String){
+    init(audioName: String, audioUrl : String, duration : Int){
         audioItem = AVPlayerItem(url: URL(string: audioUrl)!)
         super.init(frame: CGRect.zero)
         
         setup(audioName: audioName, duration : duration)
     }
     
-    private func setup(audioName: String, duration : String){
+    private func secondsToText(seconds: Int) -> String {
+        return "olololo"
+    }
+    
+    private func setup(audioName: String, duration : Int){
         
         audioNameLabel.text = audioName
-        durationLabel.text = duration
+        durationLabel.text = secondsToText(seconds: duration)
         
-        SingleAudioPlayer.shared.replaceCurrentItem(with: audioItem)
+//        SingleAudioPlayer.shared.replaceCurrentItem(with: audioItem)
         
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: audioItem)
         

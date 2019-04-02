@@ -51,8 +51,8 @@ class PostHeaderView: UIView {
         return date
     }()
     
-    private func parseDate(date: Date) -> String{
-        return "Ilya is little yellow unicorn"
+    private func parseDate(date: Date) -> String{                
+        return date.timeAgo(numericDates: true)
     }
     
 //    override init(frame: CGRect){

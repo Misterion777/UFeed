@@ -7,16 +7,28 @@
 //
 
 import UIKit
-
+import FacebookCore
+import VK_ios_sdk
+    
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var vkDelegate : VKDelegate?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        vkDelegate = VKDelegate()
         
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        return true
+    }
+    
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        
+        let app = options[.sourceApplication] as? String
+        VKSdk.processOpen(url, fromApplication: app)       
         return true
     }
 

@@ -34,15 +34,19 @@ class PostFileView: UIView {
     }()
     
     
-    init(fileName: String, fileSize: String, fileLink: String ){
+    init(fileName: String, fileSize: Int, fileLink: String ){
         super.init(frame: CGRect.zero)
         setup(fileName: fileName, fileSize: fileSize, fileLink: fileLink)
     }
+    
+    private func bytesToHumanReadable(bytes: Int) -> String {
+        return "ololololo"
+    }
+    
+    private func setup(fileName: String, fileSize: Int, fileLink: String){
         
-    private func setup(fileName: String, fileSize: String, fileLink: String){
-        
-        nameLabel.text = fileName
-        sizeLabel.text = fileSize
+        nameLabel.text = fileName        
+        sizeLabel.text = bytesToHumanReadable(bytes: fileSize)
         
         addSubview(fileIcon)
         addSubview(nameLabel)

@@ -20,9 +20,10 @@ class SignInCollectionViewController: UICollectionViewController, UICollectionVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView!.register(SignInCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(SignInCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)        
     }
 
+    
     /*
     // MARK: - Navigation
 

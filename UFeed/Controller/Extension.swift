@@ -10,43 +10,22 @@ import Foundation
 import UIKit
 
 
-//extension UITextView {
-//    
-//    /*
-//    Calls provided `test` block if point is in gliph range and there is no link detected at this point.
-//    Will pass in to `test` a character index that corresponds to `point`.
-//    Return `self` in `test` if text view should intercept the touch event or `nil` otherwise.
-//    */
-//    public func hitTest(pointInGliphRange:event:test:) -> UIView? {
-//        
-//    }
-//    
-//    /*
-//    Returns true if point is in text bounding rect adjusted with padding.
-//    Bounding rect will be enlarged with positive padding values and decreased with negative values.
-//    */
-//    public func pointIsInTextRange(point:range:padding:) -> Bool
-//    
-//    /*
-//    Returns index of character for glyph at provided point. Returns `nil` if point is out of any glyph.
-//    */
-//    public func charIndexForPointInGlyphRect(point:) -> Int?
-//    
-//}
-//
-//extension NSLayoutManager {
-//    
-//    /*
-//    Returns characters range that completely fits into container.
-//    */
-//    public func characterRangeThatFits(textContainer:) -> NSRange
-//    
-//    /**
-//     Returns bounding rect in provided container for characters in provided range.
-//     */
-//    public func boundingRectForCharacterRange(range:inTextContainer:) -> CGRect
-//    
-//}
+extension UIApplication {
+    class func getTopMostViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return getTopMostViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return getTopMostViewController(base: selected)
+            }
+        }
+        if let presented = base?.presentedViewController {
+            return getTopMostViewController(base: presented)
+        }
+        return base
+    }
+}
 
 extension UIView {
     
