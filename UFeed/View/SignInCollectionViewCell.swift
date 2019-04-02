@@ -47,7 +47,6 @@ class SignInCollectionViewCell: UICollectionViewCell {
             VKSdk.authorize(VKDelegate.SCOPE)
         }
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        
         let tabBar = storyBoard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController
         
         tabBar?.selectedIndex = 1

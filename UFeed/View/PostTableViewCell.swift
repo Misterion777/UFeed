@@ -23,8 +23,7 @@ class PostTableViewCell : UITableViewCell {
     private var commentsLabel = UILabel()
     private var repostsLabel = UILabel()
     private var imageSlideShow : ImageSlideshow?
-    //    private var imageSlideShow : UIImageView?
-    
+    private var indicatorView = UIActivityIndicatorView()
     
     private let postTextView : UITextView? = {
         let textView = UITextView()
@@ -34,13 +33,6 @@ class PostTableViewCell : UITableViewCell {
         textView.isScrollEnabled = false
         return textView
     }()
-    
-    var post : Post? {
-        didSet {
-            initFields(post : post!)
-        }
-    }
-    
     
     private func initFields(post : Post){
         fileViews.removeAll()
@@ -90,10 +82,13 @@ class PostTableViewCell : UITableViewCell {
         subviewFields()
     }
     
-    private func subviewFields() {
+    private func clearSubviews() {
         for subview in self.subviews {
             subview.removeFromSuperview()
         }
+    }
+    
+    private func subviewFields() {
         
         var previousView : UIView
         
@@ -145,14 +140,45 @@ class PostTableViewCell : UITableViewCell {
         commentsLabel.anchor(top: previousView.bottomAnchor, left: repostsLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)                
     }
     
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        configure(with: .none)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+//        reputationContainerView.backgroundColor = .lightGray
+//        reputationContainerView.layer.cornerRadius = 6
+//
+        indicatorView.hidesWhenStopped = true
+        indicatorView.color = .green
     }
+
+    
+    func configure(with post: Post?) {
+        clearSubviews()
+        if let post = post {
+            initFields(post: post)
+            subviewFields()
+            indicatorView.stopAnimating()
+        } else {
+//            displayNameLabel.alpha = 0
+//            reputationContainerView.alpha = 0
+            addSubview(indicatorView)
+            indicatorView.startAnimating()
+        }
+    }
+    
+    
+//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
 }
 

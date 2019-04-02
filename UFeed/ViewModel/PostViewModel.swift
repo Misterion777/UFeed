@@ -17,11 +17,11 @@ final class PostsViewModel {
     private weak var delegate: PostsViewModelDelegate?
     
     private var posts: [Post] = []
-    private var currentPage = 1
+    private var currentPage = ""
     private var total = 0
     private var isFetchInProgress = false
     
-    let apiWorker = VKApiWorker()
+    let apiClient = VKApiClient()
     
     init(delegate: PostsViewModelDelegate) {
         self.delegate = delegate
@@ -46,9 +46,36 @@ final class PostsViewModel {
         
         isFetchInProgress = true
         
-        
-        
-        
+        apiClient.fetchPosts(nextFrom: currentPage) { result in
+            
+            switch result {
+            case .failure(let error) :
+                DispatchQueue.main.async {
+                    self.isFetchInProgress = false
+                    self.delegate?.onFetchFailed(with: error.reason)
+                }
+            case .success(let response):
+                
+                DispatchQueue.main.async {
+                    // 1
+                   
+                    self.isFetchInProgress = false
+                    // 2
+                    self.total += response.total
+                    self.posts.append(contentsOf: response.posts)
+                    
+                    // 3
+                    if self.currentPage == "" {
+                        self.currentPage = response.nextFrom
+                        self.delegate?.onFetchCompleted(with: .none)
+                    } else {
+                        self.currentPage = response.nextFrom
+                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.posts)                        
+                        self.delegate?.onFetchCompleted(with: indexPathsToReload)
+                    }
+                }
+            }
+        }
     }
     
     private func calculateIndexPathsToReload(from newPosts: [Post]) -> [IndexPath] {
