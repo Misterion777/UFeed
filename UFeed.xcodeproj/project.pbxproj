@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		093BFA63224E4F67003AA08C /* PostAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093BFA62224E4F67003AA08C /* PostAudioView.swift */; };
-		093DE78B224A46F2003B7689 /* SingleAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DE78A224A46F2003B7689 /* SingleAudioPlayer.swift */; };
+		093DE78B224A46F2003B7689 /* SingleMediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DE78A224A46F2003B7689 /* SingleMediaPlayer.swift */; };
 		09433CBA22482BC800352CAC /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09433CB922482BC800352CAC /* Extension.swift */; };
 		09433CBC22482CE100352CAC /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09433CBB22482CE100352CAC /* PostTableViewCell.swift */; };
 		09433CBE2248C4BC00352CAC /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09433CBD2248C4BC00352CAC /* PostHeaderView.swift */; };
@@ -28,6 +28,7 @@
 		094F949B22537521008A1B47 /* DataResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949A22537520008A1B47 /* DataResponseError.swift */; };
 		094F949D2253752B008A1B47 /* PagedPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949C2253752B008A1B47 /* PagedPostResponse.swift */; };
 		094F949F2253766C008A1B47 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949E2253766C008A1B47 /* ApiClient.swift */; };
+		094F94A32254AC87008A1B47 /* PostVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F94A22254AC87008A1B47 /* PostVideoView.swift */; };
 		843E950F22206BB10016242F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E950E22206BB10016242F /* ViewController.swift */; };
 		843E951A22206BE70016242F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843E951322206BE70016242F /* Assets.xcassets */; };
 		843E951B22206BE70016242F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843E951422206BE70016242F /* LaunchScreen.storyboard */; };
@@ -43,7 +44,7 @@
 
 /* Begin PBXFileReference section */
 		093BFA62224E4F67003AA08C /* PostAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAudioView.swift; sourceTree = "<group>"; };
-		093DE78A224A46F2003B7689 /* SingleAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAudioPlayer.swift; sourceTree = "<group>"; };
+		093DE78A224A46F2003B7689 /* SingleMediaPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMediaPlayer.swift; sourceTree = "<group>"; };
 		09433CB922482BC800352CAC /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		09433CBB22482CE100352CAC /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		09433CBD2248C4BC00352CAC /* PostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 		094F949A22537520008A1B47 /* DataResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataResponseError.swift; sourceTree = "<group>"; };
 		094F949C2253752B008A1B47 /* PagedPostResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagedPostResponse.swift; sourceTree = "<group>"; };
 		094F949E2253766C008A1B47 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		094F94A22254AC87008A1B47 /* PostVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVideoView.swift; sourceTree = "<group>"; };
 		43016E2D3F4E03598A197ADB /* Pods_UFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81638BC9E0F5D1C0C6A9C45F /* Pods-UFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.debug.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		843E94F722205CF90016242F /* UFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,7 +218,7 @@
 			children = (
 				094F9491225345AD008A1B47 /* Utility */,
 				094F948322524011008A1B47 /* Entity */,
-				093DE78A224A46F2003B7689 /* SingleAudioPlayer.swift */,
+				093DE78A224A46F2003B7689 /* SingleMediaPlayer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -224,6 +226,7 @@
 		843E951122206BDF0016242F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				094F94A22254AC87008A1B47 /* PostVideoView.swift */,
 				09433CBB22482CE100352CAC /* PostTableViewCell.swift */,
 				09433CBD2248C4BC00352CAC /* PostHeaderView.swift */,
 				09433CC122490A1900352CAC /* PostFileView.swift */,
@@ -419,11 +422,12 @@
 				094F94992253751B008A1B47 /* Result.swift in Sources */,
 				09433CC222490A1900352CAC /* PostFileView.swift in Sources */,
 				094F948C22524011008A1B47 /* VKDelegate.swift in Sources */,
-				093DE78B224A46F2003B7689 /* SingleAudioPlayer.swift in Sources */,
+				093DE78B224A46F2003B7689 /* SingleMediaPlayer.swift in Sources */,
 				09433CBE2248C4BC00352CAC /* PostHeaderView.swift in Sources */,
 				094F948922524011008A1B47 /* VKPost.swift in Sources */,
 				094F949722536E43008A1B47 /* PostViewModel.swift in Sources */,
 				094F949F2253766C008A1B47 /* ApiClient.swift in Sources */,
+				094F94A32254AC87008A1B47 /* PostVideoView.swift in Sources */,
 				093BFA63224E4F67003AA08C /* PostAudioView.swift in Sources */,
 				094F949B22537521008A1B47 /* DataResponseError.swift in Sources */,
 				094F948E22524011008A1B47 /* AttachmentFactory.swift in Sources */,
@@ -575,6 +579,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D9U8B2UP79;
 				INFOPLIST_FILE = "$(SRCROOT)/UFeed/SupportFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -593,6 +598,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D9U8B2UP79;
 				INFOPLIST_FILE = "$(SRCROOT)/UFeed/SupportFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

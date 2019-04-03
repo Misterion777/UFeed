@@ -62,7 +62,7 @@ class PostAudioView: UIView {
         
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: audioItem)
         
-        SingleAudioPlayer.shared.addObserver(self, forKeyPath: "currentItem", options: .new, context: nil)
+        SingleMediaPlayer.shared.addObserver(self, forKeyPath: "currentItem", options: .new, context: nil)
         
         
         addSubview(playButton)
@@ -85,17 +85,17 @@ class PostAudioView: UIView {
         
         if isPlaying {
             indicatorView.state = .paused
-            SingleAudioPlayer.shared.pause()
+            SingleMediaPlayer.shared.pause()
             togglePlay(false)
         }
         else {
-            if SingleAudioPlayer.shared.currentItem != audioItem {
+            if SingleMediaPlayer.shared.currentItem != audioItem {
                 //TODO: Change to async
-                SingleAudioPlayer.shared.replaceCurrentItem(with: audioItem)
+                SingleMediaPlayer.shared.replaceCurrentItem(with: audioItem)
             }
             
             indicatorView.state = .playing
-            SingleAudioPlayer.shared.play()
+            SingleMediaPlayer.shared.play()
             togglePlay(true)
         }
         
@@ -116,7 +116,7 @@ class PostAudioView: UIView {
     
     private func stopPlayer(){
         indicatorView.state = .stopped
-        SingleAudioPlayer.shared.seek(to: CMTime.zero)
+        SingleMediaPlayer.shared.seek(to: CMTime.zero)
         togglePlay(false)
     }
     

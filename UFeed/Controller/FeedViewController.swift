@@ -6,19 +6,21 @@ class FeedViewController:UIViewController {
     
     let cellId = "cellId"
     private var viewModel : PostsViewModel!
-        
+    private var cellHeightsDictionary: [IndexPath: CGFloat] = [:]
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 300
-        tableView.rowHeight = UITableView.automaticDimension
-    tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellId)
+//        tableView.estimatedRowHeight = 300
+//        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellId)
         
         tableView.dataSource = self
         tableView.prefetchDataSource = self
+        tableView.delegate = self
         
         tableView.isHidden = true
         
@@ -26,17 +28,14 @@ class FeedViewController:UIViewController {
         indicatorView.startAnimating()
         
         viewModel = PostsViewModel(delegate: self)
-        viewModel.fetchPosts()
-        
+        viewModel.fetchPosts()        
     }
-
-    
 }
 
 extension FeedViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 1
-        return viewModel.currentCount + VKApiClient.feedSize
+        return viewModel.currentCount + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,34 +50,53 @@ extension FeedViewController : UITableViewDataSource {
     
 }
 
+extension FeedViewController : UITableViewDelegate {
+    
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // print("Cell height: \(cell.frame.size.height)")
+        self.cellHeightsDictionary[indexPath] = cell.frame.size.height
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let height =  self.cellHeightsDictionary[indexPath] {
+            return height
+        }
+        return UITableView.automaticDimension
+    }
+}
+
 extension FeedViewController: PostsViewModelDelegate {
     func onFetchCompleted(with newIndexPathToReload: [IndexPath]?) {
         indicatorView.stopAnimating()
         tableView.isHidden = false
         tableView.reloadData()
-        
-//        indicatorView.stopAnimating()
-//        tableView.isHidden = false
-//        tableView.beginUpdates()
-//        tableView.insertRows(at: newIndexPathToReload!, with: <#T##UITableView.RowAnimation#>)
-//        tableView.endUpdates()
+
 //
-        
-//        guard let newIndexPathsToReload = newIndexPathToReload else {
+//        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathToReload!)
+//        if indexPathsToReload.count == 0 {
+//            indicatorView.stopAnimating()
+//            tableView.isHidden = false
+//            tableView.reloadData()
+//        }
+//        else {
+//            tableView.insertRows(at: indexPathsToReload, with: .automatic)
+//        }
+//
+//        guard let newIndexPathToReload = newIndexPathToReload else {
 //            indicatorView.stopAnimating()
 //            tableView.isHidden = false
 //            tableView.reloadData()
 //            return
 //        }
-//        // 2
-//        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
-//        tableView.reloadRows(at: indexPathsToReload, with: .automatic)
+        
+        
     }
     
     func onFetchFailed(with reason: String) {
         indicatorView.stopAnimating()
         
-        let title = "Warning"
+        let title = "Error"
         let action = UIAlertAction(title: "OK", style: .default)
         
         let alertController = UIAlertController(title: title, message: reason, preferredStyle: .alert)

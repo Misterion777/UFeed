@@ -10,9 +10,7 @@ import UIKit
 import VK_ios_sdk
 
 class SignInCollectionViewCell: UICollectionViewCell {
-    
-    //let image  =  UIImage()
-    
+        
     var image : UIImage? {
         didSet {
             imageView.image = image
@@ -21,24 +19,16 @@ class SignInCollectionViewCell: UICollectionViewCell {
     }
     
     let imageView = UIImageView()
+    let loginButton = UIButton(type: .custom)
     
     
     private func subviewFields() {
-//        addSubview(imageView)
-//
-//        imageView.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 70, height: 70, enableInsets: false)
-        
-        let loginButton = UIButton(type: .custom)
-        
-        loginButton.backgroundColor = UIColor.darkGray
-        loginButton.setTitle("Login Button", for: .normal)
-        loginButton.center = self.center;
-        
         loginButton.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)
         
+        loginButton.setImage(imageView.image, for: .normal)
         addSubview(loginButton)
         
-        loginButton.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 70, height: 70, enableInsets: false)
+        loginButton.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 70, height: 70, enableInsets: false)
     }
     
     @objc func loginButtonClicked() {
@@ -46,10 +36,10 @@ class SignInCollectionViewCell: UICollectionViewCell {
         if !VKSdk.isLoggedIn() {
             VKSdk.authorize(VKDelegate.SCOPE)
         }
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabBar = storyBoard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController
-        
-        tabBar?.selectedIndex = 1
+//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let tabBar = storyBoard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController
+//
+//        tabBar?.selectedIndex = 1
         
     }
     

@@ -82,3 +82,16 @@ class VKFileAttachment : FileAttachment {
     }
 }
 
+class VKVideoAttachment : VideoAttachment {
+    var url: String
+    var title: String
+    var platform: String
+    var duration : Int
+    
+    required init(map: Mapper) throws {
+        try self.url = map.from("player")
+        try self.title = map.from("title")
+        try self.platform = map.from("platform")
+        try self.duration = map.from("duration")
+    }
+}

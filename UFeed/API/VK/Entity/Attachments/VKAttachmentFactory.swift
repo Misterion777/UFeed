@@ -22,13 +22,12 @@ class VKAttachmentFactory :AttachmentFactory {
             return getPhoto(json: attach)
         case "audio":
             return VKAudioAttachment.from(attach)
-            
         case "link":
             return VKLinkAttachment.from(attach)
-            
         case "doc":
             return VKFileAttachment.from(attach)
-            
+//        case  "video":
+//            return 1
         default:
             print("\(type) parsing is not implemented!")
             return nil

@@ -13,6 +13,7 @@ import UIKit
 import AVFoundation
 import SDWebImage
 import ImageSlideshow
+//import ReadMoreTextView
 
 class PostTableViewCell : UITableViewCell {
     
@@ -38,7 +39,12 @@ class PostTableViewCell : UITableViewCell {
         fileViews.removeAll()
         audioViews.removeAll()
         imageSlideShow = nil
-        
+//        readmoreTextView.maximumNumberOfLines = 5
+//        readmoreTextView.shouldTrim = true
+//        readmoreTextView.attributedReadMoreText = NSAttributedString(string: "... Read more")
+//        readmoreTextView.attributedReadLessText = NSAttributedString(string: " Read less")
+//
+//        readmoreTextView.text = post.text
         postTextView!.text = post.text
         
         likesLabel.text = String(post.likesCount) + " likes "
@@ -52,6 +58,9 @@ class PostTableViewCell : UITableViewCell {
         if post.attachments != nil {
             
             for attach in post.attachments! {
+//                if let videoAttach = attach as? VideoAttachment{
+//                    //videoAttach.append()
+//                }
                 
                 if let photoAttach = attach as? PhotoAttachment{
                     imageInputs.append(SDWebImageSource(urlString: photoAttach.url)!)
@@ -62,18 +71,11 @@ class PostTableViewCell : UITableViewCell {
                 else if let fileAttach = attach as? FileAttachment{                    
                     fileViews.append(PostFileView(fileName: fileAttach.title, fileSize:   fileAttach.size, fileLink: fileAttach.url))
                 }
-                //                else if let linkAttach = attach as? LinkAttachment{
-                //
-                //                }
             }
             if imageInputs.count != 0 {
                 imageSlideShow = ImageSlideshow()
+                imageSlideShow!.activityIndicator = DefaultActivityIndicator(style: .whiteLarge, color: .green)
                 imageSlideShow!.setImageInputs(imageInputs as [InputSource])
-                
-                //                imageSlideShow?.sd_setImage(with: imageInputs[0].url, completed: { (img, err, type, url) in
-                //                    print("completed")
-                //                })
-                
             }
             
         }
@@ -96,6 +98,9 @@ class PostTableViewCell : UITableViewCell {
         
         postHeader!.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
+        
+//        addSubview(readmoreTextView)
+//        readmoreTextView.anchor(top: postHeader?.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
         addSubview(postTextView!)
         postTextView!.anchor(top: postHeader?.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
@@ -137,7 +142,9 @@ class PostTableViewCell : UITableViewCell {
         
         repostsLabel.anchor(top: previousView.bottomAnchor, left: likesLabel.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
-        commentsLabel.anchor(top: previousView.bottomAnchor, left: repostsLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)                
+        commentsLabel.anchor(top: previousView.bottomAnchor, left: repostsLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        
+        layoutSubviews()
     }
     
     override func prepareForReuse() {
@@ -175,6 +182,13 @@ class PostTableViewCell : UITableViewCell {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        //set the values for top,left,bottom,right margins
+        let margins = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        bounds = bounds.inset(by: margins)
+    }
+    
     
 //    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 //        super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -186,3 +200,24 @@ class PostTableViewCell : UITableViewCell {
     
 }
 
+//protocol Resizable {
+//    func onResize()
+//}
+
+//extension ReadMoreTextView : Resizable{
+//
+//    var cell : PostTableViewCell {
+//        get {
+//        }
+//        set {
+//        }
+//    }
+//    convenience init (cell: PostTableViewCell) {
+//        self.init()
+//        self.cell = cell
+//    }
+//    func onResize() {
+//        self.cell.sizeToFit()
+//    }
+//
+//}

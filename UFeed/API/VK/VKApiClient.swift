@@ -10,30 +10,79 @@ import VK_ios_sdk
 
 class VKApiClient : ApiClient {
     
-    static let feedSize = 10
+    static let feedSize = 5
     
+    let parameters : [String : Any] = ["filters": "post", "count": VKApiClient.feedSize]
+    var latestTime = Date.distantPast
     var nextFrom : String?
     var posts : [Post]?
     var fetchPostsCompletion : ((Result<PagedPostResponse, DataResponseError>) -> Void)?
     var ownersInfoFetched = 0 {
         didSet {
             print("Owners info changed: \(ownersInfoFetched)")
-            if ownersInfoFetched == VKApiClient.feedSize {
+            if ownersInfoFetched == posts?.count {
                 ownersInfoFetched = 0
                 fetchPostsCompletion!(Result.success(PagedPostResponse(posts: posts!, nextFrom: nextFrom!)))
             }
         }
     }
     
-    func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedPostResponse, DataResponseError>) -> Void) {
-        var parameters = ["filters": "post", "count": VKApiClient.feedSize] as [String : Any]
-        if nextFrom != nil {
-            parameters["start_from"]=nextFrom
+    private func fetchLatestPosts() {
+        var newParameters = parameters
+        if latestTime != Date.distantPast {
+            newParameters["start_time"] = latestTime.addingTimeInterval(1).timeIntervalSince1970
         }
         
-        let getFeed = VKRequest(method: "newsfeed.get", parameters:parameters)
+        let getFeed = VKRequest(method: "newsfeed.get", parameters:newParameters)
         
-        fetchPostsCompletion = completion
+        getFeed?.execute(resultBlock: { response in
+            
+            if let jsonResponse = response?.json {
+                if let dictionary = jsonResponse as? [String:Any] {
+                    
+                    if self.latestTime == Date.distantPast {
+                        if let nextFrom = dictionary["next_from"] as? String {
+                            self.nextFrom = nextFrom
+                        }
+                    }
+                    
+                    if let items = dictionary["items"] as? [[String:Any]]{
+                        self.posts = VKPost.from(items as NSArray)
+                        
+                        if self.posts!.count == 0 {
+                            self.fetchNextPosts()
+                        }
+                        else {
+                            
+                            for post in self.posts! {
+                                if post.date! > self.latestTime {
+                                    self.latestTime = post.date!
+                                }
+                                self.getOwnerInfo(post: post, onResponse: self.setupPostOwnerInfo)
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            
+        }, errorBlock: { error in
+            if error != nil {
+                print(error!)
+                self.fetchPostsCompletion!(Result.failure(DataResponseError.network))
+            }
+        })
+    }
+    
+    private func fetchNextPosts() {
+        var newParameters = parameters
+        if self.nextFrom != nil {
+            newParameters["start_from"] = self.nextFrom
+        }
+        
+        let getFeed = VKRequest(method: "newsfeed.get", parameters:newParameters)
+        
+        
         getFeed?.execute(resultBlock: { response in
             
             if let jsonResponse = response?.json {
@@ -55,11 +104,18 @@ class VKApiClient : ApiClient {
         }, errorBlock: { error in
             if error != nil {
                 print(error!)
-                completion(Result.failure(DataResponseError.network))
+                self.fetchPostsCompletion!(Result.failure(DataResponseError.network))
             }
         })
         
+    }
+    
+    func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedPostResponse, DataResponseError>) -> Void) {
+        fetchPostsCompletion = completion
         
+        self.nextFrom = nextFrom
+        
+        fetchLatestPosts()
     }
     
     private func setupPostOwnerInfo(ownerInfo: [String:Any], post: Post) {
@@ -82,6 +138,7 @@ class VKApiClient : ApiClient {
         post.ownerPhoto = photo
         post.ownerName = pageName
         
+        //        fetchPostsCompletion!(Result.success(PagedPostResponse(posts: [post], nextFrom: nextFrom!)))
         ownersInfoFetched += 1
     }
     
@@ -94,7 +151,7 @@ class VKApiClient : ApiClient {
         else {
             getInfo = VKRequest(method:"users.get", parameters: ["user_id" : post.ownerId, "fields" : "photo_50"])
         }
-
+        
         getInfo.execute(resultBlock: { response in
             
             if let jsonResponse = response?.json {
@@ -106,11 +163,11 @@ class VKApiClient : ApiClient {
             
         }, errorBlock: { error in
             if error != nil {
-                print("Error! \(String(describing: error))")                
+                print("Error! \(String(describing: error))")
             }
             
         })
-
+        
         
     }
     

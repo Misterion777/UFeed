@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-class SingleAudioPlayer {
+class SingleMediaPlayer {
     
     static let shared = AVPlayer()
     

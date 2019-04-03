@@ -54,10 +54,11 @@ final class PostsViewModel {
                 DispatchQueue.main.async {
                     // 1
                     self.isFetchInProgress = false
-                    // 2                    
+                    // 2
                     self.posts.append(contentsOf: response.posts)
                     
                     // 3
+                    
                     if self.currentPage == "" {
                         self.currentPage = response.nextFrom
                         self.delegate?.onFetchCompleted(with: .none)

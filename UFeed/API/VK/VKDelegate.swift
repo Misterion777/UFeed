@@ -47,6 +47,7 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate {
     
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         if ((result?.token) != nil) {
+            
             print("Token: \(result.token) \n User id: \(result.token.userId)")
         }
         else {
@@ -54,6 +55,19 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate {
         }
         
     }
+    
+//    private func pushToFeed(){
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "MainVC") as UIViewController
+//        navigationController?.pushViewController(vc, animated: true)
+//        
+//        // Safe Push VC
+//        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainVC") as? JunctionDetailsVC {
+//            if let navigator = navigationController {
+//                navigator.pushViewController(viewController, animated: true)
+//            }
+//        }
+//    }
     
     func vkSdkUserAuthorizationFailed() {
         print("Authorization failed!")
