@@ -17,5 +17,6 @@ target 'UFeed' do
   pod 'ImageSlideshow/SDWebImage'
   
   pod 'NAKPlaybackIndicatorView'
+  pod 'SideMenuSwift'
   
 end

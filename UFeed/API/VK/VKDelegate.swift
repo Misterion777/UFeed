@@ -9,12 +9,18 @@
 import UIKit
 import VK_ios_sdk
 //
-class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate {
-
-    static let SCOPE = ["friends", "wall"]
-    let VK_APP_ID = "6908309"
+class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate, SocialDelegate {
+    
+    
+    
+    
+    private let SCOPE = ["friends", "wall"]
+    private let VK_APP_ID = "6908309"
     //https://vk.com/dev/versions
-    let LATEST_VERSION = "5.92"
+    private let LATEST_VERSION = "5.92"
+    
+    var viewController: UIViewController?
+    var onAuthorizeSuccess : (()->Void)?
     
     override init() {
         super.init()
@@ -22,7 +28,7 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate {
         vkInstance?.register(self)
         vkInstance?.uiDelegate = self
                 
-        VKSdk.wakeUpSession(VKDelegate.SCOPE, complete: { state, error in
+        VKSdk.wakeUpSession(SCOPE, complete: { state, error in
             if state == VKAuthorizationState.authorized {
                 print("Allready authorized")
             } else if error != nil {
@@ -34,10 +40,27 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate {
         })
     }
     
+    func authorize(onSuccess: @escaping () -> Void) {
+        self.onAuthorizeSuccess = onSuccess
+        VKSdk.authorize(SCOPE)
+    }
+    
+    func isAuthorized() -> Bool{
+        return VKSdk.isLoggedIn()
+    }
+    
+    func logOut() {
+        VKSdk.forceLogout()
+    }
+    
     func vkSdkShouldPresent(_ controller: UIViewController!) {
-        
-        if let topVC = UIApplication.getTopMostViewController() {
-            topVC.present(controller, animated: true, completion: nil)
+        if viewController == nil {
+            if let topVC = UIApplication.getTopMostViewController() {
+                topVC.present(controller, animated: true, completion: nil)
+            }
+        }
+        else {
+            viewController!.present(controller, animated: true, completion: nil)
         }
     }
     
@@ -47,7 +70,7 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate {
     
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         if ((result?.token) != nil) {
-            
+            self.onAuthorizeSuccess!()
             print("Token: \(result.token) \n User id: \(result.token.userId)")
         }
         else {
@@ -56,21 +79,12 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate {
         
     }
     
-//    private func pushToFeed(){
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "MainVC") as UIViewController
-//        navigationController?.pushViewController(vc, animated: true)
-//        
-//        // Safe Push VC
-//        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainVC") as? JunctionDetailsVC {
-//            if let navigator = navigationController {
-//                navigator.pushViewController(viewController, animated: true)
-//            }
-//        }
-//    }
-    
     func vkSdkUserAuthorizationFailed() {
-        print("Authorization failed!")
+        if (viewController != nil) {
+            viewController!.alert(title: "VK authorization failed", message: "Authorization failed!")
+        }
+        print("VK Authorization failed!")
     }
     
 }
+

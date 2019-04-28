@@ -9,24 +9,25 @@
 import UIKit
 import FacebookCore
 import VK_ios_sdk
+import SwifteriOS
+import SideMenuSwift
     
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var vkDelegate : VKDelegate?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        vkDelegate = VKDelegate()
         
+        SideMenuController.preferences.basic.menuWidth = 240
+        SideMenuController.preferences.basic.defaultCacheKey = "0"
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        
+        Swifter.handleOpenURL(url, callbackURL: URL(string: "ufeed://")!)
         let app = options[.sourceApplication] as? String
         VKSdk.processOpen(url, fromApplication: app)       
         return true
