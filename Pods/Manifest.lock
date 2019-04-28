@@ -1,29 +1,28 @@
 PODS:
-  - AudioPlayerSwift (1.6.1)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - FacebookCore (0.5.0):
+  - FacebookCore (0.6.0):
     - Bolts (~> 1.9)
-    - FBSDKCoreKit (~> 4.37)
-  - FacebookLogin (0.5.0):
-    - Bolts (~> 1.9)
-    - FacebookCore (~> 0.5)
-    - FBSDKCoreKit (~> 4.37)
-    - FBSDKLoginKit (~> 4.37)
-  - FacebookShare (0.5.0):
+    - FBSDKCoreKit (~> 4.43)
+  - FacebookLogin (0.6.0):
     - Bolts (~> 1.9)
     - FacebookCore (~> 0.5)
-    - FBSDKCoreKit (~> 4.37)
-    - FBSDKShareKit (~> 4.37)
-  - FBSDKCoreKit (4.42.0):
+    - FBSDKCoreKit (~> 4.43)
+    - FBSDKLoginKit (~> 4.43)
+  - FacebookShare (0.6.1):
     - Bolts (~> 1.9)
-  - FBSDKLoginKit (4.42.0):
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.43)
+    - FBSDKShareKit (~> 4.43)
+  - FBSDKCoreKit (4.44.1):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.44.1):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.42.0):
+  - FBSDKShareKit (4.44.1):
     - FBSDKCoreKit
   - ImageSlideshow (1.7.0):
     - ImageSlideshow/Core (= 1.7.0)
@@ -31,18 +30,18 @@ PODS:
   - ImageSlideshow/SDWebImage (1.7.0):
     - ImageSlideshow/Core
     - SDWebImage (< 5.0, >= 3.7)
-  - ModelMapper (9.0.1):
-    - ModelMapper/Core (= 9.0.1)
-  - ModelMapper/Core (9.0.1)
+  - ModelMapper (10.0.0):
+    - ModelMapper/Core (= 10.0.0)
+  - ModelMapper/Core (10.0.0)
   - NAKPlaybackIndicatorView (0.1.1)
   - ReadMoreTextView (3.0.1)
   - SDWebImage (4.4.6):
     - SDWebImage/Core (= 4.4.6)
   - SDWebImage/Core (4.4.6)
+  - SideMenuSwift (2.0.0)
   - VK-ios-sdk (1.4.6)
 
 DEPENDENCIES:
-  - AudioPlayerSwift
   - FacebookCore
   - FacebookLogin
   - FacebookShare
@@ -52,11 +51,11 @@ DEPENDENCIES:
   - NAKPlaybackIndicatorView
   - ReadMoreTextView
   - SDWebImage
+  - SideMenuSwift
   - VK-ios-sdk
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - AudioPlayerSwift
     - Bolts
     - FacebookCore
     - FacebookLogin
@@ -69,24 +68,25 @@ SPEC REPOS:
     - NAKPlaybackIndicatorView
     - ReadMoreTextView
     - SDWebImage
+    - SideMenuSwift
     - VK-ios-sdk
 
 SPEC CHECKSUMS:
-  AudioPlayerSwift: 90b1bbd228bde3eca6bc59320091c3672486328d
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  FacebookCore: 74288d0add931d361b1596beae787ab72c438249
-  FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
-  FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
-  FBSDKCoreKit: aa42f1c384775f8b075f53a43080474278e9701d
-  FBSDKLoginKit: 373830c68aa48c9e8f0bfed93a3e32d2ca8963a0
-  FBSDKShareKit: 387749259d79e4070ebb304b3fd256e4b4bc4298
+  FacebookCore: 38cd3a4078738d6f648eb9b6b9d35b02d693e9a1
+  FacebookLogin: 658b0569961a081a0890f5f4dbf69ced00657d9e
+  FacebookShare: 84bccbc222fc09c839b851925ad6c295a4ab7840
+  FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
+  FBSDKLoginKit: 54ae59987f2a8703021557c90a9aebb9e5c2bef6
+  FBSDKShareKit: 526d4cfb713d24855fa23d0dd74e191accd3a720
   ImageSlideshow: f8eec5e37a980f60923b585ff23b0e140fd24018
-  ModelMapper: 89a61430a75e6265040dc9555ab1feddeb25b986
+  ModelMapper: a8dbf2a2003bf626627b9fe7c9a22b3405a30404
   NAKPlaybackIndicatorView: f1468937ae3828ef6e9a50feda0781fdfa67dce8
   ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
   SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+  SideMenuSwift: 1bee5a0e54c6df7d8106f749b82567eae5c6d974
   VK-ios-sdk: 7fd48bc5aaa6b96c3197c1987eb6593f2ea67331
 
-PODFILE CHECKSUM: 8959bd8bbd825700672f1cf87a8e7cd629de5fcc
+PODFILE CHECKSUM: 86ffe24403f56afa901b4075d6901018143c94d2
 
 COCOAPODS: 1.6.1

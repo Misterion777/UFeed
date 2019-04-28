@@ -17,10 +17,11 @@ final class PostsViewModel {
     private weak var delegate: PostsViewModelDelegate?
     
     private var posts: [Post] = []
-    private var currentPage = ""
     private var isFetchInProgress = false
     
-    let apiClient = VKApiClient()
+    private var nextFrom = [String:String]()
+    
+    let apiClient = SocialManager.shared.apiManager!
     
     init(delegate: PostsViewModelDelegate) {
         self.delegate = delegate
@@ -41,7 +42,7 @@ final class PostsViewModel {
         
         isFetchInProgress = true
         
-        apiClient.fetchPosts(nextFrom: currentPage) { result in
+        apiClient.fetchPosts(nextFrom: nextFrom) { result in
             
             switch result {
             case .failure(let error) :
@@ -56,15 +57,13 @@ final class PostsViewModel {
                     self.isFetchInProgress = false
                     // 2
                     self.posts.append(contentsOf: response.posts)
-                    
                     // 3
-                    
-                    if self.currentPage == "" {
-                        self.currentPage = response.nextFrom
+                    if self.nextFrom.isEmpty {
+                        self.nextFrom = response.nextFrom
                         self.delegate?.onFetchCompleted(with: .none)
                     } else {
-                        self.currentPage = response.nextFrom
-                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.posts)                        
+                        self.nextFrom = response.nextFrom
+                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.posts)
                         self.delegate?.onFetchCompleted(with: indexPathsToReload)
                     }
                 }

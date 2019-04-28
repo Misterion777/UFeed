@@ -17,6 +17,9 @@ import ImageSlideshow
 
 class PostTableViewCell : UITableViewCell {
     
+    
+    private var picWidth = 0
+    private var picHeight = 0
     private var postHeader : PostHeaderView?
     private var fileViews = [PostFileView]()
     private var audioViews = [PostAudioView]()
@@ -32,6 +35,7 @@ class PostTableViewCell : UITableViewCell {
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.textAlignment = .left
         textView.isScrollEnabled = false
+        textView.isEditable = false
         return textView
     }()
     
@@ -51,7 +55,7 @@ class PostTableViewCell : UITableViewCell {
         repostsLabel.text = String(post.repostsCount) + " reposts "
         commentsLabel.text = String(post.commentsCount) + " comments"
         
-        postHeader = PostHeaderView(ownerImage: post.ownerPhoto!.url, ownerName: post.ownerName!,date: post.date!)
+        postHeader = PostHeaderView(ownerImage: post.ownerPhoto!.url, ownerName: post.ownerName!,date: post.date!)                
         
         
         var imageInputs = [SDWebImageSource]()
@@ -64,6 +68,11 @@ class PostTableViewCell : UITableViewCell {
                 
                 if let photoAttach = attach as? PhotoAttachment{
                     imageInputs.append(SDWebImageSource(urlString: photoAttach.url)!)
+                    if (photoAttach.height > picHeight) {
+                        picHeight = photoAttach.height
+                        picWidth = photoAttach.width
+                    }
+                    
                 }
                 else if let audioAttach = attach as? AudioAttachment{
                     audioViews.append(PostAudioView(audioName: audioAttach.title, audioUrl: audioAttach.url, duration: audioAttach.duration))
@@ -92,12 +101,12 @@ class PostTableViewCell : UITableViewCell {
     
     private func subviewFields() {
         
+        
         var previousView : UIView
         
         addSubview(postHeader!)
         
-        postHeader!.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-        
+        postHeader!.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
 //        addSubview(readmoreTextView)
 //        readmoreTextView.anchor(top: postHeader?.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
@@ -110,7 +119,11 @@ class PostTableViewCell : UITableViewCell {
         if (imageSlideShow != nil) {
             addSubview(imageSlideShow!)
             //TODO: CHANGE SIZE!
-            imageSlideShow!.anchor(top: previousView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 400, enableInsets: false)
+//            let screenWidth = UIScreen.main.bounds.width
+//            let coeff = screenWidth / CGFloat(picWidth)
+//            let newHeight = CGFloat(picHeight) * coeff
+            
+            imageSlideShow!.anchor(top: previousView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 400, enableInsets: false)
             previousView = imageSlideShow!
         }
         if fileViews.count != 0 {
@@ -138,13 +151,12 @@ class PostTableViewCell : UITableViewCell {
         addSubview(repostsLabel)
         addSubview(commentsLabel)
         
-        likesLabel.anchor(top: previousView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        likesLabel.anchor(top: previousView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 20, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
-        repostsLabel.anchor(top: previousView.bottomAnchor, left: likesLabel.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        repostsLabel.anchor(top: previousView.bottomAnchor, left: likesLabel.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 20, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
-        commentsLabel.anchor(top: previousView.bottomAnchor, left: repostsLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        commentsLabel.anchor(top: previousView.bottomAnchor, left: repostsLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 20, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
-        layoutSubviews()
     }
     
     override func prepareForReuse() {
@@ -156,9 +168,6 @@ class PostTableViewCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        reputationContainerView.backgroundColor = .lightGray
-//        reputationContainerView.layer.cornerRadius = 6
-//
         indicatorView.hidesWhenStopped = true
         indicatorView.color = .green
         indicatorView.startAnimating()
@@ -169,35 +178,24 @@ class PostTableViewCell : UITableViewCell {
 
     
     func configure(with post: Post?) {
+        
         clearSubviews()
         if let post = post {
             initFields(post: post)
             subviewFields()
             indicatorView.stopAnimating()
         } else {
-//            displayNameLabel.alpha = 0
-//            reputationContainerView.alpha = 0
             addSubview(indicatorView)
+            indicatorView.center = self.center
             indicatorView.startAnimating()
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        //set the values for top,left,bottom,right margins
-        let margins = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
-        bounds = bounds.inset(by: margins)
-    }
-    
-    
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        self.layer.addBorder(edge: .bottom, color: .white, thickness: 20)
 //    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
+
 }
 
 //protocol Resizable {

@@ -42,11 +42,7 @@ class VKPost : Post {
         
 //        VKApiWorker.getPageInfo(pageId: ownerId, onResponse: setOwnerInfo)
     }
-    
-    private func setOwnerInfo(pageInfo: [String:Any]){
-        
-        
-    }
+
     
     private func extractAttachments(object: Any?) throws -> [Attachment?]? {
         guard let attachmentsJson = object as? [[String:Any]] else {

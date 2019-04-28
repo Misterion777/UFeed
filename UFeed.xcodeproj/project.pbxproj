@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0939372922738BF800394769 /* VkSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0939372822738BF800394769 /* VkSettingsViewController.swift */; };
+		0939372B22738C0E00394769 /* TwitterSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0939372A22738C0E00394769 /* TwitterSettingsViewController.swift */; };
+		0939372D22738C1B00394769 /* FacebookSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0939372C22738C1B00394769 /* FacebookSettingsViewController.swift */; };
+		0939372F22738C2900394769 /* InstagramSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0939372E22738C2900394769 /* InstagramSettingsViewController.swift */; };
+		09393731227392EA00394769 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09393730227392EA00394769 /* SettingsViewController.swift */; };
 		093BFA63224E4F67003AA08C /* PostAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093BFA62224E4F67003AA08C /* PostAudioView.swift */; };
 		093DE78B224A46F2003B7689 /* SingleMediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DE78A224A46F2003B7689 /* SingleMediaPlayer.swift */; };
 		09433CBA22482BC800352CAC /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09433CB922482BC800352CAC /* Extension.swift */; };
@@ -29,7 +34,22 @@
 		094F949D2253752B008A1B47 /* PagedPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949C2253752B008A1B47 /* PagedPostResponse.swift */; };
 		094F949F2253766C008A1B47 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F949E2253766C008A1B47 /* ApiClient.swift */; };
 		094F94A32254AC87008A1B47 /* PostVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F94A22254AC87008A1B47 /* PostVideoView.swift */; };
-		843E950F22206BB10016242F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E950E22206BB10016242F /* ViewController.swift */; };
+		09B3131C226C73E4004E23F2 /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B31317226C73BD004E23F2 /* SwifteriOS.framework */; };
+		09B3131D226C73E4004E23F2 /* SwifteriOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09B31317226C73BD004E23F2 /* SwifteriOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		09B31321226C751C004E23F2 /* TwitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B31320226C751C004E23F2 /* TwitterDelegate.swift */; };
+		09B31323226C8A29004E23F2 /* TwitterApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B31322226C8A29004E23F2 /* TwitterApiClient.swift */; };
+		09B31326226C9A4A004E23F2 /* TwitterPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B31325226C9A4A004E23F2 /* TwitterPost.swift */; };
+		09B31329226DB9B3004E23F2 /* TwitterAttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B31328226DB9B3004E23F2 /* TwitterAttachmentFactory.swift */; };
+		09B3132B226DB9DE004E23F2 /* TwitterAttachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B3132A226DB9DE004E23F2 /* TwitterAttachments.swift */; };
+		09B3132D226DE8CE004E23F2 /* ApiClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B3132C226DE8CE004E23F2 /* ApiClientManager.swift */; };
+		09B3132F2270638D004E23F2 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B3132E2270638D004E23F2 /* DictionaryExtension.swift */; };
+		09B31333227072C0004E23F2 /* SocialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B31332227072C0004E23F2 /* SocialManager.swift */; };
+		09B313352270735C004E23F2 /* SocialDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B313342270735C004E23F2 /* SocialDelegate.swift */; };
+		09B313372271A656004E23F2 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B313362271A656004E23F2 /* MainTabBarController.swift */; };
+		09B3133922736B83004E23F2 /* SettingsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B3133822736B83004E23F2 /* SettingsMenuViewController.swift */; };
+		09B3133B227379BC004E23F2 /* SettingsNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B3133A227379BC004E23F2 /* SettingsNavigationViewController.swift */; };
+		09B3133E22737A96004E23F2 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B3133D22737A96004E23F2 /* GeneralSettingsViewController.swift */; };
+		69ACD62B9EF271894A6BB4B6 /* Pods_UFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B916F68A2487CB1FD0938360 /* Pods_UFeed.framework */; };
 		843E951A22206BE70016242F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843E951322206BE70016242F /* Assets.xcassets */; };
 		843E951B22206BE70016242F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843E951422206BE70016242F /* LaunchScreen.storyboard */; };
 		843E951C22206BE70016242F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843E951622206BE70016242F /* Main.storyboard */; };
@@ -39,10 +59,28 @@
 		84A140762250D11D0063C31F /* SignInCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A140752250D11D0063C31F /* SignInCollectionViewCell.swift */; };
 		84CB460D2240225600CD4445 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84CB460C2240225600CD4445 /* GoogleService-Info.plist */; };
 		84CB46112243A04500CD4445 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB46102243A04500CD4445 /* FeedViewController.swift */; };
-		F8F4773241D25330A26FEDA1 /* Pods_UFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43016E2D3F4E03598A197ADB /* Pods_UFeed.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		09B3131E226C73E5004E23F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				09B3131D226C73E4004E23F2 /* SwifteriOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0939372822738BF800394769 /* VkSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkSettingsViewController.swift; sourceTree = "<group>"; };
+		0939372A22738C0E00394769 /* TwitterSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettingsViewController.swift; sourceTree = "<group>"; };
+		0939372C22738C1B00394769 /* FacebookSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookSettingsViewController.swift; sourceTree = "<group>"; };
+		0939372E22738C2900394769 /* InstagramSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramSettingsViewController.swift; sourceTree = "<group>"; };
+		09393730227392EA00394769 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		093BFA62224E4F67003AA08C /* PostAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAudioView.swift; sourceTree = "<group>"; };
 		093DE78A224A46F2003B7689 /* SingleMediaPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMediaPlayer.swift; sourceTree = "<group>"; };
 		09433CB922482BC800352CAC /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -65,10 +103,22 @@
 		094F949C2253752B008A1B47 /* PagedPostResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagedPostResponse.swift; sourceTree = "<group>"; };
 		094F949E2253766C008A1B47 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		094F94A22254AC87008A1B47 /* PostVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVideoView.swift; sourceTree = "<group>"; };
-		43016E2D3F4E03598A197ADB /* Pods_UFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		81638BC9E0F5D1C0C6A9C45F /* Pods-UFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.debug.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.debug.xcconfig"; sourceTree = "<group>"; };
+		09B31313226C7386004E23F2 /* SwifteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwifteriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		09B31317226C73BD004E23F2 /* SwifteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwifteriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		09B31320226C751C004E23F2 /* TwitterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterDelegate.swift; sourceTree = "<group>"; };
+		09B31322226C8A29004E23F2 /* TwitterApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterApiClient.swift; sourceTree = "<group>"; };
+		09B31325226C9A4A004E23F2 /* TwitterPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterPost.swift; sourceTree = "<group>"; };
+		09B31328226DB9B3004E23F2 /* TwitterAttachmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAttachmentFactory.swift; sourceTree = "<group>"; };
+		09B3132A226DB9DE004E23F2 /* TwitterAttachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAttachments.swift; sourceTree = "<group>"; };
+		09B3132C226DE8CE004E23F2 /* ApiClientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientManager.swift; sourceTree = "<group>"; };
+		09B3132E2270638D004E23F2 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		09B31332227072C0004E23F2 /* SocialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialManager.swift; sourceTree = "<group>"; };
+		09B313342270735C004E23F2 /* SocialDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDelegate.swift; sourceTree = "<group>"; };
+		09B313362271A656004E23F2 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		09B3133822736B83004E23F2 /* SettingsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuViewController.swift; sourceTree = "<group>"; };
+		09B3133A227379BC004E23F2 /* SettingsNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationViewController.swift; sourceTree = "<group>"; };
+		09B3133D22737A96004E23F2 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
 		843E94F722205CF90016242F /* UFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		843E950E22206BB10016242F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		843E951322206BE70016242F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		843E951522206BE70016242F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		843E951722206BE70016242F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -79,7 +129,9 @@
 		84A140752250D11D0063C31F /* SignInCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCollectionViewCell.swift; sourceTree = "<group>"; };
 		84CB460C2240225600CD4445 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84CB46102243A04500CD4445 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		E748D81D55D5971257FD888B /* Pods-UFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.release.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.release.xcconfig"; sourceTree = "<group>"; };
+		A73A96D98647B1390B120066 /* Pods-UFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.debug.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.debug.xcconfig"; sourceTree = "<group>"; };
+		B916F68A2487CB1FD0938360 /* Pods_UFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C75369A2D7D4108FC2A01528 /* Pods-UFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UFeed.release.xcconfig"; path = "Target Support Files/Pods-UFeed/Pods-UFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +139,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8F4773241D25330A26FEDA1 /* Pods_UFeed.framework in Frameworks */,
+				09B3131C226C73E4004E23F2 /* SwifteriOS.framework in Frameworks */,
+				69ACD62B9EF271894A6BB4B6 /* Pods_UFeed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				094F9492225345D6008A1B47 /* DateUtility.swift */,
+				09B3132E2270638D004E23F2 /* DictionaryExtension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -144,11 +198,15 @@
 		094F949422536DB4008A1B47 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				09B3131F226C74F3004E23F2 /* Twitter */,
 				094F949C2253752B008A1B47 /* PagedPostResponse.swift */,
 				094F949A22537520008A1B47 /* DataResponseError.swift */,
 				094F94982253751B008A1B47 /* Result.swift */,
 				094F947A22524011008A1B47 /* VK */,
+				09B3132C226DE8CE004E23F2 /* ApiClientManager.swift */,
 				094F949E2253766C008A1B47 /* ApiClient.swift */,
+				09B31332227072C0004E23F2 /* SocialManager.swift */,
+				09B313342270735C004E23F2 /* SocialDelegate.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -161,11 +219,54 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		09B3131F226C74F3004E23F2 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				09B31324226C9A35004E23F2 /* Entity */,
+				09B31320226C751C004E23F2 /* TwitterDelegate.swift */,
+				09B31322226C8A29004E23F2 /* TwitterApiClient.swift */,
+			);
+			path = Twitter;
+			sourceTree = "<group>";
+		};
+		09B31324226C9A35004E23F2 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				09B31327226DB947004E23F2 /* Attachments */,
+				09B31325226C9A4A004E23F2 /* TwitterPost.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		09B31327226DB947004E23F2 /* Attachments */ = {
+			isa = PBXGroup;
+			children = (
+				09B31328226DB9B3004E23F2 /* TwitterAttachmentFactory.swift */,
+				09B3132A226DB9DE004E23F2 /* TwitterAttachments.swift */,
+			);
+			path = Attachments;
+			sourceTree = "<group>";
+		};
+		09B3133C22737A71004E23F2 /* SettingsController */ = {
+			isa = PBXGroup;
+			children = (
+				09B3133822736B83004E23F2 /* SettingsMenuViewController.swift */,
+				09B3133A227379BC004E23F2 /* SettingsNavigationViewController.swift */,
+				09B3133D22737A96004E23F2 /* GeneralSettingsViewController.swift */,
+				0939372822738BF800394769 /* VkSettingsViewController.swift */,
+				0939372A22738C0E00394769 /* TwitterSettingsViewController.swift */,
+				0939372C22738C1B00394769 /* FacebookSettingsViewController.swift */,
+				0939372E22738C2900394769 /* InstagramSettingsViewController.swift */,
+				09393730227392EA00394769 /* SettingsViewController.swift */,
+			);
+			path = SettingsController;
+			sourceTree = "<group>";
+		};
 		73044C9D1B139AA9A78752A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				81638BC9E0F5D1C0C6A9C45F /* Pods-UFeed.debug.xcconfig */,
-				E748D81D55D5971257FD888B /* Pods-UFeed.release.xcconfig */,
+				A73A96D98647B1390B120066 /* Pods-UFeed.debug.xcconfig */,
+				C75369A2D7D4108FC2A01528 /* Pods-UFeed.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -173,6 +274,7 @@
 		843E94EE22205CF90016242F = {
 			isa = PBXGroup;
 			children = (
+				09B31313226C7386004E23F2 /* SwifteriOS.framework */,
 				843E94F922205CF90016242F /* UFeed */,
 				843E94F822205CF90016242F /* Products */,
 				73044C9D1B139AA9A78752A8 /* Pods */,
@@ -204,11 +306,12 @@
 		843E950D22206BB10016242F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				843E950E22206BB10016242F /* ViewController.swift */,
+				09B3133C22737A71004E23F2 /* SettingsController */,
 				84CB46102243A04500CD4445 /* FeedViewController.swift */,
 				09433CB922482BC800352CAC /* Extension.swift */,
 				84A140712250CF530063C31F /* SignInCollectionViewController.swift */,
 				84A140722250CF530063C31F /* SignInCollectionViewController.xib */,
+				09B313362271A656004E23F2 /* MainTabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -252,7 +355,8 @@
 		85EE79975B332560F7E1E52D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43016E2D3F4E03598A197ADB /* Pods_UFeed.framework */,
+				09B31317226C73BD004E23F2 /* SwifteriOS.framework */,
+				B916F68A2487CB1FD0938360 /* Pods_UFeed.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -264,11 +368,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 843E950922205CFE0016242F /* Build configuration list for PBXNativeTarget "UFeed" */;
 			buildPhases = (
-				3ECD73C4B7B055F4BF8EA9EF /* [CP] Check Pods Manifest.lock */,
+				838A52F1E57006B75B638BBB /* [CP] Check Pods Manifest.lock */,
 				843E94F322205CF90016242F /* Sources */,
 				843E94F422205CF90016242F /* Frameworks */,
 				843E94F522205CF90016242F /* Resources */,
-				33D3ACF04BC16DF61E3DE2A2 /* [CP] Embed Pods Frameworks */,
+				09B3131E226C73E5004E23F2 /* Embed Frameworks */,
+				90897F4962E1D12D72412119 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -328,55 +433,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		33D3ACF04BC16DF61E3DE2A2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UFeed/Pods-UFeed-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AudioPlayerSwift/AudioPlayer.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
-				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
-				"${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework",
-				"${BUILT_PRODUCTS_DIR}/NAKPlaybackIndicatorView/NAKPlaybackIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/ReadMoreTextView/ReadMoreTextView.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/VK-ios-sdk/VK_ios_sdk.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioPlayer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NAKPlaybackIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReadMoreTextView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VK_ios_sdk.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UFeed/Pods-UFeed-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3ECD73C4B7B055F4BF8EA9EF /* [CP] Check Pods Manifest.lock */ = {
+		838A52F1E57006B75B638BBB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -398,6 +455,54 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		90897F4962E1D12D72412119 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UFeed/Pods-UFeed-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
+				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
+				"${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework",
+				"${BUILT_PRODUCTS_DIR}/NAKPlaybackIndicatorView/NAKPlaybackIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/ReadMoreTextView/ReadMoreTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenuSwift/SideMenuSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/VK-ios-sdk/VK_ios_sdk.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NAKPlaybackIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReadMoreTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenuSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VK_ios_sdk.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UFeed/Pods-UFeed-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -406,16 +511,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				843E951D22206BE70016242F /* AppDelegate.swift in Sources */,
+				09B31323226C8A29004E23F2 /* TwitterApiClient.swift in Sources */,
 				84CB46112243A04500CD4445 /* FeedViewController.swift in Sources */,
+				09B3132D226DE8CE004E23F2 /* ApiClientManager.swift in Sources */,
+				09B31321226C751C004E23F2 /* TwitterDelegate.swift in Sources */,
 				84A140762250D11D0063C31F /* SignInCollectionViewCell.swift in Sources */,
+				0939372B22738C0E00394769 /* TwitterSettingsViewController.swift in Sources */,
+				09B3133E22737A96004E23F2 /* GeneralSettingsViewController.swift in Sources */,
 				094F948D22524011008A1B47 /* VKApiClient.swift in Sources */,
 				094F948A22524011008A1B47 /* VKAttachments.swift in Sources */,
 				84A140732250CF530063C31F /* SignInCollectionViewController.swift in Sources */,
+				09B3132F2270638D004E23F2 /* DictionaryExtension.swift in Sources */,
 				09433CBC22482CE100352CAC /* PostTableViewCell.swift in Sources */,
+				09B313372271A656004E23F2 /* MainTabBarController.swift in Sources */,
+				09B313352270735C004E23F2 /* SocialDelegate.swift in Sources */,
 				094F948B22524011008A1B47 /* VKAttachmentFactory.swift in Sources */,
+				09B31333227072C0004E23F2 /* SocialManager.swift in Sources */,
+				0939372D22738C1B00394769 /* FacebookSettingsViewController.swift in Sources */,
+				09B3133B227379BC004E23F2 /* SettingsNavigationViewController.swift in Sources */,
 				094F948822524011008A1B47 /* VKPostMapper.swift in Sources */,
-				843E950F22206BB10016242F /* ViewController.swift in Sources */,
+				09B31329226DB9B3004E23F2 /* TwitterAttachmentFactory.swift in Sources */,
+				0939372F22738C2900394769 /* InstagramSettingsViewController.swift in Sources */,
 				094F9493225345D6008A1B47 /* DateUtility.swift in Sources */,
+				09B3132B226DB9DE004E23F2 /* TwitterAttachments.swift in Sources */,
+				09B3133922736B83004E23F2 /* SettingsMenuViewController.swift in Sources */,
 				094F949D2253752B008A1B47 /* PagedPostResponse.swift in Sources */,
 				094F949022524011008A1B47 /* Attachments.swift in Sources */,
 				09433CBA22482BC800352CAC /* Extension.swift in Sources */,
@@ -424,9 +543,12 @@
 				094F948C22524011008A1B47 /* VKDelegate.swift in Sources */,
 				093DE78B224A46F2003B7689 /* SingleMediaPlayer.swift in Sources */,
 				09433CBE2248C4BC00352CAC /* PostHeaderView.swift in Sources */,
+				09B31326226C9A4A004E23F2 /* TwitterPost.swift in Sources */,
 				094F948922524011008A1B47 /* VKPost.swift in Sources */,
+				09393731227392EA00394769 /* SettingsViewController.swift in Sources */,
 				094F949722536E43008A1B47 /* PostViewModel.swift in Sources */,
 				094F949F2253766C008A1B47 /* ApiClient.swift in Sources */,
+				0939372922738BF800394769 /* VkSettingsViewController.swift in Sources */,
 				094F94A32254AC87008A1B47 /* PostVideoView.swift in Sources */,
 				093BFA63224E4F67003AA08C /* PostAudioView.swift in Sources */,
 				094F949B22537521008A1B47 /* DataResponseError.swift in Sources */,
@@ -575,7 +697,7 @@
 		};
 		843E950A22205CFE0016242F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81638BC9E0F5D1C0C6A9C45F /* Pods-UFeed.debug.xcconfig */;
+			baseConfigurationReference = A73A96D98647B1390B120066 /* Pods-UFeed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -594,7 +716,7 @@
 		};
 		843E950B22205CFE0016242F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E748D81D55D5971257FD888B /* Pods-UFeed.release.xcconfig */;
+			baseConfigurationReference = C75369A2D7D4108FC2A01528 /* Pods-UFeed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -7,10 +7,12 @@
 //
 
 import UIKit
-import VK_ios_sdk
+
 
 class SignInCollectionViewCell: UICollectionViewCell {
-        
+    
+    var currentSocial : Social?
+    
     var image : UIImage? {
         didSet {
             imageView.image = image
@@ -32,10 +34,9 @@ class SignInCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func loginButtonClicked() {
-        print("clicked")
-        if !VKSdk.isLoggedIn() {
-            VKSdk.authorize(VKDelegate.SCOPE)
-        }
+        SocialManager.shared.authorize(via: currentSocial!)        
+//        
+        
 //        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 //        let tabBar = storyBoard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController
 //

@@ -14,8 +14,8 @@ class FeedViewController:UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.estimatedRowHeight = 300
-//        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 500
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellId)
         
         tableView.dataSource = self
@@ -40,6 +40,14 @@ extension FeedViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostTableViewCell
+//        cell.layer.borderColor = UIColor.white.cgColor
+//        cell.layer.borderWidth = 5
+//        cell.layer.addBorder(edge: .top, color: .white, thickness: 10)
+        
+//        cell.layer.addBorder(edge: .bottom, color: .white, thickness: 10)
+//        cell.layoutIfNeeded()
+        
+        
         if isLoadingCell(for: indexPath) {
             cell.configure(with: .none)
         } else {
@@ -51,13 +59,13 @@ extension FeedViewController : UITableViewDataSource {
 }
 
 extension FeedViewController : UITableViewDelegate {
-    
-    
+
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // print("Cell height: \(cell.frame.size.height)")
+         print("Cell height: \(cell.frame.size.height)")
         self.cellHeightsDictionary[indexPath] = cell.frame.size.height
     }
-    
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if let height =  self.cellHeightsDictionary[indexPath] {
             return height
@@ -97,13 +105,8 @@ extension FeedViewController: PostsViewModelDelegate {
         indicatorView.stopAnimating()
         
         let title = "Error"
-        let action = UIAlertAction(title: "OK", style: .default)
         
-        let alertController = UIAlertController(title: title, message: reason, preferredStyle: .alert)
-        
-        alertController.addAction(action)
-        
-        present(alertController, animated: true)
+        self.alert(title: title, message: reason)
     }
 }
 

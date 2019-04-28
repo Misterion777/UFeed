@@ -24,4 +24,5 @@ protocol Post : class, Mappable {
     var text: String? { get }
     
     var attachments : [Attachment?]? {get}
+    
 }

@@ -1,9 +1,11 @@
 import UIKit
 
 import VK_ios_sdk
+import SafariServices
 
 
-class SignInCollectionViewController: UIViewController  {
+
+class SignInCollectionViewController: UIViewController, SFSafariViewControllerDelegate  {
     
     private let reuseIdentifier = "cellId"
 
@@ -11,9 +13,8 @@ class SignInCollectionViewController: UIViewController  {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    var networkImgs = [#imageLiteral(resourceName: "71172"), #imageLiteral(resourceName: "images"), #imageLiteral(resourceName: "facebook"), #imageLiteral(resourceName: "ecommerce_100-512") ,#imageLiteral(resourceName: "2006-social-google-gplus-512") , #imageLiteral(resourceName: "youtube-draw-logo")]
-    
-    
+    let networkImgs = [#imageLiteral(resourceName: "71172"), #imageLiteral(resourceName: "ecommerce_100-512") , #imageLiteral(resourceName: "images"), #imageLiteral(resourceName: "facebook")]
+    let socials = [Social.vk, Social.twitter, Social.instagram, Social.facebook]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +30,16 @@ class SignInCollectionViewController: UIViewController  {
         titleLabel.font = UIFont.systemFont(ofSize: 30)
         
         logOutButton.addTarget(self, action: #selector(self.logOut), for: .touchUpInside)
+        
+        SocialManager.shared.setViewController(vc: self)
+        
     }
+  
+    
+    
     @objc private func logOut() {
         let action = UIAlertAction(title: "OK", style: .default)
-        
+                        
         if VKSdk.isLoggedIn() {
             VKSdk.forceLogout()
         let alertController = UIAlertController(title: "Log outed!", message: "Successfuly log outed from the system", preferredStyle: .alert)
@@ -45,10 +52,8 @@ class SignInCollectionViewController: UIViewController  {
             alertController.addAction(action)
             
             present(alertController, animated: true)
-        }
-        
+        }        
     }
-    
 }
 
 
@@ -65,6 +70,7 @@ extension SignInCollectionViewController : UICollectionViewDataSource{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SignInCollectionViewCell
         let currentLastItem = networkImgs[indexPath.row]
         cell.image = currentLastItem
+        cell.currentSocial = socials[indexPath.row]
         return cell
     }
 }
