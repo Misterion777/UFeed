@@ -10,19 +10,22 @@ import VK_ios_sdk
 
 class VKApiClient : ApiClient {
     
+    
+    
     var posts = [Post]()
     var latestTime = Date.distantPast
     var parameters : [String : Any]
     var nextFrom : String?
-
+    var hasMorePosts = true
     
-    var fetchPostsCompletion : ((Result<PagedPostResponse, DataResponseError>) -> Void)?
+    var fetchPostsCompletion : ((Result<PagedResponse<Post>, DataResponseError>) -> Void)?
     var ownersInfoFetched = 0 {
         didSet {
             print("Owners info changed: \(ownersInfoFetched)")
             if ownersInfoFetched == posts.count {
                 ownersInfoFetched = 0
-                fetchPostsCompletion!(Result.success(PagedPostResponse(posts: posts, nextFrom: ["vk" : nextFrom!])))
+                let responce = PagedResponse(social: .vk, objects: posts, next: nextFrom)
+                fetchPostsCompletion!(Result.success(responce))
             }
         }
     }
@@ -34,7 +37,12 @@ class VKApiClient : ApiClient {
         self.parameters = ["filters": "post"]
     }
     
-    func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedPostResponse, DataResponseError>) -> Void) {
+    func fetchPages(next: String?, completion: @escaping (Result<PagedResponse<Page>, DataResponseError>) -> Void) {
+        //
+    }
+    
+    
+    func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
         fetchPostsCompletion = completion
 //        self.nextFrom = nextFrom
 //        fetchNextPosts()
@@ -65,7 +73,7 @@ class VKApiClient : ApiClient {
         }, errorBlock: { error in
             if error != nil {
                 print(error!)
-                self.fetchPostsCompletion!(Result.failure(DataResponseError.network))
+                self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error occured while loading vk  posts: \(error)")))
             }
         })
         

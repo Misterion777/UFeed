@@ -10,11 +10,6 @@
 import UIKit
 import SideMenuSwift
 
-class Preferences {
-    static let shared = Preferences()
-    var enableTransitionAnimation = false
-}
-
 class SettingsMenuViewController: UIViewController {
     var isDarkModeEnabled = false
     @IBOutlet weak var tableView: UITableView! {
@@ -31,8 +26,8 @@ class SettingsMenuViewController: UIViewController {
     private var isMenuSet = false
     private var themeColor = UIColor.white
     
-    private var settingsTitles = ["General", "Vk", "Twitter", "Facebook", "Instagram"]
-    private var viewControllers = ["VkSettingsViewController","TwitterSettingsViewController", "FacebookSettingsViewController","InstagramSettingsViewController"]
+    private var settingsTitles = ["General","Facebook", "Twitter", "Vk", "Instagram"]
+    private var viewControllers = ["FacebookSettingsViewController","TwitterSettingsViewController", "VkSettingsViewController" ,"InstagramSettingsViewController"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,22 +39,20 @@ class SettingsMenuViewController: UIViewController {
             sideMenuController?.cache(viewControllerGenerator: {
                 self.storyboard?.instantiateViewController(withIdentifier: self.viewControllers[i])
             }, with: "\(i+1)")
-
         }
-//
-//        sideMenuController?.cache(viewControllerGenerator: {
-//            self.storyboard?.instantiateViewController(withIdentifier: "ThirdViewController")
-//        }, with: "2")
-        
+
         sideMenuController?.delegate = self
+        if (SocialManager.shared.currentSocial != nil) {
+            sideMenuController?.setContentViewController(with: "\(SocialManager.shared.currentSocial!.rawValue)", animated: false)
+        }
+        
     }
     
     private func configureView() {
 
         selectionMenuTrailingConstraint.constant = 0
         themeColor = UIColor(red: 0.98, green: 0.97, blue: 0.96, alpha: 1.00)
-        
-        
+                
         view.backgroundColor = themeColor
         tableView.backgroundColor = themeColor
         
@@ -134,7 +127,7 @@ extension SettingsMenuViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         
-        sideMenuController?.setContentViewController(with: "\(row)", animated: Preferences.shared.enableTransitionAnimation)
+        sideMenuController?.setContentViewController(with: "\(row)", animated: true)
         sideMenuController?.hideMenu()
         
         if let identifier = sideMenuController?.currentCacheIdentifier() {

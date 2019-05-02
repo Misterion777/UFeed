@@ -10,8 +10,8 @@ import Mapper
 
 protocol Post : class, Mappable {
     var id : Int { get }
-    var ownerId : Int { get }
     
+    var ownerId : Int { get }
     var ownerPhoto : PhotoAttachment? { get set}
     var ownerName: String? { get set}
     

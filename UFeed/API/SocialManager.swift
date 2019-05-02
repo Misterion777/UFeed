@@ -8,12 +8,13 @@
 
 import Foundation
 import UIKit
+import SideMenuSwift
 
-enum Social:String, CodingKey {
-    case vk = "vk"
-    case twitter = "twitter"
-    case facebook = "facebook"
-    case instagram = "instagram"
+enum Social:Int, CodingKey {
+    case facebook = 1
+    case twitter
+    case vk
+    case instagram
 }
 
 class SocialManager {
@@ -21,15 +22,20 @@ class SocialManager {
     static let shared = SocialManager()
     
     private var socialDelegates = [Social : SocialDelegate]()
-    
     private var vc : UIViewController?
+    var currentSocial : Social?
     
     var apiManager : ApiClientManager!
     
     private init(){
-        socialDelegates[Social.vk] = VKDelegate()
-        socialDelegates[Social.twitter] = TwitterDelegate()
+        socialDelegates[.vk] = VKDelegate()
+        socialDelegates[.twitter] = TwitterDelegate()
+        socialDelegates[.facebook] = FacebookDelegate()
         apiManager = ApiClientManager(socials: self.getAuthorizedSocials())
+    }
+    
+    func getApiClient(forSocial key:Social) -> ApiClient {
+        return apiManager.clients[key]!
     }
     
     func getDelegate(forSocial key : Social) -> SocialDelegate? {
@@ -50,6 +56,7 @@ class SocialManager {
     
     func authorize(via key: Social) {
         if (!socialDelegates[key]!.isAuthorized()) {
+            self.currentSocial = key
             socialDelegates[key]!.authorize(onSuccess: onAuthorizeSuccess)
         }
         else {
@@ -67,16 +74,26 @@ class SocialManager {
         return keys
     }
     
-    func logOut(via key: Social) {
-        if (socialDelegates[key]!.isAuthorized()) {
-            socialDelegates[key]!.logOut()
+    func logOut(via key: Social? = nil) {
+        if (key == nil) {
+            for (_,delegate) in socialDelegates {
+                delegate.logOut()
+            }
         }
+        else{
+            if (socialDelegates[key!]!.isAuthorized()) {
+                socialDelegates[key!]!.logOut()
+            }
+        }
+        updateClients()
     }
-    
     private func onAuthorizeSuccess() {
-        self.apiManager.updateApiClients(socials: getAuthorizedSocials())
-        self.vc?.tabBarController?.selectedIndex = 1        
+        updateClients()
+        self.vc?.tabBarController?.selectedIndex = 2                
     }
     
+    private func updateClients() {
+        self.apiManager.updateApiClients(socials: getAuthorizedSocials())
+    }
     
 }

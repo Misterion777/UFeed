@@ -30,8 +30,8 @@ class TwitterDelegate : SocialDelegate {
     }
     
     func logOut() {
-        UserDefaults.standard.removeObject(forKey: "ouathToken")
-        UserDefaults.standard.removeObject(forKey: "ouathSecret")
+        UserDefaults.standard.removeObject(forKey: "oauthToken")
+        UserDefaults.standard.removeObject(forKey: "oauthSecret")
         self.oauthToken = nil
         self.oauthSecret = nil
         swifter = Swifter(consumerKey: key, consumerSecret: secret)

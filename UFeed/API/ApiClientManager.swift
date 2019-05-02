@@ -16,11 +16,13 @@ class ApiClientManager {
     
     var isError = false
     var threadsCompleted = 0
-    var posts = [Post]()
-    var clients = [Social : ApiClient]()
-    var nextFrom = [String : String]()
     
-    var fetchPostsCompletion : ((Result<PagedPostResponse, DataResponseError>) -> Void)?
+    var clients = [Social : ApiClient]()
+    
+    var responses = [PagedResponse<Post>]()
+    var errors : [DataResponseError]?
+    
+    var fetchPostsCompletion : ((Result<[PagedResponse<Post>], DataResponseError>) -> Void)?
     
     init(socials: [Social]) {
         updateApiClients(socials: socials)
@@ -33,6 +35,8 @@ class ApiClientManager {
                 clients[.vk] = VKApiClient(count: getCount(clientsCount: socials.count))
             case .twitter:
                 clients[.twitter] = TwitterApiClient(count: getCount(clientsCount: socials.count))
+            case .facebook:
+                clients[.facebook] = FacebookApiClient(count: getCount(clientsCount: socials.count))
             default:
                 print("\(social.rawValue) api is not implemented")
             }
@@ -45,35 +49,45 @@ class ApiClientManager {
         return Int(maxPosts / clientsCount)
     }
     
-    func fetchPosts(nextFrom: [String : String], completion: @escaping (Result<PagedPostResponse, DataResponseError>) -> Void) {
+    func fetchPosts(next: [Social : String], completion: @escaping (Result<[PagedResponse<Post>], DataResponseError>) -> Void) {
         threadsCompleted = 0
-        self.posts.removeAll()
+        self.responses.removeAll()
         self.fetchPostsCompletion = completion
-        for (k,v) in clients {
-            DispatchQueue.global(qos: .utility).async {
-                v.fetchPosts(nextFrom: nextFrom[k.rawValue], completion: self.onComplete)
+        if (clients.count == 0) {
+            self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "You are not signed in any social network!")))
+        } else{
+            for (k,v) in clients {
+                if (v.hasMorePosts) {
+                    DispatchQueue.global(qos: .utility).async {
+                        v.fetchPosts(nextFrom: next[k], completion: self.onComplete)
+                    }
+                }
             }
+            
         }
     }
     
 
-    private func onComplete(result: Result<PagedPostResponse, DataResponseError>) {
+    private func onComplete(result: Result<PagedResponse<Post>, DataResponseError>) {
         semaphore.wait()
         switch result {
-            case .failure(_) :
-                isError = true
+            case .failure(let error) :
+                if (self.errors == nil) {
+                    self.errors = [DataResponseError]()
+                }
+                self.errors!.append(error)
             case .success(let response):
-                self.posts.append(contentsOf: response.posts)
-                self.nextFrom.mergeWithoutClosure(dict: response.nextFrom)
+                self.responses.append(response)
         }
         threadsCompleted += 1
         semaphore.signal()
         if (threadsCompleted == clients.count ) {
-            if (self.isError) {
-                self.fetchPostsCompletion!(Result.failure(DataResponseError.network))
+            if (self.errors == nil) {
+                self.fetchPostsCompletion!(Result.success(responses))
             }
             else {
-                self.fetchPostsCompletion!(Result.success(PagedPostResponse(posts: posts, nextFrom: self.nextFrom)))
+                let error = self.errors!.map{$0.errorDescription!}.joined(separator: ",")
+                self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error: \(error)")))
             }
         }
     }

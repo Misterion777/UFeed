@@ -29,7 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         Swifter.handleOpenURL(url, callbackURL: URL(string: "ufeed://")!)
         let app = options[.sourceApplication] as? String
-        VKSdk.processOpen(url, fromApplication: app)       
+        VKSdk.processOpen(url, fromApplication: app)
+        SDKApplicationDelegate.shared.application(application, open: url, options: options)
         return true
     }
 
@@ -48,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
