@@ -1,16 +1,14 @@
 
 import Foundation
 
-enum DataResponseError: Error {
-    case network
-    case decoding
+enum DataResponseError: LocalizedError {
+    case network(message: String)
+    case decoding(message: String)
     
-    var reason: String {
+    var errorDescription: String? {
         switch self {
-        case .network:
-            return "An error occurred while fetching data:"
-        case .decoding:
-            return "An error occurred while decoding data"
+        case let .network(message), let .decoding(message):
+            return message
         }
     }
 }

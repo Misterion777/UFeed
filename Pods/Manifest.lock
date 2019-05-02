@@ -13,16 +13,9 @@ PODS:
     - FacebookCore (~> 0.5)
     - FBSDKCoreKit (~> 4.43)
     - FBSDKLoginKit (~> 4.43)
-  - FacebookShare (0.6.1):
-    - Bolts (~> 1.9)
-    - FacebookCore (~> 0.5)
-    - FBSDKCoreKit (~> 4.43)
-    - FBSDKShareKit (~> 4.43)
   - FBSDKCoreKit (4.44.1):
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.44.1):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.44.1):
     - FBSDKCoreKit
   - ImageSlideshow (1.7.0):
     - ImageSlideshow/Core (= 1.7.0)
@@ -44,7 +37,6 @@ PODS:
 DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
-  - FacebookShare
   - ImageSlideshow
   - ImageSlideshow/SDWebImage
   - ModelMapper
@@ -59,10 +51,8 @@ SPEC REPOS:
     - Bolts
     - FacebookCore
     - FacebookLogin
-    - FacebookShare
     - FBSDKCoreKit
     - FBSDKLoginKit
-    - FBSDKShareKit
     - ImageSlideshow
     - ModelMapper
     - NAKPlaybackIndicatorView
@@ -75,10 +65,8 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FacebookCore: 38cd3a4078738d6f648eb9b6b9d35b02d693e9a1
   FacebookLogin: 658b0569961a081a0890f5f4dbf69ced00657d9e
-  FacebookShare: 84bccbc222fc09c839b851925ad6c295a4ab7840
   FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
   FBSDKLoginKit: 54ae59987f2a8703021557c90a9aebb9e5c2bef6
-  FBSDKShareKit: 526d4cfb713d24855fa23d0dd74e191accd3a720
   ImageSlideshow: f8eec5e37a980f60923b585ff23b0e140fd24018
   ModelMapper: a8dbf2a2003bf626627b9fe7c9a22b3405a30404
   NAKPlaybackIndicatorView: f1468937ae3828ef6e9a50feda0781fdfa67dce8
@@ -87,6 +75,6 @@ SPEC CHECKSUMS:
   SideMenuSwift: 1bee5a0e54c6df7d8106f749b82567eae5c6d974
   VK-ios-sdk: 7fd48bc5aaa6b96c3197c1987eb6593f2ea67331
 
-PODFILE CHECKSUM: 86ffe24403f56afa901b4075d6901018143c94d2
+PODFILE CHECKSUM: eddb8ec5cc99f9e3ff42290f50bc48f3550bf1bb
 
 COCOAPODS: 1.6.1

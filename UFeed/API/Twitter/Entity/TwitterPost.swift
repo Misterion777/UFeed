@@ -77,8 +77,7 @@ class TwitterPost : Post {
             let attachment = TwitterAttachmentFactory.getAttachment(json: attach, type: type)
             attachments.append(attachment)        
         }
-        return attachments
-        
+        return attachments        
     }
 }
 

@@ -40,7 +40,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X2h-Yz-at9">
-                                <rect key="frame" x="0.0" y="40.5" width="320" height="398.5"/>
+                                <rect key="frame" x="0.0" y="190.5" width="320" height="248.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="E8B-sr-9GB">
                                     <size key="itemSize" width="50" height="50"/>
@@ -76,10 +76,10 @@
                             <constraint firstItem="OIi-Qe-0e4" firstAttribute="centerX" secondItem="X2h-Yz-at9" secondAttribute="centerX" id="I0N-0b-wxD"/>
                             <constraint firstItem="X2h-Yz-at9" firstAttribute="trailing" secondItem="pRD-Qe-byY" secondAttribute="trailing" id="KDK-Fd-eUu"/>
                             <constraint firstItem="OIi-Qe-0e4" firstAttribute="bottom" secondItem="pRD-Qe-byY" secondAttribute="bottom" constant="-50" id="aCe-Up-wmE"/>
-                            <constraint firstItem="PcB-K8-PsB" firstAttribute="top" secondItem="pRD-Qe-byY" secondAttribute="top" id="b27-V8-aUz"/>
+                            <constraint firstItem="PcB-K8-PsB" firstAttribute="top" secondItem="pRD-Qe-byY" secondAttribute="top" constant="50" id="b27-V8-aUz"/>
                             <constraint firstItem="PcB-K8-PsB" firstAttribute="leading" secondItem="pRD-Qe-byY" secondAttribute="leading" id="dVw-RZ-kP4"/>
                             <constraint firstItem="OIi-Qe-0e4" firstAttribute="top" secondItem="X2h-Yz-at9" secondAttribute="bottom" id="rbo-Yf-K1O"/>
-                            <constraint firstItem="X2h-Yz-at9" firstAttribute="top" secondItem="PcB-K8-PsB" secondAttribute="bottom" id="yf7-US-oel"/>
+                            <constraint firstItem="X2h-Yz-at9" firstAttribute="top" secondItem="PcB-K8-PsB" secondAttribute="bottom" constant="100" id="yf7-US-oel"/>
                             <constraint firstItem="X2h-Yz-at9" firstAttribute="leading" secondItem="pRD-Qe-byY" secondAttribute="leading" id="zr6-aO-IZf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pRD-Qe-byY"/>
@@ -239,10 +239,25 @@
                     <view key="view" contentMode="scaleToFill" id="jhW-tW-f1e">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pw9-90-SJv">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="0.25431156383196962" green="1" blue="0.16587053735575585" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="pw9-90-SJv" firstAttribute="trailing" secondItem="Ea1-WF-YzD" secondAttribute="trailing" id="4zq-82-ZSr"/>
+                            <constraint firstItem="pw9-90-SJv" firstAttribute="leading" secondItem="Ea1-WF-YzD" secondAttribute="leading" id="nWP-is-wPU"/>
+                            <constraint firstItem="pw9-90-SJv" firstAttribute="bottom" secondItem="Ea1-WF-YzD" secondAttribute="bottom" id="wXi-fk-LCo"/>
+                            <constraint firstItem="pw9-90-SJv" firstAttribute="top" secondItem="Ea1-WF-YzD" secondAttribute="top" id="yPI-2h-cyT"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Ea1-WF-YzD"/>
                     </view>
                     <navigationItem key="navigationItem" id="cAF-Kl-nAA"/>
+                    <connections>
+                        <outlet property="pagesTableView" destination="pw9-90-SJv" id="M9G-t7-mcQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2v-Lc-dyz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

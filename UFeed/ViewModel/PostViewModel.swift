@@ -19,7 +19,7 @@ final class PostsViewModel {
     private var posts: [Post] = []
     private var isFetchInProgress = false
     
-    private var nextFrom = [String:String]()
+    private var next = [Social:String]()
     
     let apiClient = SocialManager.shared.apiManager!
     
@@ -42,30 +42,36 @@ final class PostsViewModel {
         
         isFetchInProgress = true
         
-        apiClient.fetchPosts(nextFrom: nextFrom) { result in
+        apiClient.fetchPosts(next: next) { result in
             
             switch result {
             case .failure(let error) :
                 DispatchQueue.main.async {
                     self.isFetchInProgress = false
-                    self.delegate?.onFetchFailed(with: error.reason)
+                    self.delegate?.onFetchFailed(with: error.errorDescription! )
                 }
-            case .success(let response):
-                
+            case .success(let responses):
                 DispatchQueue.main.async {
-                    // 1
+                    
                     self.isFetchInProgress = false
-                    // 2
-                    self.posts.append(contentsOf: response.posts)
-                    // 3
-                    if self.nextFrom.isEmpty {
-                        self.nextFrom = response.nextFrom
-                        self.delegate?.onFetchCompleted(with: .none)
-                    } else {
-                        self.nextFrom = response.nextFrom
-                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.posts)
-                        self.delegate?.onFetchCompleted(with: indexPathsToReload)
+                                        
+//                    self.posts.append(contentsOf: responses.flatMap {$0.objects} )
+                    for responce in responses {
+                        self.posts.append(contentsOf: responce.objects)
+                        self.next[responce.social] = responce.next
                     }
+                        
+                    self.delegate?.onFetchCompleted(with: .none)
+                    
+                    // 3
+//                    if self.next.isEmpty {
+//                        self.next = response.next
+//                        self.delegate?.onFetchCompleted(with: .none)
+//                    } else {
+//                        self.next = response.next
+//                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.posts)
+//                        self.delegate?.onFetchCompleted(with: indexPathsToReload)
+//                    }
                 }
             }
         }

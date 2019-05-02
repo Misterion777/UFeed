@@ -7,7 +7,6 @@ target 'UFeed' do
 
   pod 'FacebookCore'
   pod 'FacebookLogin'
-  pod 'FacebookShare'
   pod 'VK-ios-sdk'
   pod 'ModelMapper'
   

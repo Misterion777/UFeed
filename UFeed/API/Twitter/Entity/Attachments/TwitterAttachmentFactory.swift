@@ -24,17 +24,6 @@ class TwitterAttachmentFactory: AttachmentFactory {
             return nil
         }
     }
-    
-//    static func getPhoto(json : NSDictionary) -> TwitterPhotoAttachment?{
-//        let url = json["media_url_https"] as! String
-//
-//        let photoSizes = json["sizes"] as! [[String:Any]]
-//
-//        let lastSize = photoSizes["large"] as! [String:Any]
-//
-//
-//        return TwitterPhotoAttachment.from(lastSize)
-//    }
-    
+
 
 }
