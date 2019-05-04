@@ -34,14 +34,14 @@ class FacebookApiClient: ApiClient {
     
     func fetchPages(next : String?,completion: @escaping (Result<PagedResponse<Page>, DataResponseError>) -> Void) {
         
-        parameters = ["fields":"picture{height,width,url},name,link", "limit" : 100, "summary" : "total_count"]
+        var parameters = ["fields":"picture{height,width,url},name,link", "limit" : "100", "summary" : "total_count"]
         if (next != nil) {
             parameters["after"] = next
         }
         let connection = GraphRequestConnection()
         
         // accounts/likes
-        connection.add(GraphRequest(graphPath: "me/accounts", parameters: parameters)) { httpResponse, result in
+        connection.add(GraphRequest(graphPath: "me/likes", parameters: parameters)) { httpResponse, result in
             switch result {
             case .success(let response):
                 if let dictionary = response.dictionaryValue {
@@ -79,12 +79,37 @@ class FacebookApiClient: ApiClient {
         connection.start()        
     }
     
+    func fetchOwnerPage(completion: @escaping (Result<Page, DataResponseError>) -> Void) {
+        let parameters = ["fields" : "picture,name"]
+        
+        let connection = GraphRequestConnection()
+        
+        connection.add(GraphRequest(graphPath: "me", parameters: parameters)) { httpResponse, result in
+            switch result {
+            case .success(let response):
+                if let dictionary = response.dictionaryValue {
+                    let page = FacebookPage.from(dictionary as NSDictionary)!
+                    completion(Result.success(page as Page))
+                }
+            case .failed(let error):
+                print(error)
+                completion(Result.failure(DataResponseError.network(message: "\(error)")))
+            }
+        }
+        
+        connection.start()
+    }
+    
     
     func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
         
-        
+        if(settings.pages!.count == 0) {
+            return completion(Result.success(PagedResponse(social: .facebook, objects: [])))
+        }
+        let ids = settings.pages!.map{String($0.id)}.joined(separator: ",")
+                        
         let feedParameters =
-            ["ids": settings.pagesId!.map {String($0)}.joined(separator: ","), "fields": "name,link,picture,feed.limit(\(parameters["count"] as! Int))" + (nextFrom != nil ? ".until(\(nextFrom!))" : "") + "{message,created_time,attachments,shares,likes.summary(total_count),comments.summary(total_count)}"]
+            ["ids": ids, "fields": "name,link,picture,feed.limit(\(parameters["count"] as! Int))" + (nextFrom != nil ? ".until(\(nextFrom!))" : "") + "{message,created_time,attachments,shares,likes.summary(total_count),comments.summary(total_count)}"]
         
         var posts = [Post]()
         let connection = GraphRequestConnection()
@@ -118,11 +143,15 @@ class FacebookApiClient: ApiClient {
                     }
                     if (earliestDate == Date.distantFuture) {
                         self.hasMorePosts = false
+                        completion(Result.success(PagedResponse(social: .facebook, objects: [])))
                     }
-                    let next = String(earliestDate.addingTimeInterval(-1).timeIntervalSince1970).components(separatedBy: ".")[0]
-                    completion(Result.success(PagedResponse(social: .facebook, objects: posts,next: next)))
+                    else {
+                        let next = String(earliestDate.addingTimeInterval(-1).timeIntervalSince1970).components(separatedBy: ".")[0]
+                        completion(Result.success(PagedResponse(social: .facebook, objects: posts, next: next)))
+                    }
                 }
             case .failed(let error):
+                
                 print(error)
                 completion(Result.failure(DataResponseError.network(message: "Error occured while loading facebook posts: \(error)")))            }
         }

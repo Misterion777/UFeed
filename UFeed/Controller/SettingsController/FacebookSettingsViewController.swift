@@ -11,19 +11,26 @@ import UIKit
 class FacebookSettingsViewController: SettingsViewController {
 
     enum SectionHeader: String, CaseIterable {
+        case currentAccount = "Your account"
         case pages = "Pages that will be in your feed"
-        case other = "Other"
     }
     
+    struct Section {
+        var header : SectionHeader
+        var objects : [Any]?
+        var cellId : String
+    }
+    
+    var sections = [Section]()
     
     let sectionHeaderHeight: CGFloat = 25
     
     @IBOutlet weak var pagesTableView: UITableView!
     let cellId = "fbCellId"
+    let buttonId = "buttonCellId"
     
-    let apiClient = FacebookApiClient()
+    var apiClient : FacebookApiClient?
     var pages : [FacebookPage]?    
-    var sections = [SectionHeader]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,29 +39,48 @@ class FacebookSettingsViewController: SettingsViewController {
         pagesTableView.estimatedRowHeight = 44
         pagesTableView.rowHeight = UITableView.automaticDimension
         pagesTableView.register(PageTableViewCell.self, forCellReuseIdentifier: cellId)
+        pagesTableView.register(SetupSocialViewCell.self, forCellReuseIdentifier: buttonId)
         
         pagesTableView.dataSource = self
         pagesTableView.delegate = self
         self.settings = SettingsManager.shared.getSettings(for: .facebook)
-        
-        apiClient.fetchPages(next: nil, completion: updatePages)
-        for section in SectionHeader.allCases {
-            sections.append(section)
+        setupView()
+    }
+    
+    private func setupView() {
+        if (SocialManager.shared.isAuthorized(forSocial: .facebook)) {
+            apiClient = SocialManager.shared.getApiClient(forSocial: .facebook) as? FacebookApiClient
+            apiClient!.fetchOwnerPage(completion: updateCurrentPage)
+        } else {
+            sections.append(Section(header: .currentAccount, objects: nil, cellId: buttonId))
+            pagesTableView.reloadData()
         }
+    }
+    
+    private func updateCurrentPage(result: Result<Page, DataResponseError>) {
+        switch result {
+        case .success(let response):
+            sections.append(Section(header: .currentAccount, objects: [response], cellId: cellId))
+            apiClient!.fetchPages(next: nil, completion: updatePages)
+        case .failure(let error ):
+            self.alert(title: "Eror", message: error.errorDescription!)
+        }
+        
     }
     
     private func updatePages(result: Result<PagedResponse<Page>, DataResponseError>) {
         switch result {
         case .success(let response):
-            self.pages = response.objects as? [FacebookPage]
+            let pages = response.objects as? [FacebookPage]
+            sections.append(Section(header: .pages, objects: pages, cellId: cellId))
             
             if (!self.settings!.isInitialized() ){
-                self.settings!.pagesId = self.pages!.map{ $0.id }
+                self.settings!.pages = pages!
             }
             else {
-                self.settings!.pagesId! = self.settings!.pagesId!.filter {
+                self.settings!.pages! = self.settings!.pages!.filter {
                     let element = $0
-                    return self.pages!.contains(where: {$0.id == element})
+                    return pages!.contains{$0.id == element.id}
                 }
             }
             self.settings!.save()
@@ -76,27 +102,33 @@ extension FacebookSettingsViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].rawValue
+        return sections[section].header.rawValue
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (sections[section] == .pages) {
-            if self.pages == nil {
-                return 0
-            }
-            return self.pages!.count
+        if sections[section].objects == nil {
+            return 1
         }
-        return 0
+        return sections[section].objects!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PageTableViewCell
-        if let pages = pages {
+        let cell = tableView.dequeueReusableCell(withIdentifier: sections[indexPath.section].cellId, for: indexPath)
+        
+        if let cell = cell as? SetupSocialViewCell {
+            cell.configure(with: .facebook)
+            cell.loginSuccess = setupView
+            return cell
+        }
+        
+        if let pages = sections[indexPath.section].objects as? [Page] {
+            
             let page = pages[indexPath.row]
             
+            let cell = cell as! PageTableViewCell
             cell.configure(with: page)
             
-            if (self.settings!.pagesId!.contains(page.id)) {
+            if (self.settings!.pages!.contains{$0.id == page.id}) {
                 cell.accessoryType = .checkmark
             }
             else {
@@ -111,16 +143,17 @@ extension FacebookSettingsViewController : UITableViewDataSource {
 
 extension FacebookSettingsViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section == 0) {
+            return
+        }
         if let cell = tableView.cellForRow(at: indexPath) as? PageTableViewCell {
             if (cell.accessoryType == .checkmark) {
                 cell.accessoryType = .none
-                if let idx = self.settings!.pagesId!.index(of: cell.page!.id) {
-                    self.settings!.pagesId!.remove(at: idx)
-                }
+                self.settings!.pages! = self.settings!.pages!.filter {$0.id != cell.page!.id}
             }
             else {
                 cell.accessoryType = .checkmark
-                self.settings!.pagesId!.append(cell.page!.id)
+                self.settings!.appendPage(page: cell.page!)                
             }
             self.toggleSaveButton()
         }

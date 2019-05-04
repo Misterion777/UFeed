@@ -219,7 +219,7 @@
         <!--Settings Navigation View Controller-->
         <scene sceneID="J3P-ox-04T">
             <objects>
-                <navigationController storyboardIdentifier="InstagramSettingsViewController" id="nzk-S9-e1z" customClass="SettingsNavigationViewController" customModule="UFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InstagramSettingsViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="nzk-S9-e1z" customClass="SettingsNavigationViewController" customModule="UFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LIX-H4-a57">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -262,6 +262,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2v-Lc-dyz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4928" y="1046"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="tii-1v-B1c">
+            <objects>
+                <tableViewController storyboardIdentifier="SearchViewController" extendedLayoutIncludesOpaqueBars="YES" id="POI-45-6au" customClass="SearchViewController" customModule="UFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MUM-ue-elZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="8X6-62-5aW">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8X6-62-5aW" id="v1E-d9-E5q">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="POI-45-6au" id="u7d-mA-vAw"/>
+                            <outlet property="delegate" destination="POI-45-6au" id="hUW-CD-u5R"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="400-dU-Dxs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6191" y="1294"/>
         </scene>
         <!--Settings Navigation View Controller-->
         <scene sceneID="BAG-Vy-5Ns">
@@ -403,14 +431,29 @@
         <!--Instagram Settings View Controller-->
         <scene sceneID="Ria-fV-LPe">
             <objects>
-                <viewController id="lB7-gJ-6nz" customClass="InstagramSettingsViewController" customModule="UFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="lB7-gJ-6nz" customClass="InstagramSettingsViewController" customModule="UFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fhI-xr-akp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I5c-XH-iFq">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="0.71092194019999999" blue="0.085877535810000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="I5c-XH-iFq" firstAttribute="trailing" secondItem="3DK-k9-zq8" secondAttribute="trailing" id="DeF-c0-WaH"/>
+                            <constraint firstItem="I5c-XH-iFq" firstAttribute="bottom" secondItem="3DK-k9-zq8" secondAttribute="bottom" id="HFX-fu-ueW"/>
+                            <constraint firstItem="I5c-XH-iFq" firstAttribute="leading" secondItem="3DK-k9-zq8" secondAttribute="leading" id="fXd-Va-2HQ"/>
+                            <constraint firstItem="I5c-XH-iFq" firstAttribute="top" secondItem="3DK-k9-zq8" secondAttribute="top" id="rpJ-us-8xL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3DK-k9-zq8"/>
                     </view>
                     <navigationItem key="navigationItem" id="Bro-ls-E2u"/>
+                    <connections>
+                        <outlet property="tableView" destination="I5c-XH-iFq" id="6S4-5I-6Lg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rVD-iM-G5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

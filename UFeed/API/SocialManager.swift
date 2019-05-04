@@ -12,9 +12,22 @@ import SideMenuSwift
 
 enum Social:Int, CodingKey {
     case facebook = 1
+    case instagram
     case twitter
     case vk
-    case instagram
+    
+    var description: String {
+        switch self {
+        case .facebook:
+            return "Facebook"
+        case .twitter:
+            return "Twitter"
+        case .vk:
+            return "Vk"
+        case .instagram:
+            return "Instagram"
+        }
+    }
 }
 
 class SocialManager {
@@ -31,6 +44,7 @@ class SocialManager {
         socialDelegates[.vk] = VKDelegate()
         socialDelegates[.twitter] = TwitterDelegate()
         socialDelegates[.facebook] = FacebookDelegate()
+        socialDelegates[.instagram] = InstagramDelegate()
         apiManager = ApiClientManager(socials: self.getAuthorizedSocials())
     }
     
@@ -38,8 +52,8 @@ class SocialManager {
         return apiManager.clients[key]!
     }
     
-    func getDelegate(forSocial key : Social) -> SocialDelegate? {
-        return socialDelegates[key]
+    func getDelegate(forSocial key : Social) -> SocialDelegate {
+        return socialDelegates[key]!
     }
     
     func setViewController(vc : UIViewController) {
@@ -92,7 +106,7 @@ class SocialManager {
         self.vc?.tabBarController?.selectedIndex = 2                
     }
     
-    private func updateClients() {
+    func updateClients() {
         self.apiManager.updateApiClients(socials: getAuthorizedSocials())
     }
     

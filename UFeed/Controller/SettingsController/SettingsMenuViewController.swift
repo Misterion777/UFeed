@@ -26,8 +26,8 @@ class SettingsMenuViewController: UIViewController {
     private var isMenuSet = false
     private var themeColor = UIColor.white
     
-    private var settingsTitles = ["General","Facebook", "Twitter", "Vk", "Instagram"]
-    private var viewControllers = ["FacebookSettingsViewController","TwitterSettingsViewController", "VkSettingsViewController" ,"InstagramSettingsViewController"]
+    private var settingsTitles = ["General","Facebook", "Instagram", "Twitter", "Vk", ]
+    private var viewControllers = ["FacebookSettingsViewController","InstagramSettingsViewController", "TwitterSettingsViewController", "VkSettingsViewController"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

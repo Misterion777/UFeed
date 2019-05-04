@@ -73,7 +73,7 @@ class VKApiClient : ApiClient {
         }, errorBlock: { error in
             if error != nil {
                 print(error!)
-                self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error occured while loading vk  posts: \(error)")))
+                self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error occured while loading vk posts: \(error)")))
             }
         })
         
