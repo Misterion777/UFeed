@@ -14,4 +14,6 @@ protocol Page : class, Mappable {
     var photo : PhotoAttachment? { get set}
     var link : String {get }
     var name : String { get set}
+    
+    init(id: Int)        
 }

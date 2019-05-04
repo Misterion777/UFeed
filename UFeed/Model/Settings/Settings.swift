@@ -9,10 +9,11 @@
 import Foundation
 
 protocol Settings {
-    
-    var pagesId : [Int]? {get set}
+    var pages : [Page]? {get set}
  
     func save()
     func isInitialized() -> Bool    
     func hasChanged() -> Bool
+    func appendPage(page: Page)
+    func removePage(at index:Int)
 }

@@ -46,6 +46,15 @@
 		098FBA8622784DBD00F2E737 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA8522784DBD00F2E737 /* SettingsManager.swift */; };
 		098FBA882278E55900F2E737 /* FacebookAttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA872278E55900F2E737 /* FacebookAttachmentFactory.swift */; };
 		098FBA8B227AC91C00F2E737 /* InstagramDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA8A227AC91C00F2E737 /* InstagramDelegate.swift */; };
+		098FBA8D227AD80D00F2E737 /* InstagramApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA8C227AD80D00F2E737 /* InstagramApiClient.swift */; };
+		098FBA90227ADFB200F2E737 /* PageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA8F227ADFB200F2E737 /* PageHeaderView.swift */; };
+		098FBA92227AE26300F2E737 /* InstagramPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA91227AE26300F2E737 /* InstagramPage.swift */; };
+		098FBA95227AE30F00F2E737 /* InstagramAttachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA94227AE30F00F2E737 /* InstagramAttachments.swift */; };
+		098FBA98227B22D900F2E737 /* SetupSocialViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA97227B22D900F2E737 /* SetupSocialViewCell.swift */; };
+		098FBA9A227B2B4200F2E737 /* InstagramSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA99227B2B4200F2E737 /* InstagramSettings.swift */; };
+		098FBA9C227B5BD600F2E737 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA9B227B5BD600F2E737 /* SearchHeaderView.swift */; };
+		099506DD227CB33D00E99F6E /* InstagramPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099506DC227CB33D00E99F6E /* InstagramPost.swift */; };
+		099506DF227CCBA900E99F6E /* InstagramAttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099506DE227CCBA900E99F6E /* InstagramAttachmentFactory.swift */; };
 		09B3131C226C73E4004E23F2 /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B31317226C73BD004E23F2 /* SwifteriOS.framework */; };
 		09B3131D226C73E4004E23F2 /* SwifteriOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09B31317226C73BD004E23F2 /* SwifteriOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09B31321226C751C004E23F2 /* TwitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B31320226C751C004E23F2 /* TwitterDelegate.swift */; };
@@ -127,6 +136,15 @@
 		098FBA8522784DBD00F2E737 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		098FBA872278E55900F2E737 /* FacebookAttachmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAttachmentFactory.swift; sourceTree = "<group>"; };
 		098FBA8A227AC91C00F2E737 /* InstagramDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramDelegate.swift; sourceTree = "<group>"; };
+		098FBA8C227AD80D00F2E737 /* InstagramApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramApiClient.swift; sourceTree = "<group>"; };
+		098FBA8F227ADFB200F2E737 /* PageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHeaderView.swift; sourceTree = "<group>"; };
+		098FBA91227AE26300F2E737 /* InstagramPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramPage.swift; sourceTree = "<group>"; };
+		098FBA94227AE30F00F2E737 /* InstagramAttachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramAttachments.swift; sourceTree = "<group>"; };
+		098FBA97227B22D900F2E737 /* SetupSocialViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSocialViewCell.swift; sourceTree = "<group>"; };
+		098FBA99227B2B4200F2E737 /* InstagramSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramSettings.swift; sourceTree = "<group>"; };
+		098FBA9B227B5BD600F2E737 /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
+		099506DC227CB33D00E99F6E /* InstagramPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramPost.swift; sourceTree = "<group>"; };
+		099506DE227CCBA900E99F6E /* InstagramAttachmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramAttachmentFactory.swift; sourceTree = "<group>"; };
 		09B31313226C7386004E23F2 /* SwifteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwifteriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B31317226C73BD004E23F2 /* SwifteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwifteriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B31320226C751C004E23F2 /* TwitterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				0903E2FD22771D5D000C9A5B /* PageTableViewCell.swift */,
+				098FBA8F227ADFB200F2E737 /* PageHeaderView.swift */,
 			);
 			path = PageView;
 			sourceTree = "<group>";
@@ -302,6 +321,7 @@
 				0951D3152277AE44004E8F91 /* Settings.swift */,
 				098FBA822278421200F2E737 /* FacebookSettings.swift */,
 				098FBA8522784DBD00F2E737 /* SettingsManager.swift */,
+				098FBA99227B2B4200F2E737 /* InstagramSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -309,9 +329,39 @@
 		098FBA89227AC8DC00F2E737 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				098FBA8E227AD81200F2E737 /* Entity */,
 				098FBA8A227AC91C00F2E737 /* InstagramDelegate.swift */,
+				098FBA8C227AD80D00F2E737 /* InstagramApiClient.swift */,
 			);
 			path = Instagram;
+			sourceTree = "<group>";
+		};
+		098FBA8E227AD81200F2E737 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				098FBA93227AE2F600F2E737 /* Attachments */,
+				098FBA91227AE26300F2E737 /* InstagramPage.swift */,
+				099506DC227CB33D00E99F6E /* InstagramPost.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		098FBA93227AE2F600F2E737 /* Attachments */ = {
+			isa = PBXGroup;
+			children = (
+				098FBA94227AE30F00F2E737 /* InstagramAttachments.swift */,
+				099506DE227CCBA900E99F6E /* InstagramAttachmentFactory.swift */,
+			);
+			path = Attachments;
+			sourceTree = "<group>";
+		};
+		098FBA96227B228A00F2E737 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				098FBA97227B22D900F2E737 /* SetupSocialViewCell.swift */,
+				098FBA9B227B5BD600F2E737 /* SearchHeaderView.swift */,
+			);
+			path = SettingsView;
 			sourceTree = "<group>";
 		};
 		09B3131F226C74F3004E23F2 /* Twitter */ = {
@@ -424,6 +474,7 @@
 		843E951122206BDF0016242F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				098FBA96227B228A00F2E737 /* SettingsView */,
 				0903E2FC22771D3D000C9A5B /* PageView */,
 				0903E2FB22771D30000C9A5B /* PostView */,
 				84A140752250D11D0063C31F /* SignInCollectionViewCell.swift */,
@@ -601,7 +652,9 @@
 				843E951D22206BE70016242F /* AppDelegate.swift in Sources */,
 				09B31323226C8A29004E23F2 /* TwitterApiClient.swift in Sources */,
 				0951D3162277AE44004E8F91 /* Settings.swift in Sources */,
+				099506DF227CCBA900E99F6E /* InstagramAttachmentFactory.swift in Sources */,
 				84CB46112243A04500CD4445 /* FeedViewController.swift in Sources */,
+				098FBA8D227AD80D00F2E737 /* InstagramApiClient.swift in Sources */,
 				09B3132D226DE8CE004E23F2 /* ApiClientManager.swift in Sources */,
 				09B31321226C751C004E23F2 /* TwitterDelegate.swift in Sources */,
 				84A140762250D11D0063C31F /* SignInCollectionViewCell.swift in Sources */,
@@ -616,17 +669,23 @@
 				09B313372271A656004E23F2 /* MainTabBarController.swift in Sources */,
 				09B313352270735C004E23F2 /* SocialDelegate.swift in Sources */,
 				094F948B22524011008A1B47 /* VKAttachmentFactory.swift in Sources */,
+				098FBA9A227B2B4200F2E737 /* InstagramSettings.swift in Sources */,
+				098FBA98227B22D900F2E737 /* SetupSocialViewCell.swift in Sources */,
 				09B31333227072C0004E23F2 /* SocialManager.swift in Sources */,
 				098FBA832278421200F2E737 /* FacebookSettings.swift in Sources */,
 				0939372D22738C1B00394769 /* FacebookSettingsViewController.swift in Sources */,
 				09B3133B227379BC004E23F2 /* SettingsNavigationViewController.swift in Sources */,
 				094F948822524011008A1B47 /* VKPostMapper.swift in Sources */,
 				09B31329226DB9B3004E23F2 /* TwitterAttachmentFactory.swift in Sources */,
+				098FBA92227AE26300F2E737 /* InstagramPage.swift in Sources */,
 				0939372F22738C2900394769 /* InstagramSettingsViewController.swift in Sources */,
+				098FBA95227AE30F00F2E737 /* InstagramAttachments.swift in Sources */,
 				094F9493225345D6008A1B47 /* DateUtility.swift in Sources */,
 				09B3132B226DB9DE004E23F2 /* TwitterAttachments.swift in Sources */,
+				098FBA90227ADFB200F2E737 /* PageHeaderView.swift in Sources */,
 				09B3133922736B83004E23F2 /* SettingsMenuViewController.swift in Sources */,
 				094F949D2253752B008A1B47 /* PagedResponse.swift in Sources */,
+				098FBA9C227B5BD600F2E737 /* SearchHeaderView.swift in Sources */,
 				094F949022524011008A1B47 /* Attachments.swift in Sources */,
 				098FBA8B227AC91C00F2E737 /* InstagramDelegate.swift in Sources */,
 				0903E2F22275A519000C9A5B /* FacebookApiClient.swift in Sources */,
@@ -649,6 +708,7 @@
 				0903E2F02275A4F2000C9A5B /* FacebookDelegate.swift in Sources */,
 				0939372922738BF800394769 /* VkSettingsViewController.swift in Sources */,
 				094F94A32254AC87008A1B47 /* PostVideoView.swift in Sources */,
+				099506DD227CB33D00E99F6E /* InstagramPost.swift in Sources */,
 				093BFA63224E4F67003AA08C /* PostAudioView.swift in Sources */,
 				0903E2FA227715D7000C9A5B /* FacebookAttachments.swift in Sources */,
 				094F949B22537521008A1B47 /* DataResponseError.swift in Sources */,
@@ -810,7 +870,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darya-eli.UFeed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -829,7 +889,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darya-eli.UFeed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

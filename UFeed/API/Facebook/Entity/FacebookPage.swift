@@ -22,18 +22,38 @@ class FacebookPage: Page {
         let stringId : String = try map.from("id")
         id = Int(stringId)!
         try name = map.from("name")
-        try link = map.from("link")
+//        try link = map.from("link")
+        link = ""
         
         let photoUrl : String = try map.from("picture.data.url")
         let photoWidth : Int = try map.from("picture.data.width")
         let photoHeight : Int = try map.from("picture.data.height")
         photo = FacebookPhotoAttachment(url: photoUrl, height: photoHeight, width: photoWidth)
-    }    
+    }
+    
+    required init(id: Int) {
+        self.id = id
+        self.link = ""
+        self.name = ""
+    }
 
 //    static func == (lhs: FacebookPage, rhs: FacebookPage) -> Bool {
 //        return lhs.id == rhs.id
 //    }
 //    
+    
+    
+}
+
+
+extension FacebookPage : Comparable {
+    static func < (lhs: FacebookPage, rhs: FacebookPage) -> Bool {
+        return lhs.id < rhs.id
+    }
+    
+    static func == (lhs: FacebookPage, rhs: FacebookPage) -> Bool {
+        return lhs.id == rhs.id
+    }
     
     
 }

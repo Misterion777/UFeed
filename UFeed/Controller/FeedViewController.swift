@@ -10,7 +10,7 @@ class FeedViewController:UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
-    
+    private var isFetching = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class FeedViewController:UIViewController {
         indicatorView.startAnimating()
         
         viewModel = PostsViewModel(delegate: self)
+        isFetching = true
         viewModel.fetchPosts()        
     }
 }
@@ -39,6 +40,11 @@ extension FeedViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        if (!isFetching && viewModel.currentCount != 0 && viewModel.currentCount / 2 <= indexPath.row) {
+//            isFetching = true
+//            viewModel.fetchPosts()
+//        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostTableViewCell
 //        cell.layer.borderColor = UIColor.white.cgColor
 //        cell.layer.borderWidth = 5
@@ -79,7 +85,7 @@ extension FeedViewController: PostsViewModelDelegate {
         indicatorView.stopAnimating()
         tableView.isHidden = false
         tableView.reloadData()
-
+        self.isFetching = false
 //
 //        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathToReload!)
 //        if indexPathsToReload.count == 0 {
@@ -97,8 +103,6 @@ extension FeedViewController: PostsViewModelDelegate {
 //            tableView.reloadData()
 //            return
 //        }
-        
-        
     }
     
     func onFetchFailed(with reason: String) {

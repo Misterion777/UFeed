@@ -22,6 +22,8 @@ class ApiClientManager {
     var responses = [PagedResponse<Post>]()
     var errors : [DataResponseError]?
     
+    var activeClients = 0
+    
     var fetchPostsCompletion : ((Result<[PagedResponse<Post>], DataResponseError>) -> Void)?
     
     init(socials: [Social]) {
@@ -37,8 +39,8 @@ class ApiClientManager {
                 clients[.twitter] = TwitterApiClient(count: getCount(clientsCount: socials.count))
             case .facebook:
                 clients[.facebook] = FacebookApiClient(count: getCount(clientsCount: socials.count))
-            default:
-                print("\(social.rawValue) api is not implemented")
+            case .instagram:
+                clients[.instagram] = InstagramApiClient(count: getCount(clientsCount: socials.count))            
             }
         }
         
@@ -56,6 +58,7 @@ class ApiClientManager {
         if (clients.count == 0) {
             self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "You are not signed in any social network!")))
         } else{
+            self.activeClients = getActiveClients()
             for (k,v) in clients {
                 if (v.hasMorePosts) {
                     DispatchQueue.global(qos: .utility).async {
@@ -66,7 +69,16 @@ class ApiClientManager {
             
         }
     }
-    
+
+    private func getActiveClients() -> Int {
+        var activeClients = 0
+        for (k,v) in clients {
+            if (v.hasMorePosts){
+                activeClients += 1
+            }
+        }
+        return activeClients
+    }
 
     private func onComplete(result: Result<PagedResponse<Post>, DataResponseError>) {
         semaphore.wait()
@@ -81,7 +93,8 @@ class ApiClientManager {
         }
         threadsCompleted += 1
         semaphore.signal()
-        if (threadsCompleted == clients.count ) {
+        
+        if (threadsCompleted == self.activeClients ) {
             if (self.errors == nil) {
                 self.fetchPostsCompletion!(Result.success(responses))
             }

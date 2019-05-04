@@ -13,12 +13,12 @@ import FacebookLogin
 class FacebookDelegate: SocialDelegate {
     
     let loginManager = LoginManager()
-    let readPermissions : [ReadPermission] = [ .publicProfile]
+    let readPermissions : [ReadPermission] = [ .publicProfile, .userLikes]
     
-    var viewController: UIViewController?
+    var viewController: UIViewController?    
     
     func authorize(onSuccess: @escaping () -> Void) {
-                        
+    
         loginManager.logIn(readPermissions: readPermissions, viewController: viewController, completion: {result in
             switch result {
             case .failed(let error):
@@ -33,6 +33,7 @@ class FacebookDelegate: SocialDelegate {
     
     func logOut() {
         loginManager.logOut()
+        AccessToken.current = nil
     }
     
     func isAuthorized() -> Bool {        

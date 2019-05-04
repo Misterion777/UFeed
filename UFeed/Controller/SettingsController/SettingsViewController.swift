@@ -21,6 +21,7 @@ class SettingsViewController: UIViewController {
         saveButton.isEnabled = false
         self.navigationItem.leftBarButtonItem = burger
         self.navigationItem.rightBarButtonItem = saveButton
+        SocialManager.shared.setViewController(vc: self)
     }
     
     func toggleSaveButton() {
@@ -35,7 +36,7 @@ class SettingsViewController: UIViewController {
     @objc func saveButtonClicked() {
         settings!.save()
         self.alert(title: "Cool", message: "Saved")
-        print(self.settings!.pagesId!)
+        print(self.settings!.pages!)
         toggleSaveButton()
     }
     

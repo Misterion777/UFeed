@@ -16,6 +16,7 @@ class SettingsManager {
     
     private init(){
         socialSettings[.facebook] = FacebookSettings()
+        socialSettings[.instagram] = InstagramSettings()
     }
     
     func getSettings(for social: Social) ->Settings {
@@ -26,12 +27,12 @@ class SettingsManager {
         socialSettings[social]!.save()
     }
     
-    func getSavedPagesId(for social: Social) -> [Int]?{
-        return socialSettings[social]!.pagesId
-    }
-    
-    func setPagesId(for social: Social, pagesId : [Int]) {
-        socialSettings[social]!.pagesId = pagesId
-    }
+//    func getSavedPagesId(for social: Social) -> [Int]?{
+//        return socialSettings[social]!.pages
+//    }
+//    
+//    func setPagesId(for social: Social, pagesId : [Int]) {
+//        socialSettings[social]!.pagesId = pagesId
+//    }
     
 }
