@@ -54,6 +54,7 @@ class ApiClientManager {
     func fetchPosts(next: [Social : String], completion: @escaping (Result<[PagedResponse<Post>], DataResponseError>) -> Void) {
         threadsCompleted = 0
         self.responses.removeAll()
+        self.errors?.removeAll()
         self.fetchPostsCompletion = completion
         if (clients.count == 0) {
             self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "You are not signed in any social network!")))
@@ -72,7 +73,7 @@ class ApiClientManager {
 
     private func getActiveClients() -> Int {
         var activeClients = 0
-        for (k,v) in clients {
+        for (_,v) in clients {
             if (v.hasMorePosts){
                 activeClients += 1
             }
@@ -95,7 +96,7 @@ class ApiClientManager {
         semaphore.signal()
         
         if (threadsCompleted == self.activeClients ) {
-            if (self.errors == nil) {
+            if (self.errors == nil || self.errors?.count == 0) {
                 self.fetchPostsCompletion!(Result.success(responses))
             }
             else {

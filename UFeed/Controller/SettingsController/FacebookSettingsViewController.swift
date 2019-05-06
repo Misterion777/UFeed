@@ -28,9 +28,11 @@ class FacebookSettingsViewController: SettingsViewController {
     @IBOutlet weak var pagesTableView: UITableView!
     let cellId = "fbCellId"
     let buttonId = "buttonCellId"
+    let headerMarkId = "headerMarkId"
     
     var apiClient : FacebookApiClient?
-    var pages : [FacebookPage]?    
+    var pages : [FacebookPage]?
+    var headerSelected = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,7 @@ class FacebookSettingsViewController: SettingsViewController {
         pagesTableView.rowHeight = UITableView.automaticDimension
         pagesTableView.register(PageTableViewCell.self, forCellReuseIdentifier: cellId)
         pagesTableView.register(SetupSocialViewCell.self, forCellReuseIdentifier: buttonId)
+        pagesTableView.register(MarkAllHeaderView.self, forHeaderFooterViewReuseIdentifier: headerMarkId)
         
         pagesTableView.dataSource = self
         pagesTableView.delegate = self
@@ -61,7 +64,14 @@ class FacebookSettingsViewController: SettingsViewController {
         switch result {
         case .success(let response):
             sections.append(Section(header: .currentAccount, objects: [response], cellId: cellId))
-            apiClient!.fetchPages(next: nil, completion: updatePages)
+            if (settings!.isInitialized()) {
+                sections.append(Section(header: .pages, objects: nil, cellId: cellId))
+                apiClient!.fetchPages(next: nil, completion: updatePages)
+            }
+            else {
+                sections.append(Section(header: .pages, objects: nil, cellId: buttonId))
+                self.pagesTableView.reloadData()
+            }
         case .failure(let error ):
             self.alert(title: "Eror", message: error.errorDescription!)
         }
@@ -71,10 +81,10 @@ class FacebookSettingsViewController: SettingsViewController {
     private func updatePages(result: Result<PagedResponse<Page>, DataResponseError>) {
         switch result {
         case .success(let response):
-            let pages = response.objects as? [FacebookPage]
-            sections.append(Section(header: .pages, objects: pages, cellId: cellId))
-            
-            if (!self.settings!.isInitialized() ){
+            pages = response.objects as? [FacebookPage]
+            sections[1].objects = pages
+            sections[1].cellId = cellId
+            if (!self.settings!.isInitialized()){
                 self.settings!.pages = pages!
             }
             else {
@@ -83,7 +93,9 @@ class FacebookSettingsViewController: SettingsViewController {
                     return pages!.contains{$0.id == element.id}
                 }
             }
-            self.settings!.save()
+            if (settings!.hasChanged()) {
+                self.settings!.save()
+            }            
             self.pagesTableView.reloadData()
         case .failure(let error):
             self.alert(title: "Eror", message: error.errorDescription!)
@@ -91,10 +103,39 @@ class FacebookSettingsViewController: SettingsViewController {
     }
 }
 
+// ДЕФОЛТНЫЕ СИНИЕ ГАЛОЧКИ ОТСТОЙ!!!!
+// ДЕФОЛТНЫЕ СИНИЕ ГАЛОЧКИ ОТСТОЙ!!!!
 extension FacebookSettingsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sectionHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if (sections[section].header == .pages) {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerMarkId) as! MarkAllHeaderView
+            header.configure(buttonPressed: toggleMarkHeader)
+            return header
+        }
+        return nil
+    }
+    
+    private func toggleMarkHeader() {
+        if (settings!.isInitialized()) {
+            if (headerSelected) {
+                settings!.pages!.removeAll()
+                headerSelected = false
+            }
+            else {
+                for page in sections[1].objects as! [FacebookPage] {
+                    settings!.appendPage(page: page)
+                }
+                headerSelected = true
+            }
+            toggleSaveButton()
+            pagesTableView.reloadData()
+        }        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -112,28 +153,57 @@ extension FacebookSettingsViewController : UITableViewDataSource {
         return sections[section].objects!.count
     }
     
+    
+     private func onSetupButtonClicked () {
+        SocialManager.shared.getDelegate(forSocial: .facebook).authorize(onSuccess: {
+            SocialManager.shared.updateClients()
+            self.setupView()
+        })
+    }
+    
+    private func onLoadLikes () {
+        (SocialManager.shared.getDelegate(forSocial: .facebook) as! FacebookDelegate).getUserLikesPermissions {
+            self.apiClient!.fetchPages(next: nil, completion: self.updatePages)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: sections[indexPath.section].cellId, for: indexPath)
         
-        if let cell = cell as? SetupSocialViewCell {
-            cell.configure(with: .facebook)
-            cell.loginSuccess = setupView
-            return cell
-        }
-        
-        if let pages = sections[indexPath.section].objects as? [Page] {
-            
-            let page = pages[indexPath.row]
-            
-            let cell = cell as! PageTableViewCell
-            cell.configure(with: page)
-            
-            if (self.settings!.pages!.contains{$0.id == page.id}) {
-                cell.accessoryType = .checkmark
+        if (sections[indexPath.section].header == .currentAccount) {
+            if let cell = cell as? SetupSocialViewCell {
+                cell.configure(with: "Setup your Facebook!")
+                cell.onButtonClick = onSetupButtonClicked
+                return cell
             }
             else {
-                cell.accessoryType = .none
+                let cell = cell as! PageTableViewCell
+                let page = sections[indexPath.section].objects![0] as? Page
+                cell.configure(with: page)
             }
+        }
+        else {
+            if let cell = cell as? SetupSocialViewCell {
+                cell.configure(with: "Load liked pages from Facebook")
+                cell.onButtonClick = onLoadLikes
+                return cell
+            }
+            else {
+                let pages = sections[indexPath.section].objects as? [Page]
+                    
+                let page = pages![indexPath.row]
+                
+                let cell = cell as! PageTableViewCell
+                cell.configure(with: page)
+                
+                if (self.settings!.pages!.contains{$0.id == page.id}) {
+                    cell.accessoryType = .checkmark // ДЕФОЛТНЫЕ СИНИЕ ГАЛОЧКИ ОТСТОЙ!!!!
+                }
+                else {
+                    cell.accessoryType = .none
+                }
+            }
+            
         }
         
         return cell
@@ -149,7 +219,7 @@ extension FacebookSettingsViewController : UITableViewDelegate {
         if let cell = tableView.cellForRow(at: indexPath) as? PageTableViewCell {
             if (cell.accessoryType == .checkmark) {
                 cell.accessoryType = .none
-                self.settings!.pages! = self.settings!.pages!.filter {$0.id != cell.page!.id}
+                self.settings!.removePage(by: cell.page!.id)                
             }
             else {
                 cell.accessoryType = .checkmark

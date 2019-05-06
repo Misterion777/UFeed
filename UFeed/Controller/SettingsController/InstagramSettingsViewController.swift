@@ -120,13 +120,21 @@ extension InstagramSettingsViewController : UITableViewDataSource {
         return sections[section].objects!.count
     }
     
+    @objc private func onSetupButtonClicked () {
+        SocialManager.shared.getDelegate(forSocial: .instagram).authorize(onSuccess: {
+            SocialManager.shared.updateClients()
+            self.setupView()
+        })
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: sections[indexPath.section].cellId, for: indexPath)
         
         if let cell = cell as? SetupSocialViewCell {
-            cell.configure(with: .instagram)
-            cell.loginSuccess = setupView            
+            cell.configure(with: "Setup your Instagram!")
+            cell.onButtonClick = onSetupButtonClicked
             return cell
         }
         

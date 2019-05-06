@@ -11,6 +11,7 @@ class FeedViewController:UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     private var isFetching = false
+    var needToReload = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,14 @@ extension FeedViewController : UITableViewDataSource {
         return cell
     }
     
+    func reload() {
+        if (needToReload) {
+            indicatorView.startAnimating()
+            tableView.isHidden = true
+            viewModel.fetchPosts()
+        }
+    }
+    
 }
 
 extension FeedViewController : UITableViewDelegate {
@@ -86,6 +95,8 @@ extension FeedViewController: PostsViewModelDelegate {
         tableView.isHidden = false
         tableView.reloadData()
         self.isFetching = false
+        
+        needToReload = viewModel.currentCount == 0
 //
 //        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathToReload!)
 //        if indexPathsToReload.count == 0 {
@@ -107,9 +118,9 @@ extension FeedViewController: PostsViewModelDelegate {
     
     func onFetchFailed(with reason: String) {
         indicatorView.stopAnimating()
-        
+        tableView.isHidden = true
+        needToReload = true
         let title = "Error"
-        
         self.alert(title: title, message: reason)
     }
 }

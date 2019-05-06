@@ -15,8 +15,10 @@ class FacebookSettings : Settings {
     
     init() {
         let pagesId = UserDefaults.standard.array(forKey: "facebookPages") as? [Int]
-        pages = pagesId!.map{FacebookPage(id: $0)}
-        initial = pages
+        if (pagesId != nil) {
+            pages = pagesId!.map{FacebookPage(id: $0)}
+            initial = pages
+        }
     }
     
     func save() {
@@ -29,6 +31,10 @@ class FacebookSettings : Settings {
     }
     
     func hasChanged() -> Bool {
+        if (initial == nil){            
+            return pages != nil && pages!.count != 0
+        }
+        
         return !(initial! as! [FacebookPage]).containsSameElements(as: (pages! as! [FacebookPage]))
     }
     
@@ -37,10 +43,12 @@ class FacebookSettings : Settings {
         if (pages == nil) {
             pages = [Page]()
         }
-        pages?.append(page)
+        if (!pages!.contains{$0.id == page.id}) {
+            pages!.append(page)
+        }
     }
     
-    func removePage(at index: Int) {
-        pages?.remove(at: index)
+    func removePage(by id: Int) {
+        pages = pages?.filter {$0.id != id}
     }
 }
