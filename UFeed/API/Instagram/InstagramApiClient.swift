@@ -61,7 +61,7 @@ class InstagramApiClient: ApiClient {
     
     func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
         
-        if(settings.pages!.count == 0) {
+        if(!settings.isInitialized()) {
             return completion(Result.success(PagedResponse(social: .instagram, objects: [])))
         }
         

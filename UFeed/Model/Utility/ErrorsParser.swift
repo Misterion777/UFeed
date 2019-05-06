@@ -7,3 +7,17 @@
 //
 
 import Foundation
+
+
+class ErrorsParser {
+    static func parse (error : Error ) -> String{
+        
+        if ("\(error)".contains("Page Public Content Access")){
+            return "You don't have Page Public Content Access feature activated!"
+        }
+        else if ("\(error)".contains("Too many IDs")){
+            return "Too many pages! Maximum: 50."
+        }
+        return "\(error)"
+    }
+}

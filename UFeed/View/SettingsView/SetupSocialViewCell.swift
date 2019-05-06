@@ -11,32 +11,27 @@ import UIKit
 
 class SetupSocialViewCell : UITableViewCell {
     
-    var currentSocial : Social?    
+    var buttonTitle : String?
     
-    var loginSuccess : (()->Void)?
+    var onButtonClick : (()->Void)?
     var beforeLogIn : (()->Void)?
-    func configure(with social: Social?) {
+    func configure(with title: String) {
         
-        self.currentSocial = social
+        self.buttonTitle = title
         subviewFields()
         
     }
     
-    @objc func logIn() {
-        SocialManager.shared.getDelegate(forSocial: currentSocial!).authorize(onSuccess: success)
-    }
-    
-    func success() {
-        SocialManager.shared.updateClients()
-        self.loginSuccess!()
+    @objc func click() {
+        onButtonClick!()
     }
     
     func subviewFields() {
         
         let button = UIButton(type: .custom)
         
-        button.setTitle("Set up your \(currentSocial!.description)", for: .normal)
-        button.addTarget(self, action: #selector(logIn), for: .touchUpInside)
+        button.setTitle(buttonTitle!, for: .normal)
+        button.addTarget(self, action: #selector(click), for: .touchUpInside)
         
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .lightGray

@@ -103,7 +103,7 @@ class FacebookApiClient: ApiClient {
     
     func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
         
-        if(settings.pages!.count == 0) {
+        if(!settings.isInitialized()) {
             return completion(Result.success(PagedResponse(social: .facebook, objects: [])))
         }
         let ids = settings.pages!.map{String($0.id)}.joined(separator: ",")
@@ -153,7 +153,7 @@ class FacebookApiClient: ApiClient {
             case .failed(let error):
                 
                 print(error)
-                completion(Result.failure(DataResponseError.network(message: "Error occured while loading facebook posts: \(error)")))            }
+                completion(Result.failure(DataResponseError.network(message: "Error occured while loading facebook posts: \(ErrorsParser.parse(error: error))")))            }
         }
         connection.start()
     }

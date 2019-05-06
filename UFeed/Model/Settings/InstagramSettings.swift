@@ -13,12 +13,9 @@ class InstagramSettings : Settings {
     var pages: [Page]?    
     
     init() {
-        initial = [Page]()
         if let data = UserDefaults.standard.object(forKey: "instagramPages") as? Data {
             let decoder = JSONDecoder()
-            pages = try? decoder.decode([InstagramPage].self, from: data)
-            
-            
+            pages = try? decoder.decode([InstagramPage].self, from: data)                        
             initial = pages
         }
     }
@@ -32,12 +29,12 @@ class InstagramSettings : Settings {
     }
     
     func isInitialized() -> Bool {
-        return pages != nil
+        return pages != nil && pages!.count != 0
     }
     
     func hasChanged() -> Bool {
         if (initial == nil) {
-            return pages != nil
+            return isInitialized()
         }
         
         return !(initial! as! [InstagramPage]).containsSameElements(as: (pages! as! [InstagramPage]))
@@ -50,9 +47,7 @@ class InstagramSettings : Settings {
         pages!.append(page)
     }
     
-    func removePage(at index: Int) {
-        
-        pages?.remove(at: index)
+    func removePage(by id: Int) {
+        pages = pages?.filter {$0.id != id}
     }
-    
 }
