@@ -14,7 +14,6 @@ class FacebookApiClient: ApiClient {
     
 //    let connection = GraphRequestConnection()
     let settings = SettingsManager.shared.getSettings(for: .facebook)
-    
 //    var pages
     
     var posts = [Post]()
@@ -129,8 +128,7 @@ class FacebookApiClient: ApiClient {
                             if let feedData = feed["data"] as? [[String: Any]] {
                                 var pagePosts = FacebookPost.from(feedData as NSArray)!
                                 pagePosts = pagePosts.map {
-                                    $0.ownerName = currentPage!.name
-                                    $0.ownerPhoto = currentPage!.photo
+                                    $0.ownerPage = currentPage                                    
                                     return $0
                                 }
                                 let minDate = pagePosts.min{a, b in a.date! < b.date!}!.date!

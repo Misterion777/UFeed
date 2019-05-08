@@ -8,13 +8,37 @@
 
 import Foundation
 
-protocol Settings {
+protocol Reloadable {
+    func settingsDidSaved()
+}
+
+class Settings {
     //CHANGE TO SET
-    var pages : [Page]? {get set}
- 
-    func save()
-    func isInitialized() -> Bool    
-    func hasChanged() -> Bool
-    func appendPage(page: Page)
-    func removePage(by id:Int)
+    var pages : [Page]?
+    var initial : [Page]?
+    var reloadable : Reloadable?
+    
+    func save() {
+        reloadable!.settingsDidSaved()
+    }
+    
+    func isInitialized() -> Bool {
+        return pages != nil
+    }
+    
+    func hasChanged() -> Bool {
+        return false
+    }
+    
+    func appendPage(page: Page) {
+        if (pages == nil) {
+            pages = [Page]()
+        }
+        if (!pages!.contains{$0.id == page.id}) {
+            pages!.append(page)
+        }
+    }
+    func removePage(by id:Int) {
+        pages = pages?.filter {$0.id != id}
+    }
 }

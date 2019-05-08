@@ -28,13 +28,19 @@ extension UIApplication {
 }
 
 protocol Alertable {
-    func alert(title: String, message: String)
+    func alert(title: String, message: String, ok: ((UIAlertAction) -> Void)?, cancel:((UIAlertAction) -> Void)?)
 }
 
 extension UIViewController : Alertable {
-    func alert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    func alert(title: String, message: String, ok: ((UIAlertAction) -> Void)? = nil, cancel:((UIAlertAction) -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)        
+        if (cancel != nil) {
+            alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: ok))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: cancel))
+        }
+        else {
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: ok))
+        }
         self.present(alert, animated: true, completion: nil)
     }    
 }
@@ -68,6 +74,7 @@ extension UIView {
         if let bottom = bottom {
             bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom-bottomInset).isActive = true
         }
+        
         if height != 0 {
             heightAnchor.constraint(equalToConstant: height).isActive = true
         }
@@ -77,6 +84,24 @@ extension UIView {
         
     }
     
+}
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(rgb: Int) {
+        self.init(
+            red: (rgb >> 16) & 0xFF,
+            green: (rgb >> 8) & 0xFF,
+            blue: rgb & 0xFF
+        )
+    }
 }
 
 extension CALayer {

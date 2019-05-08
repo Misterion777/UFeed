@@ -26,8 +26,8 @@ class VKAttachmentFactory :AttachmentFactory {
             return VKLinkAttachment.from(attach)
         case "doc":
             return VKFileAttachment.from(attach)
-//        case  "video":
-//            return 1
+        case  "video":
+            return VKVideoAttachment.from(attach)
         default:
             print("\(type) parsing is not implemented!")
             return nil

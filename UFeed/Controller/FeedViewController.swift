@@ -22,15 +22,22 @@ class FeedViewController:UIViewController {
         tableView.dataSource = self
         tableView.prefetchDataSource = self
         tableView.delegate = self
-        
         tableView.isHidden = true
+        tableView.backgroundColor = UIColor(rgb: 0xECECEC)
+        tableView.separatorStyle = .none
         
         indicatorView.color = .green
         indicatorView.startAnimating()
         
         viewModel = PostsViewModel(delegate: self)
         isFetching = true
-        viewModel.fetchPosts()        
+        viewModel.fetchPosts()
+    }
+}
+
+extension FeedViewController : Reloadable {
+    func settingsDidSaved() {
+        self.needToReload = true
     }
 }
 
@@ -41,19 +48,8 @@ extension FeedViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if (!isFetching && viewModel.currentCount != 0 && viewModel.currentCount / 2 <= indexPath.row) {
-//            isFetching = true
-//            viewModel.fetchPosts()
-//        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostTableViewCell
-//        cell.layer.borderColor = UIColor.white.cgColor
-//        cell.layer.borderWidth = 5
-//        cell.layer.addBorder(edge: .top, color: .white, thickness: 10)
-        
-//        cell.layer.addBorder(edge: .bottom, color: .white, thickness: 10)
-//        cell.layoutIfNeeded()
-        
         
         if isLoadingCell(for: indexPath) {
             cell.configure(with: .none)
@@ -94,8 +90,7 @@ extension FeedViewController: PostsViewModelDelegate {
         indicatorView.stopAnimating()
         tableView.isHidden = false
         tableView.reloadData()
-        self.isFetching = false
-        
+        isFetching = false
         needToReload = viewModel.currentCount == 0
 //
 //        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathToReload!)
@@ -127,7 +122,8 @@ extension FeedViewController: PostsViewModelDelegate {
 
 extension FeedViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: isLoadingCell) {
+        if (indexPaths.contains(where: isLoadingCell) && !isFetching){
+            isFetching = true
             viewModel.fetchPosts()
         }
     }

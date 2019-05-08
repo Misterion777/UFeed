@@ -55,6 +55,10 @@
 		098FBA9C227B5BD600F2E737 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098FBA9B227B5BD600F2E737 /* SearchHeaderView.swift */; };
 		09907C25227F755200750D62 /* MarkAllHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C24227F755200750D62 /* MarkAllHeaderView.swift */; };
 		09907C27227F98E100750D62 /* ErrorsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C26227F98E100750D62 /* ErrorsParser.swift */; };
+		09907C29228036FC00750D62 /* TwitterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C28228036FC00750D62 /* TwitterPage.swift */; };
+		09907C2D22803F7400750D62 /* VKPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C2C22803F7400750D62 /* VKPage.swift */; };
+		09907C2F22805A6500750D62 /* TwitterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C2E22805A6500750D62 /* TwitterSettings.swift */; };
+		09907C3122805AA600750D62 /* VkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C3022805AA600750D62 /* VkSettings.swift */; };
 		099506DD227CB33D00E99F6E /* InstagramPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099506DC227CB33D00E99F6E /* InstagramPost.swift */; };
 		099506DF227CCBA900E99F6E /* InstagramAttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099506DE227CCBA900E99F6E /* InstagramAttachmentFactory.swift */; };
 		09B3131C226C73E4004E23F2 /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B31317226C73BD004E23F2 /* SwifteriOS.framework */; };
@@ -147,6 +151,10 @@
 		098FBA9B227B5BD600F2E737 /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
 		09907C24227F755200750D62 /* MarkAllHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkAllHeaderView.swift; sourceTree = "<group>"; };
 		09907C26227F98E100750D62 /* ErrorsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorsParser.swift; sourceTree = "<group>"; };
+		09907C28228036FC00750D62 /* TwitterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterPage.swift; sourceTree = "<group>"; };
+		09907C2C22803F7400750D62 /* VKPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPage.swift; sourceTree = "<group>"; };
+		09907C2E22805A6500750D62 /* TwitterSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettings.swift; sourceTree = "<group>"; };
+		09907C3022805AA600750D62 /* VkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkSettings.swift; sourceTree = "<group>"; };
 		099506DC227CB33D00E99F6E /* InstagramPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramPost.swift; sourceTree = "<group>"; };
 		099506DE227CCBA900E99F6E /* InstagramAttachmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramAttachmentFactory.swift; sourceTree = "<group>"; };
 		09B31313226C7386004E23F2 /* SwifteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwifteriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,6 +267,7 @@
 			children = (
 				094F947E22524011008A1B47 /* Attachments */,
 				094F947D22524011008A1B47 /* VKPost.swift */,
+				09907C2C22803F7400750D62 /* VKPage.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -327,6 +336,8 @@
 				098FBA822278421200F2E737 /* FacebookSettings.swift */,
 				098FBA8522784DBD00F2E737 /* SettingsManager.swift */,
 				098FBA99227B2B4200F2E737 /* InstagramSettings.swift */,
+				09907C2E22805A6500750D62 /* TwitterSettings.swift */,
+				09907C3022805AA600750D62 /* VkSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -385,6 +396,7 @@
 			children = (
 				09B31327226DB947004E23F2 /* Attachments */,
 				09B31325226C9A4A004E23F2 /* TwitterPost.swift */,
+				09907C28228036FC00750D62 /* TwitterPage.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -661,12 +673,14 @@
 				0951D3162277AE44004E8F91 /* Settings.swift in Sources */,
 				099506DF227CCBA900E99F6E /* InstagramAttachmentFactory.swift in Sources */,
 				84CB46112243A04500CD4445 /* FeedViewController.swift in Sources */,
+				09907C2D22803F7400750D62 /* VKPage.swift in Sources */,
 				098FBA8D227AD80D00F2E737 /* InstagramApiClient.swift in Sources */,
 				09B3132D226DE8CE004E23F2 /* ApiClientManager.swift in Sources */,
 				09B31321226C751C004E23F2 /* TwitterDelegate.swift in Sources */,
 				84A140762250D11D0063C31F /* SignInCollectionViewCell.swift in Sources */,
 				0939372B22738C0E00394769 /* TwitterSettingsViewController.swift in Sources */,
 				0903E30022773221000C9A5B /* FacebookPost.swift in Sources */,
+				09907C3122805AA600750D62 /* VkSettings.swift in Sources */,
 				09B3133E22737A96004E23F2 /* GeneralSettingsViewController.swift in Sources */,
 				094F948D22524011008A1B47 /* VKApiClient.swift in Sources */,
 				094F948A22524011008A1B47 /* VKAttachments.swift in Sources */,
@@ -683,6 +697,7 @@
 				0939372D22738C1B00394769 /* FacebookSettingsViewController.swift in Sources */,
 				09B3133B227379BC004E23F2 /* SettingsNavigationViewController.swift in Sources */,
 				094F948822524011008A1B47 /* VKPostMapper.swift in Sources */,
+				09907C29228036FC00750D62 /* TwitterPage.swift in Sources */,
 				09B31329226DB9B3004E23F2 /* TwitterAttachmentFactory.swift in Sources */,
 				09907C25227F755200750D62 /* MarkAllHeaderView.swift in Sources */,
 				098FBA92227AE26300F2E737 /* InstagramPage.swift in Sources */,
@@ -707,6 +722,7 @@
 				0903E2F422771110000C9A5B /* Page.swift in Sources */,
 				09B31326226C9A4A004E23F2 /* TwitterPost.swift in Sources */,
 				0903E2F72277119F000C9A5B /* FacebookPage.swift in Sources */,
+				09907C2F22805A6500750D62 /* TwitterSettings.swift in Sources */,
 				098FBA882278E55900F2E737 /* FacebookAttachmentFactory.swift in Sources */,
 				094F948922524011008A1B47 /* VKPost.swift in Sources */,
 				09393731227392EA00394769 /* SettingsViewController.swift in Sources */,
@@ -894,6 +910,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				"MTL_ENABLE_DEBUG_INFO[arch=*]" = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darya-eli.UFeed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

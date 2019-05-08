@@ -57,7 +57,12 @@ final class PostsViewModel {
                                         
 //                    self.posts.append(contentsOf: responses.flatMap {$0.objects} )
                     for responce in responses {
-                        self.posts.append(contentsOf: responce.objects)
+                        let filtered = responce.objects.filter {
+                            let element = $0
+                            return !self.posts.contains{$0.id == element.id}
+                        }
+                        
+                        self.posts.append(contentsOf: filtered)
                         self.next[responce.social] = responce.next
                     }
                         

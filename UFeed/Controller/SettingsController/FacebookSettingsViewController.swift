@@ -9,69 +9,41 @@
 import UIKit
 
 class FacebookSettingsViewController: SettingsViewController {
-
-    enum SectionHeader: String, CaseIterable {
-        case currentAccount = "Your account"
-        case pages = "Pages that will be in your feed"
-    }
     
-    struct Section {
-        var header : SectionHeader
-        var objects : [Any]?
-        var cellId : String
-    }
     
-    var sections = [Section]()
-    
-    let sectionHeaderHeight: CGFloat = 25
-    
-    @IBOutlet weak var pagesTableView: UITableView!
-    let cellId = "fbCellId"
-    let buttonId = "buttonCellId"
     let headerMarkId = "headerMarkId"
     
-    var apiClient : FacebookApiClient?
-    var pages : [FacebookPage]?
+//    var pages : [FacebookPage]?
     var headerSelected = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Facebook"
+        currentSocial = .facebook
+                
+        tableView.register(MarkAllHeaderView.self, forHeaderFooterViewReuseIdentifier: headerMarkId)
+        tableView.dataSource = self
+        tableView.delegate = self
         
-        pagesTableView.estimatedRowHeight = 44
-        pagesTableView.rowHeight = UITableView.automaticDimension
-        pagesTableView.register(PageTableViewCell.self, forCellReuseIdentifier: cellId)
-        pagesTableView.register(SetupSocialViewCell.self, forCellReuseIdentifier: buttonId)
-        pagesTableView.register(MarkAllHeaderView.self, forHeaderFooterViewReuseIdentifier: headerMarkId)
         
-        pagesTableView.dataSource = self
-        pagesTableView.delegate = self
-        self.settings = SettingsManager.shared.getSettings(for: .facebook)
+        self.settings = SettingsManager.shared.getSettings(for: .facebook)        
         setupView()
     }
     
-    private func setupView() {
-        if (SocialManager.shared.isAuthorized(forSocial: .facebook)) {
-            apiClient = SocialManager.shared.getApiClient(forSocial: .facebook) as? FacebookApiClient
-            apiClient!.fetchOwnerPage(completion: updateCurrentPage)
-        } else {
-            sections.append(Section(header: .currentAccount, objects: nil, cellId: buttonId))
-            pagesTableView.reloadData()
-        }
-    }
-    
-    private func updateCurrentPage(result: Result<Page, DataResponseError>) {
+    override func fetchOwnerPageDidCompleted(result: Result<Page, DataResponseError>) {
         switch result {
         case .success(let response):
-            sections.append(Section(header: .currentAccount, objects: [response], cellId: cellId))
-            if (settings!.isInitialized()) {
-                sections.append(Section(header: .pages, objects: nil, cellId: cellId))
-                apiClient!.fetchPages(next: nil, completion: updatePages)
-            }
-            else {
-                sections.append(Section(header: .pages, objects: nil, cellId: buttonId))
-                self.pagesTableView.reloadData()
-            }
+            sections.append(Section(header: .currentAccount, objects: [response], cellId: pageCellId))
+            sections.append(Section(header: .pages, objects: nil, cellId: pageCellId))
+            apiClient!.fetchPages(next: nil, completion: updatePages)
+//            if (settings!.isInitialized()) {
+//                sections.append(Section(header: .pages, objects: nil, cellId: pageCellId))
+//                apiClient!.fetchPages(next: nil, completion: updatePages)
+//            }
+//            else {
+//                sections.append(Section(header: .pages, objects: nil, cellId: buttonCellId))
+//                self.tableView.reloadData()
+//            }
         case .failure(let error ):
             self.alert(title: "Eror", message: error.errorDescription!)
         }
@@ -81,9 +53,9 @@ class FacebookSettingsViewController: SettingsViewController {
     private func updatePages(result: Result<PagedResponse<Page>, DataResponseError>) {
         switch result {
         case .success(let response):
-            pages = response.objects as? [FacebookPage]
+            let pages = response.objects as? [FacebookPage]
             sections[1].objects = pages
-            sections[1].cellId = cellId
+            sections[1].cellId = pageCellId
             if (!self.settings!.isInitialized()){
                 self.settings!.pages = pages!
             }
@@ -96,7 +68,7 @@ class FacebookSettingsViewController: SettingsViewController {
             if (settings!.hasChanged()) {
                 self.settings!.save()
             }            
-            self.pagesTableView.reloadData()
+            reloadData()
         case .failure(let error):
             self.alert(title: "Eror", message: error.errorDescription!)
         }
@@ -108,7 +80,7 @@ class FacebookSettingsViewController: SettingsViewController {
 extension FacebookSettingsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return sectionHeaderHeight
+        return 30
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -134,7 +106,7 @@ extension FacebookSettingsViewController : UITableViewDataSource {
                 headerSelected = true
             }
             toggleSaveButton()
-            pagesTableView.reloadData()
+            tableView.reloadData()
         }        
     }
     
@@ -153,14 +125,6 @@ extension FacebookSettingsViewController : UITableViewDataSource {
         return sections[section].objects!.count
     }
     
-    
-     private func onSetupButtonClicked () {
-        SocialManager.shared.getDelegate(forSocial: .facebook).authorize(onSuccess: {
-            SocialManager.shared.updateClients()
-            self.setupView()
-        })
-    }
-    
     private func onLoadLikes () {
         (SocialManager.shared.getDelegate(forSocial: .facebook) as! FacebookDelegate).getUserLikesPermissions {
             self.apiClient!.fetchPages(next: nil, completion: self.updatePages)
@@ -173,13 +137,13 @@ extension FacebookSettingsViewController : UITableViewDataSource {
         if (sections[indexPath.section].header == .currentAccount) {
             if let cell = cell as? SetupSocialViewCell {
                 cell.configure(with: "Setup your Facebook!")
-                cell.onButtonClick = onSetupButtonClicked
+                cell.onButtonClick = setupButtonClicked
                 return cell
             }
             else {
                 let cell = cell as! PageTableViewCell
-                let page = sections[indexPath.section].objects![0] as? Page
-                cell.configure(with: page)
+                let page = sections[indexPath.section].objects![0] as! Page
+                cell.configure(with: page, mainPageLogout: logout)
             }
         }
         else {
@@ -197,10 +161,10 @@ extension FacebookSettingsViewController : UITableViewDataSource {
                 cell.configure(with: page)
                 
                 if (self.settings!.pages!.contains{$0.id == page.id}) {
-                    cell.accessoryType = .checkmark // ДЕФОЛТНЫЕ СИНИЕ ГАЛОЧКИ ОТСТОЙ!!!!
+                    cell.toggle(check: true)
                 }
                 else {
-                    cell.accessoryType = .none
+                    cell.toggle(check: false)
                 }
             }
             
@@ -217,14 +181,13 @@ extension FacebookSettingsViewController : UITableViewDelegate {
             return
         }
         if let cell = tableView.cellForRow(at: indexPath) as? PageTableViewCell {
-            if (cell.accessoryType == .checkmark) {
-                cell.accessoryType = .none
-                self.settings!.removePage(by: cell.page!.id)                
+            if cell.checked {
+                self.settings!.removePage(by: cell.page!.id)
             }
             else {
-                cell.accessoryType = .checkmark
-                self.settings!.appendPage(page: cell.page!)                
+                self.settings!.appendPage(page: cell.page!)
             }
+            cell.toggle()
             self.toggleSaveButton()
         }
     }

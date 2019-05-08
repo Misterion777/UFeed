@@ -13,10 +13,9 @@ import Mapper
 class VKPost : Post {
     
     var id: Int
-    var ownerId: Int
     
-    var ownerPhoto: PhotoAttachment?
-    var ownerName: String?
+    
+    var ownerPage: Page?
     
     var commentsCount: Int
     var likesCount: Int
@@ -30,19 +29,40 @@ class VKPost : Post {
     required init(map: Mapper) throws {            
         
         try id = map.from("post_id")
-        try ownerId = map.from("source_id")
+        let ownerId : Int = try map.from("source_id")
+        ownerPage = VKPage(id: ownerId)
         
         try commentsCount = map.from("comments.count")
         try likesCount = map.from("likes.count")
         try repostsCount = map.from("reposts.count")
-        try type = map.from("type")
+        type = "vk"
         try date = map.from("date", transformation: extractDate)
         text = map.optionalFrom("text")
+        let copyHistory = map.optionalFrom("copy_history", transformation: extractHistoryAttachments)
         attachments = map.optionalFrom("attachments", transformation: extractAttachments)
-        
+        if (copyHistory != nil) {
+            if (attachments == nil) {
+                attachments = copyHistory!
+            }
+            else {
+                attachments!.append(contentsOf: copyHistory!)
+            }
+            
+        }        
 //        VKApiWorker.getPageInfo(pageId: ownerId, onResponse: setOwnerInfo)
     }
 
+    private func extractHistoryAttachments(object: Any?) throws -> [Attachment?]? {
+        guard let historyJson = object as? [[String:Any]] else {
+            throw MapperError.convertibleError(value: object, type: String.self)
+        }
+        var attachments = [Attachment?]()
+        for history in historyJson {
+            attachments.append(contentsOf: try extractAttachments(object: history["attachments"])!)
+        }
+        return attachments
+    }
+    
     
     private func extractAttachments(object: Any?) throws -> [Attachment?]? {
         guard let attachmentsJson = object as? [[String:Any]] else {

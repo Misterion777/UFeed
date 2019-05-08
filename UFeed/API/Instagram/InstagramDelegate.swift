@@ -19,7 +19,7 @@ class InstagramDelegate: SocialDelegate {
     var viewController: UIViewController?
     
     private var page : Page?
-    var instagramPageId : String? = UserDefaults.standard.string(forKey: userDefaultsKey)
+    var userId : String? = UserDefaults.standard.string(forKey: userDefaultsKey)
     private lazy var facebookDelegate = SocialManager.shared.getDelegate(forSocial: .facebook) as! FacebookDelegate
     private let readPermissions : [ReadPermission] = [ .pagesShowList, .custom("instagram_basic"), .custom("instagram_manage_insights") ]
     private let publishPermissions : [PublishPermission] = [ .managePages]
@@ -67,8 +67,8 @@ class InstagramDelegate: SocialDelegate {
                                     
                                     self.page = InstagramPage.from(instagramAccount as NSDictionary)
                                     
-                                    self.instagramPageId = instagramAccount["id"] as? String
-                                    UserDefaults.standard.set(self.instagramPageId!, forKey: userDefaultsKey)
+                                    self.userId = instagramAccount["id"] as? String
+                                    UserDefaults.standard.set(self.userId!, forKey: userDefaultsKey)
                                     return onSuccess()
                                 }
                             }
@@ -83,42 +83,22 @@ class InstagramDelegate: SocialDelegate {
         }
     }
     
-    func getPage(success: @escaping (Page) -> Void ) {
-        
-        if (self.page != nil) {
-          success(self.page!)
-        }
-        getCurrentPage(success: success)
-    }
-    
-    private func getCurrentPage (success: @escaping (Page) -> Void) {
-        
-        let connection = GraphRequestConnection()
-        let parameters = ["fields" : "name,username,profile_picture_url"]
-     
-        connection.add(GraphRequest(graphPath: "\(instagramPageId!)", parameters: parameters)) { httpResponse, result in
-            switch result {
-            case .success(let response):
-                if let dictionary = response.dictionaryValue{
-                    self.page = InstagramPage.from(dictionary as NSDictionary)
-                    success(self.page!)
-                }
-            case .failed(let err):
-                self.viewController?.alert(title: "Instagram error", message: "Authorization error: \(err)")
-            }
-        }
-        
-        connection.start()
-    }
+//    func getPage(success: @escaping (Page) -> Void ) {
+//        
+//        if (self.page != nil) {
+//          success(self.page!)
+//        }
+//        getCurrentPage(success: success)
+//    }        
     
     func logOut() {
-        self.instagramPageId = nil
+        self.userId = nil
         UserDefaults.standard.removeObject(forKey: userDefaultsKey)
     }
     
     func isAuthorized() -> Bool {
         //facebookDelegate.isAuthorized() && 
-        return instagramPageId != nil
+        return userId != nil
     }
     
 }

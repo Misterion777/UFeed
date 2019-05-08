@@ -11,9 +11,6 @@ import VK_ios_sdk
 //
 class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate, SocialDelegate {
     
-    
-    
-    
     private let SCOPE = ["friends", "wall"]
     private let VK_APP_ID = "6908309"
     //https://vk.com/dev/versions
@@ -21,6 +18,8 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate, SocialDelegate {
     
     var viewController: UIViewController?
     var onAuthorizeSuccess : (()->Void)?
+    var userId: String? 
+    
     
     override init() {
         super.init()

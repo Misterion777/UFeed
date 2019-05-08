@@ -17,6 +17,8 @@ class SettingsManager {
     private init(){
         socialSettings[.facebook] = FacebookSettings()
         socialSettings[.instagram] = InstagramSettings()
+        socialSettings[.twitter] = TwitterSettings()
+        socialSettings[.vk] = VkSettings()
     }
     
     func getSettings(for social: Social) ->Settings {
@@ -25,6 +27,12 @@ class SettingsManager {
     
     func save(for social: Social) {
         socialSettings[social]!.save()
+    }
+    
+    func setReloadable(reloadable : Reloadable ) {
+        for (_,v) in socialSettings{
+            v.reloadable = reloadable
+        }
     }
     
 //    func getSavedPagesId(for social: Social) -> [Int]?{

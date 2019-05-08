@@ -9,11 +9,9 @@
 import Foundation
 
 class FacebookSettings : Settings {
-            
-    private var initial : [Page]?
-    var pages: [Page]?
     
-    init() {
+    override init() {
+        super.init()
         let pagesId = UserDefaults.standard.array(forKey: "facebookPages") as? [Int]
         if (pagesId != nil) {
             pages = pagesId!.map{FacebookPage(id: $0)}
@@ -21,34 +19,18 @@ class FacebookSettings : Settings {
         }
     }
     
-    func save() {
+    override func save() {
+        super.save()
         UserDefaults.standard.set(pages!.map{$0.id}, forKey: "facebookPages")
         initial = pages
     }
     
-    func isInitialized() -> Bool {
-        return pages != nil
-    }
     
-    func hasChanged() -> Bool {
+    override func hasChanged() -> Bool {
         if (initial == nil){            
             return pages != nil && pages!.count != 0
         }
         
         return !(initial! as! [FacebookPage]).containsSameElements(as: (pages! as! [FacebookPage]))
-    }
-    
-    
-    func appendPage(page: Page) {
-        if (pages == nil) {
-            pages = [Page]()
-        }
-        if (!pages!.contains{$0.id == page.id}) {
-            pages!.append(page)
-        }
-    }
-    
-    func removePage(by id: Int) {
-        pages = pages?.filter {$0.id != id}
     }
 }

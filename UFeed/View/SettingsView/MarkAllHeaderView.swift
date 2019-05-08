@@ -13,8 +13,8 @@ class MarkAllHeaderView : UITableViewHeaderFooterView {
     
     lazy var markButton: UIButton = {
         let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "checkmark"), for: .normal)
-        button.setImage(#imageLiteral(resourceName: "checkmarkEmpty"), for: .selected)
+        button.setImage(#imageLiteral(resourceName: "epty"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "icons8-check-all-50"), for: .selected)
         return button
     }()
     
@@ -43,9 +43,9 @@ class MarkAllHeaderView : UITableViewHeaderFooterView {
     func subviewFields() {
         
         addSubview(label)
-        label.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 20, enableInsets: false)
+        label.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
         addSubview(markButton)
-        markButton.anchor(top: topAnchor, left: label.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 20, paddingBottom: 0, paddingRight: 15, width: 30, height: 30, enableInsets: false)
+        markButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 15, width: 30, height: 30, enableInsets: false)
     }
 }

@@ -13,11 +13,7 @@ class FacebookPost : Post {
     
     var id: Int
     
-    var ownerId: Int
-    
-    var ownerPhoto: PhotoAttachment?
-    
-    var ownerName: String?
+    var ownerPage: Page?
     
     var commentsCount: Int
     
@@ -38,8 +34,7 @@ class FacebookPost : Post {
         
         let joinedId : String = try map.from("id")
         let splitted = joinedId.components(separatedBy: "_")
-        id = Int(splitted[1])!
-        ownerId = Int(splitted[0])!
+        id = Int(splitted[1])!        
         
         let shares : Int? = map.optionalFrom("shares.count")
         repostsCount = shares != nil ? shares! : 0

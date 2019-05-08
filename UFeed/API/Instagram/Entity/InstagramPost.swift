@@ -13,14 +13,9 @@ import Mapper
 class InstagramPost : Post {
     var id: Int
     
-    var ownerId: Int
+    var ownerPage: Page?
     
-    var ownerPhoto: PhotoAttachment?
-    
-    var ownerName: String?
-    
-    var commentsCount: Int
-    
+    var commentsCount: Int    
     var likesCount: Int
     
     var repostsCount: Int
@@ -38,8 +33,7 @@ class InstagramPost : Post {
         type = "instagram"
         
         let stringId : String = try map.from("id")
-        id = Int(stringId)!
-        ownerId = 0
+        id = Int(stringId)!        
         
         repostsCount = 0
         commentsCount = try map.from("comments_count")

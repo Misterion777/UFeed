@@ -65,8 +65,6 @@ extension InstagramPage : Comparable {
     static func == (lhs: InstagramPage, rhs: InstagramPage) -> Bool {
         return lhs.id == rhs.id
     }
-    
-    
 }
 
 extension InstagramPage : Encodable {

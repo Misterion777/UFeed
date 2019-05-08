@@ -11,6 +11,8 @@ import FacebookCore
 
 class InstagramApiClient: ApiClient {
     
+    
+    
     var parameters = [String : Any]()
     
     var nextFrom: String?
@@ -58,6 +60,24 @@ class InstagramApiClient: ApiClient {
         onFecthPostsCompleted!(Result.success(PagedResponse(social: .instagram, objects: leftSplit)))
     }
     
+    func fetchOwnerPage(completion: @escaping (Result<Page, DataResponseError>) -> Void) {
+        let connection = GraphRequestConnection()
+        let parameters = ["fields" : "name,username,profile_picture_url"]
+        
+        connection.add(GraphRequest(graphPath: "\(instagramDelegate!.userId!)", parameters: parameters)) { httpResponse, result in
+            switch result {
+            case .success(let response):
+                if let dictionary = response.dictionaryValue{
+                    let page = InstagramPage.from(dictionary as NSDictionary)!
+                    completion(Result.success(page as Page))
+                }
+            case .failed(let err):
+                completion(Result.failure(DataResponseError.network(message: "\(err)")))
+            }
+        }
+        
+        connection.start()
+    }
     
     func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
         
@@ -77,7 +97,7 @@ class InstagramApiClient: ApiClient {
         
         for page in (settings.pages! as! [InstagramPage]) {
             let parameters = ["fields" : "business_discovery.username(\(page.link)){media.limit(\(self.parameters["count"] as! Int))" + (page.nextFrom != nil ? ".after(\(page.nextFrom!))" : "") + "{caption,comments_count,like_count,media_type,media_url,timestamp,children{media_url} }}"]
-            connection.add(GraphRequest(graphPath: "\(instagramDelegate!.instagramPageId!)",parameters: parameters)) { httpResponse, result in
+            connection.add(GraphRequest(graphPath: "\(instagramDelegate!.userId!)",parameters: parameters)) { httpResponse, result in
                 
                 switch result {
                 case .success(let response):
@@ -95,9 +115,7 @@ class InstagramApiClient: ApiClient {
                                 
                                 var newPosts = InstagramPost.from(data as NSArray)!
                                 newPosts = newPosts.map {
-                                    $0.ownerId = page.id
-                                    $0.ownerName = page.name
-                                    $0.ownerPhoto = page.photo
+                                    $0.ownerPage = page
                                     return $0
                                 }
                                 self.posts.append(contentsOf: newPosts)
@@ -130,7 +148,7 @@ class InstagramApiClient: ApiClient {
         
         let connection = GraphRequestConnection()
     
-        let pageId = String(instagramDelegate!.instagramPageId!)
+        let pageId = String(instagramDelegate!.userId!)
         
         connection.add(GraphRequest(graphPath: pageId, parameters: parameters)) { httpResponse, result in
             switch result {

@@ -9,30 +9,10 @@
 import UIKit
 
 class InstagramSettingsViewController: SettingsViewController {
-
-    let instagramDelegate = SocialManager.shared.getDelegate(forSocial: .instagram) as! InstagramDelegate
     
-    @IBOutlet weak var tableView: UITableView!
     var pages : [InstagramPage]?
-    enum SectionHeader: String, CaseIterable {
-        case currentAccount = "Your account"
-        case pages = "Pages that will be in your feed"
-    }
-    
-    struct Section {
-        var header : SectionHeader
-        var objects : [Any]?
-        var cellId : String
-    }
-    
-    var sections = [Section]()
-    let pageId = "pageCellId"
-    let buttonId = "buttonCellId"
     let headerId = "headerId"
     
-    
-    
-    var instagramApiClient : InstagramApiClient?
     var foundPage : Page?
     var isLoading = false
     var searchController : UISearchController!
@@ -40,38 +20,28 @@ class InstagramSettingsViewController: SettingsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Instagram"
+        currentSocial = .instagram
         
-        tableView.register(PageTableViewCell.self, forCellReuseIdentifier: pageId)
-        tableView.register(SetupSocialViewCell.self, forCellReuseIdentifier: buttonId)
         tableView.register(SearchHeaderView.self, forHeaderFooterViewReuseIdentifier: headerId)
-        
         tableView.dataSource = self
         tableView.delegate = self
-        self.settings = SettingsManager.shared.getSettings(for: .instagram)
         
+        
+        self.settings = SettingsManager.shared.getSettings(for: .instagram)        
         setupView()
         
     }
-
     
-
-    private func setupView() {
-        if (instagramDelegate.isAuthorized()) {
-            sections.removeAll()
-            instagramApiClient = SocialManager.shared.getApiClient(forSocial: .instagram) as? InstagramApiClient
-            instagramDelegate.getPage(success: pageSuccess)
-        } else {
-            sections.append(Section(header: .currentAccount, objects: nil, cellId: buttonId))
-            self.tableView.reloadData()
+    override func fetchOwnerPageDidCompleted (result : Result<Page, DataResponseError>) {
+        switch result {
+        case .success(let page):
+            sections.append(Section(header: .currentAccount, objects: [page], cellId: pageCellId))
+            sections.append(Section(header: .pages, objects: self.settings!.pages, cellId: pageCellId))
+            reloadData()
+        case .failure(let error):
+            self.alert(title: "Error", message: ErrorsParser.parse(error: error))
         }
-    }
-    
-    private func pageSuccess(page : Page) {
-        sections.append(Section(header: .currentAccount, objects: [page], cellId: pageId))
-        sections.append(Section(header: .pages, objects: self.settings!.pages, cellId: pageId))
-        
         self.tableView.reloadData()
     }
     
@@ -120,38 +90,30 @@ extension InstagramSettingsViewController : UITableViewDataSource {
         return sections[section].objects!.count
     }
     
-    @objc private func onSetupButtonClicked () {
-        SocialManager.shared.getDelegate(forSocial: .instagram).authorize(onSuccess: {
-            SocialManager.shared.updateClients()
-            self.setupView()
-        })
-    }
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: sections[indexPath.section].cellId, for: indexPath)
         
-        if let cell = cell as? SetupSocialViewCell {
-            cell.configure(with: "Setup your Instagram!")
-            cell.onButtonClick = onSetupButtonClicked
-            return cell
+        if (sections[indexPath.section].header == .currentAccount) {
+            if let cell = cell as? SetupSocialViewCell {
+                cell.configure(with: "Setup your Instagram!")
+                cell.onButtonClick = setupButtonClicked
+                return cell
+            }
+            else {
+                let cell = cell as! PageTableViewCell
+                let page = sections[indexPath.section].objects![0] as! Page
+                cell.configure(with: page, mainPageLogout: logout)
+            }
         }
-        
-        if let pages = sections[indexPath.section].objects as? [Page] {
+        else {
             
-            let page = pages[indexPath.row]
+            let pages = sections[indexPath.section].objects as? [Page]
+            
+            let page = pages![indexPath.row]
             
             let cell = cell as! PageTableViewCell
-            cell.configure(with: page)
-//            if let settingsPages = self.settings?.pagesId {
-//                if (settingsPages.contains(page.id)) {
-//                    cell.accessoryType = .checkmark
-//                }
-//                else {
-//                    cell.accessoryType = .none
-//                }
-//            }
+            cell.configure(with: page,needCheckmark: false)
         }
         return cell
     }
@@ -174,10 +136,6 @@ extension InstagramSettingsViewController : UITableViewDelegate {
 
 extension InstagramSettingsViewController : UISearchBarDelegate {
     
-    
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        findResults(for: searchBar.text!)
-//    }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         findResults(for: searchBar.text!)
@@ -200,7 +158,7 @@ extension InstagramSettingsViewController : UISearchBarDelegate {
         
         if (!isLoading) {
             isLoading = true
-            self.instagramApiClient!.fetchPage(by: text) { result in
+            (self.apiClient! as! InstagramApiClient).fetchPage(by: text) { result in
                 switch result{
                 case .success(let response):
                     self.foundPage = response                    
@@ -217,9 +175,5 @@ extension InstagramSettingsViewController : UISearchBarDelegate {
                 self.isLoading = false
             }
         }
-    }
-    //
-    //    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-    //
-    //    }
+    }    
 }

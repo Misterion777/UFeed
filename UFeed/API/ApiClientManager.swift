@@ -40,7 +40,9 @@ class ApiClientManager {
             case .facebook:
                 clients[.facebook] = FacebookApiClient(count: getCount(clientsCount: socials.count))
             case .instagram:
-                clients[.instagram] = InstagramApiClient(count: getCount(clientsCount: socials.count))            
+                clients[.instagram] = InstagramApiClient(count: getCount(clientsCount: socials.count))
+            default:
+                print("lol")
             }
         }
         
@@ -93,10 +95,10 @@ class ApiClientManager {
                 self.responses.append(response)
         }
         threadsCompleted += 1
-        semaphore.signal()
         
         if (threadsCompleted == self.activeClients ) {
             if (self.errors == nil || self.errors?.count == 0) {
+                
                 self.fetchPostsCompletion!(Result.success(responses))
             }
             else {
@@ -104,5 +106,6 @@ class ApiClientManager {
                 self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error: \(error)")))
             }
         }
+        semaphore.signal()
     }
 }

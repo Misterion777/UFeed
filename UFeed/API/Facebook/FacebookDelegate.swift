@@ -10,12 +10,14 @@ import UIKit
 import FacebookCore
 import FacebookLogin
 
+let userIdKey = "fbUserId"
 class FacebookDelegate: SocialDelegate {
     
     let loginManager = LoginManager()
     let readPermissions : [ReadPermission] = [ .publicProfile]
     
-    var viewController: UIViewController?    
+    var viewController: UIViewController?
+    var userId = UserDefaults.standard.string(forKey: userIdKey)
     
     func getUserLikesPermissions (onSuccess: @escaping () -> Void) {
         loginManager.logIn(readPermissions: [.userLikes], viewController: viewController, completion: {result in
@@ -40,6 +42,8 @@ class FacebookDelegate: SocialDelegate {
             case .cancelled:
                 self.viewController?.alert(title: "Facebook Canceled", message: "user cancelled login")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                self.userId = accessToken.userId!
+                UserDefaults.standard.set(self.userId, forKey: userIdKey)
                 onSuccess()
             }
         })
@@ -48,10 +52,12 @@ class FacebookDelegate: SocialDelegate {
     func logOut() {
         loginManager.logOut()
         AccessToken.current = nil
+        userId = nil
+        UserDefaults.standard.removeObject(forKey: userIdKey)
     }
     
     func isAuthorized() -> Bool {        
-        return AccessToken.current != nil
+        return AccessToken.current != nil && userId != nil
     }
     
 

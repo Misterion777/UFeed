@@ -10,7 +10,7 @@ import VK_ios_sdk
 
 class VKApiClient : ApiClient {
     
-    
+    let settings = SettingsManager.shared.getSettings(for: .vk)
     
     var posts = [Post]()
     var latestTime = Date.distantPast
@@ -19,16 +19,6 @@ class VKApiClient : ApiClient {
     var hasMorePosts = true
     
     var fetchPostsCompletion : ((Result<PagedResponse<Post>, DataResponseError>) -> Void)?
-    var ownersInfoFetched = 0 {
-        didSet {
-            print("Owners info changed: \(ownersInfoFetched)")
-            if ownersInfoFetched == posts.count {
-                ownersInfoFetched = 0
-                let responce = PagedResponse(social: .vk, objects: posts, next: nextFrom)
-                fetchPostsCompletion!(Result.success(responce))
-            }
-        }
-    }
     
     init(count: Int) {
         self.parameters = ["filters": "post", "count": count]
@@ -38,14 +28,60 @@ class VKApiClient : ApiClient {
     }
     
     func fetchPages(next: String?, completion: @escaping (Result<PagedResponse<Page>, DataResponseError>) -> Void) {
-        //
-    }
+        let parameters = ["extended": "1", "count" : "200", "fields" : "screen_name,name,photo_50"]
+        let getUser = VKRequest(method: "users.getSubscriptions", parameters: parameters)
+        
+        getUser?.execute(resultBlock: { response in
+            if let jsonResponse = response?.json {
+                if let dictionary = jsonResponse as? [String:Any] {
+                    
+                    if let items = dictionary["items"] as? [[String:Any]]{
+                        let pages = VKPage.from(items as NSArray)!
+                        completion(Result.success(PagedResponse(social: .vk, objects: pages)))
+                    }
+                    
+                }
+            }
+        }, errorBlock: { error in
+            if error != nil {
+                print(error!)
+                self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error occured while loading vk user: \(error!)")))
+            }
+        })
+    }    
     
+    func fetchOwnerPage(completion: @escaping (Result<Page, DataResponseError>) -> Void) {
+        
+        let parameters = ["fields": "photo_50,screen_name"]
+        let getUser = VKRequest(method: "users.get", parameters: parameters)
+        
+        getUser?.execute(resultBlock: { response in
+            if let jsonResponse = response?.json {
+                if let dictionary = jsonResponse as? [[String:Any]] {
+                    let page = VKPage.from(dictionary as NSArray)!
+                    completion(Result.success(page[0]))
+                }
+            }
+        }, errorBlock: { error in
+            if error != nil {
+                print(error!)
+                self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error occured while loading vk user: \(error!)")))
+            }
+        })
+        
+    }
     
     func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
         fetchPostsCompletion = completion
 //        self.nextFrom = nextFrom
 //        fetchNextPosts()
+        if(!settings.isInitialized()) {
+            return completion(Result.success(PagedResponse(social: .facebook, objects: [])))
+        }
+        
+        var earliestDate = Date.distantFuture
+        
+        self.parameters["source_ids"] = settings.pages!.map{"g\($0.id)"}.joined(separator: ",")
         if nextFrom != nil {
             self.parameters["start_from"] = nextFrom
         }
@@ -55,17 +91,41 @@ class VKApiClient : ApiClient {
         getFeed?.execute(resultBlock: { response in
             
             if let jsonResponse = response?.json {
-                if let dictionary = jsonResponse as? [String:Any] {
-                    if let nextFrom = dictionary["next_from"] as? String {
-                        self.nextFrom = nextFrom
+                if let dictionary = jsonResponse as? [String:Any] {                    
+                    
+                    var pages = [Page]()
+                    
+                    
+                    if let groups = dictionary["groups"] as? [[String:Any]]{
+                        pages.append(contentsOf: VKPage.from(groups as NSArray)!)
                     }
+                    if let users = dictionary["profiles"] as? [[String:Any]]{
+                        pages.append(contentsOf: VKPage.from(users as NSArray)!)
+                    }
+                    let next = dictionary["next_from"] as? String
                     
                     if let items = dictionary["items"] as? [[String:Any]]{
-                        self.posts = VKPost.from(items as NSArray)!
+                        print(items[1])
+                        let posts = VKPost.from(items as NSArray)!
                         
-                        for post in self.posts {
-                            self.getOwnerInfo(post: post, onResponse: self.setupPostOwnerInfo)
+                        for post in posts {
+                            let filtered = pages.filter{$0.id == abs(post.ownerPage!.id)}
+                            post.ownerPage = filtered[0]
                         }
+//                        let minDate = posts.min{a, b in a.date! < b.date!}!.date!
+//                        if (minDate < earliestDate ) {
+//                            earliestDate = minDate
+//                        }
+                        completion(Result.success(PagedResponse(social: .vk, objects: posts, next: next)))
+                        
+//                        if (earliestDate == Date.distantFuture) {
+//                            self.hasMorePosts = false
+//                            completion(Result.success(PagedResponse(social: .vk, objects: [])))
+//                        }
+//                        else {
+//                            let next = String(earliestDate.addingTimeInterval(-1).timeIntervalSince1970).components(separatedBy: ".")[0]
+//
+//                        }
                     }
                 }
             }
@@ -81,57 +141,6 @@ class VKApiClient : ApiClient {
     }
 
     
-    private func setupPostOwnerInfo(ownerInfo: [String:Any], post: Post) {
-        
-        var pageName : String?
-        var photo : VKPhotoAttachment?
-        
-        if let name = ownerInfo["name"] as? String {
-            pageName = name
-        }
-        else if let first_name = ownerInfo["first_name"] as? String,
-            let last_name = ownerInfo["last_name"] as? String {
-            pageName = first_name + " " + last_name
-        }
-        
-        if let photoUrl = ownerInfo["photo_50"] as? String {
-            photo = VKPhotoAttachment(url: photoUrl, height: 50, width: 50)
-        }
-        
-        post.ownerPhoto = photo
-        post.ownerName = pageName
-        
-        //        fetchPostsCompletion!(Result.success(PagedPostResponse(posts: [post], nextFrom: nextFrom!)))
-        ownersInfoFetched += 1
-    }
-    
-    private func getOwnerInfo(post: Post, onResponse: @escaping ([String:Any], Post)->Void ) {
-        
-        var getInfo : VKRequest
-        if (post.ownerId < 0) {
-            getInfo = VKRequest(method:"groups.getById", parameters: ["group_id" : abs(post.ownerId)])
-        }
-        else {
-            getInfo = VKRequest(method:"users.get", parameters: ["user_id" : post.ownerId, "fields" : "photo_50"])
-        }
-        
-        getInfo.execute(resultBlock: { response in
-            
-            if let jsonResponse = response?.json {
-                
-                if let dictionary = jsonResponse as? [[String:Any]] {
-                    onResponse(dictionary[0], post)
-                }
-            }
-            
-        }, errorBlock: { error in
-            if error != nil {
-                print("Error! \(String(describing: error))")
-            }
-            
-        })
-    }
-
     
 //    private func fetchLatestPosts() {
 //        var newParameters = parameters!

@@ -17,5 +17,5 @@ protocol ApiClient : class {
     
     func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>)->Void)
     func fetchPages(next: String?, completion: @escaping (Result<PagedResponse<Page>, DataResponseError>) -> Void)
-    
+    func fetchOwnerPage(completion: @escaping (Result<Page, DataResponseError>) -> Void)
 }

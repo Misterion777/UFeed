@@ -8,11 +8,10 @@
 
 import Foundation
 
-class InstagramSettings : Settings {
-    private var initial : [Page]?
-    var pages: [Page]?    
+class InstagramSettings : Settings {        
     
-    init() {
+    override init() {
+        super.init()
         if let data = UserDefaults.standard.object(forKey: "instagramPages") as? Data {
             let decoder = JSONDecoder()
             pages = try? decoder.decode([InstagramPage].self, from: data)                        
@@ -20,7 +19,8 @@ class InstagramSettings : Settings {
         }
     }
     
-    func save() {
+    override func save() {
+        super.save()
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(pages as! [InstagramPage]) {
             UserDefaults.standard.set(encoded, forKey: "instagramPages")
@@ -28,26 +28,12 @@ class InstagramSettings : Settings {
         }
     }
     
-    func isInitialized() -> Bool {
-        return pages != nil && pages!.count != 0
-    }
     
-    func hasChanged() -> Bool {
+    override func hasChanged() -> Bool {
         if (initial == nil) {
             return isInitialized()
         }
         
         return !(initial! as! [InstagramPage]).containsSameElements(as: (pages! as! [InstagramPage]))
-    }
-    
-    func appendPage(page: Page) {
-        if (pages == nil) {
-            pages = [InstagramPage]()
-        }
-        pages!.append(page)
-    }
-    
-    func removePage(by id: Int) {
-        pages = pages?.filter {$0.id != id}
-    }
+    }       
 }

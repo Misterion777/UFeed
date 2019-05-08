@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 protocol SocialDelegate : class {
-    var viewController : UIViewController? { get set }
+    var viewController : UIViewController? { get set}
+    var userId: String? {get set}
     
     func authorize(onSuccess: @escaping ()->Void)
     func logOut()
-    
     func isAuthorized() -> Bool
 }

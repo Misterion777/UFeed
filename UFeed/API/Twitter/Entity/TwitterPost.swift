@@ -13,11 +13,7 @@ class TwitterPost : Post {
     
     var id: Int
     
-    var ownerId: Int
-    
-    var ownerPhoto: PhotoAttachment?
-    
-    var ownerName: String?
+    var ownerPage: Page?
     
     var commentsCount: Int
     
@@ -34,23 +30,26 @@ class TwitterPost : Post {
     var attachments: [Attachment?]?
     
     required init(map: Mapper) throws {
-        type = "tweet"
+        type = "twitter"
         try id = map.from("id")
-        try ownerId = map.from("user.id")
-        try ownerName = map.from("user.name")
-        let photoUrl : String = try map.from("user.profile_image_url_https")
-        ownerPhoto = TwitterPhotoAttachment(url: photoUrl, height: 50, width: 50)
         
 //        try commentsCount = map.from("reply_count")
         commentsCount = 0
         try likesCount = map.from("favorite_count")
         try repostsCount = map.from("retweet_count")
         try date = map.from("created_at", transformation: extractDate)
-        text = map.optionalFrom("text")
-        
+        try ownerPage = map.from("user", transformation: extractOnwerPage)
         attachments = map.optionalFrom("entities", transformation: extractAttachments)
+        text = map.optionalFrom("text")        
     }
 
+    private func extractOnwerPage(object: Any?) throws -> Page {
+        guard let userValue = object as? [String : Any] else {
+            throw MapperError.convertibleError(value: object, type: String.self)
+        }
+        return TwitterPage.from(userValue as NSDictionary)!
+    }
+    
     private func extractDate(object: Any?) throws -> Date {
         guard let dateValue = object as? String else {
             throw MapperError.convertibleError(value: object, type: String.self)
