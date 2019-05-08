@@ -26,9 +26,9 @@
 ### Установка
 
 * Установить ios-sim (согласно [документации](https://github.com/ios-control/ios-sim))
-* Скачать и распаковать архив UFeed.zip
+* Скачать и распаковать архив [UFeed.zip](https://github.com/Misterion777/UFeed/blob/master/UFeed.zip)
 * Запустить ios-sim c помощью команды:
-`ios-sim launch ./UFeed.app -d=iPhone7`
+`ios-sim launch ./UFeed.app -d=iPhone-7`
 
 ## Разработка
 
