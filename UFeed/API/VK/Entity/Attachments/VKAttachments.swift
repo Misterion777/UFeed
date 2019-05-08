@@ -87,11 +87,26 @@ class VKVideoAttachment : VideoAttachment {
     var title: String
     var platform: String
     var duration : Int
+    var thumbnail: PhotoAttachment    
     
     required init(map: Mapper) throws {
         try self.url = map.from("player")
         try self.title = map.from("title")
         try self.platform = map.from("platform")
         try self.duration = map.from("duration")
+        let photo800 :String? = map.optionalFrom("photo_800")
+        if let photo = photo800 {
+            thumbnail = VKPhotoAttachment(url: photo, height: 450, width: 800)
+        }
+        else {
+            let photo640 :String? = map.optionalFrom("photo_640")
+            if let photo = photo640 {
+                thumbnail = VKPhotoAttachment(url: photo, height: 480, width: 640)
+            }
+            else {
+                let photo320 :String = try map.from("photo_640")
+                thumbnail = VKPhotoAttachment(url: photo320, height: 240, width: 320)
+            }
+        }
     }
 }

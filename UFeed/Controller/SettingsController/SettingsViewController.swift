@@ -60,7 +60,7 @@ class SettingsViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = burger
         self.navigationItem.rightBarButtonItem = saveButton
         SocialManager.shared.setViewController(vc: self)
-        let reloadbleFeedVC = self.navigationController!.tabBarController!.viewControllers![1] as! Reloadable
+        let reloadbleFeedVC = self.navigationController!.tabBarController!.viewControllers![0] as! Reloadable
         SettingsManager.shared.setReloadable(reloadable: reloadbleFeedVC)        
     }
     
@@ -73,13 +73,14 @@ class SettingsViewController: UIViewController {
     func setupView() {
         sections.removeAll()
         if (SocialManager.shared.isAuthorized(forSocial: currentSocial)) {
-            
+            tableView.separatorStyle = .singleLine
             apiClient = SocialManager.shared.getApiClient(forSocial: currentSocial)
             self.tableView.isHidden = true
             indicatorView.startAnimating()
             apiClient.fetchOwnerPage(completion: fetchOwnerPageDidCompleted)
         }
         else {
+            tableView.separatorStyle = .none
             sections.append(Section(header: .currentAccount, objects: nil, cellId: buttonCellId))
             tableView.reloadData()
         }        

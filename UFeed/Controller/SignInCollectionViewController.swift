@@ -7,9 +7,7 @@ import SafariServices
 
 class SignInCollectionViewController: UIViewController, SFSafariViewControllerDelegate  {
     
-    private let reuseIdentifier = "cellId"
-
-    @IBOutlet weak var logOutButton: UIButton!
+    private let reuseIdentifier = "cellId"    
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -20,6 +18,8 @@ class SignInCollectionViewController: UIViewController, SFSafariViewControllerDe
         super.viewDidLoad()
         self.collectionView.register(SignInCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
+        self.view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "backback"))
+        collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.isScrollEnabled = false
@@ -30,18 +30,7 @@ class SignInCollectionViewController: UIViewController, SFSafariViewControllerDe
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 30)
         
-        logOutButton.addTarget(self, action: #selector(self.logOut), for: .touchUpInside)
-        
         SocialManager.shared.setViewController(vc: self)
-        
-    }
-  
-    
-    
-    @objc private func logOut() {
-        
-        SocialManager.shared.logOut()
-        alert(title: "Log out", message: "Success")
     }
 }
 
@@ -79,7 +68,7 @@ extension SignInCollectionViewController: UICollectionViewDelegateFlowLayout {
 //    }
 //
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let  padding :CGFloat = 70;
+        let  padding :CGFloat = 50;
         let cellSize: CGFloat = collectionView.frame.size.width - padding;
         
         

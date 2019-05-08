@@ -105,7 +105,7 @@ class VKApiClient : ApiClient {
                     let next = dictionary["next_from"] as? String
                     
                     if let items = dictionary["items"] as? [[String:Any]]{
-                        print(items[1])
+                        print(items[3])
                         let posts = VKPost.from(items as NSArray)!
                         
                         for post in posts {

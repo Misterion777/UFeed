@@ -56,6 +56,7 @@ extension FeedViewController : UITableViewDataSource {
         } else {
             cell.configure(with: viewModel.post(at: indexPath.row))
         }
+        cell.layoutIfNeeded()
         return cell
     }
     

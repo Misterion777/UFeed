@@ -14,8 +14,13 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        self.hidesBottomBarWhenPushed = true
         if (SocialManager.shared.getAuthorizedSocials().count != 0){
             self.selectedIndex = 1
+            self.viewControllers?.removeFirst(1)
+        }
+        else {
+            self.tabBar.isHidden = true
         }
     }
 

@@ -43,4 +43,5 @@ protocol VideoAttachment : Attachment {
     var title: String { get }
     var platform: String {get}
     var duration : Int {get}
+    var thumbnail : PhotoAttachment {get}
 }

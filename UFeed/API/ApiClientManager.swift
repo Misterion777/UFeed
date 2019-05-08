@@ -58,8 +58,7 @@ class ApiClientManager {
         self.responses.removeAll()
         self.errors?.removeAll()
         self.fetchPostsCompletion = completion
-        if (clients.count == 0) {
-            self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "You are not signed in any social network!")))
+        if (clients.count == 0) {            self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "You are not signed in any social network!")))
         } else{
             self.activeClients = getActiveClients()
             for (k,v) in clients {
