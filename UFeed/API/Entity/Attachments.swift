@@ -39,8 +39,7 @@ protocol FileAttachment : Attachment {
 }
 
 protocol VideoAttachment : Attachment {
-    var url: String { get }
-    var title: String { get }
+    var url: String? { get }
     var platform: String {get}
     var duration : Int {get}
     var thumbnail : PhotoAttachment {get}

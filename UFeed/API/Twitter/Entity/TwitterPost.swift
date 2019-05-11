@@ -39,7 +39,13 @@ class TwitterPost : Post {
         try repostsCount = map.from("retweet_count")
         try date = map.from("created_at", transformation: extractDate)
         try ownerPage = map.from("user", transformation: extractOnwerPage)
-        attachments = map.optionalFrom("entities", transformation: extractAttachments)
+        let extendedEntities = map.optionalFrom("extended_entities", transformation: extractAttachments)
+        if (extendedEntities != nil) {
+            attachments = extendedEntities
+        }
+        else {
+            attachments = map.optionalFrom("entities", transformation: extractAttachments)
+        }        
         text = map.optionalFrom("text")        
     }
 
@@ -65,12 +71,13 @@ class TwitterPost : Post {
             throw MapperError.convertibleError(value: object, type: String.self)
         }
         
-        var attachments = [Attachment?]()
-        
         guard let media = attachmentsJson["media"] as? [[String:Any]] else {
-            return attachments
+            return nil
         }
-        
+        if (media.count == 0){
+            return nil
+        }
+        var attachments = [Attachment?]()
         for attach in media {
             let type = attach["type"] as! String
             let attachment = TwitterAttachmentFactory.getAttachment(json: attach, type: type)

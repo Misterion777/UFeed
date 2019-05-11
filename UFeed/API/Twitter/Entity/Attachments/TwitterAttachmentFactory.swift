@@ -15,6 +15,8 @@ class TwitterAttachmentFactory: AttachmentFactory {
         switch type {
         case "photo":
             return TwitterPhotoAttachment.from(json as NSDictionary)
+        case "video":
+            return TwitterVideoAttachment.from(json as NSDictionary)
 //        case "link":
 //            return TwitterLinkAttachment.from(attach)
 //        case  "video":

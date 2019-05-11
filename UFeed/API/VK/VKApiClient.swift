@@ -75,11 +75,11 @@ class VKApiClient : ApiClient {
         fetchPostsCompletion = completion
 //        self.nextFrom = nextFrom
 //        fetchNextPosts()
-        if(!settings.isInitialized()) {
-            return completion(Result.success(PagedResponse(social: .facebook, objects: [])))
+        if(!settings.isInitialized() || settings.pages!.count == 0) {
+            return completion(Result.success(PagedResponse(social: .vk, objects: [])))
         }
         
-        var earliestDate = Date.distantFuture
+//        var earliestDate = Date.distantFuture
         
         self.parameters["source_ids"] = settings.pages!.map{"g\($0.id)"}.joined(separator: ",")
         if nextFrom != nil {
@@ -141,6 +141,31 @@ class VKApiClient : ApiClient {
     }
 
     
+    func fetchVideo(by ownerId: Int, _ videoId: Int,
+                    completion: @escaping (Result<String, DataResponseError>) -> Void) {
+        let parameters = ["owner_id" : "\(ownerId)", "videos": "\(ownerId)_\(videoId)"]
+        
+        let getFeed = VKRequest(method: "video.get", parameters:parameters)
+        
+        getFeed?.execute(resultBlock: { response in
+            
+            if let jsonResponse = response?.json {
+                if let dictionary = jsonResponse as? [String:Any] {
+                    if let items = dictionary["items"] as? [[String:Any]]{
+                        if let player = items[0]["player"] as? String {
+                            completion(Result.success(player))
+                        }                        
+                    }
+                }
+            }
+            
+        }, errorBlock: { error in
+            if error != nil {
+                print(error!)
+                self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error occured while loading vk video: \(error)")))
+            }
+        })
+    }
     
 //    private func fetchLatestPosts() {
 //        var newParameters = parameters!

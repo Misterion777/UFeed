@@ -83,16 +83,21 @@ class VKFileAttachment : FileAttachment {
 }
 
 class VKVideoAttachment : VideoAttachment {
-    var url: String
-    var title: String
+    var url: String? {
+        didSet{
+            if (videoDidLoaded != nil){
+                videoDidLoaded!(self.url!)
+            }
+        }
+    }
     var platform: String
     var duration : Int
-    var thumbnail: PhotoAttachment    
+    var thumbnail: PhotoAttachment
+    
+    var videoDidLoaded : ((String) -> Void)?
     
     required init(map: Mapper) throws {
-        try self.url = map.from("player")
-        try self.title = map.from("title")
-        try self.platform = map.from("platform")
+        platform = "web"
         try self.duration = map.from("duration")
         let photo800 :String? = map.optionalFrom("photo_800")
         if let photo = photo800 {
@@ -106,6 +111,26 @@ class VKVideoAttachment : VideoAttachment {
             else {
                 let photo320 :String = try map.from("photo_640")
                 thumbnail = VKPhotoAttachment(url: photo320, height: 240, width: 320)
+            }
+        }
+        self.url = map.optionalFrom("player")
+        if (url == nil) {
+            let id :Int = try map.from("id")
+            let ownerId : Int = try map.from("owner_id")
+            getVideoUrl(by: ownerId, id)
+        }
+    }
+    
+    
+    func getVideoUrl(by ownerId : Int, _ videoId : Int){
+        let client = SocialManager.shared.getApiClient(forSocial: .vk) as! VKApiClient
+        client.fetchVideo(by: ownerId, videoId) { result in
+            switch result {
+            case .success(let url):
+                self.url = url
+            case .failure(let error):
+                print(error)
+                self.url = nil
             }
         }
     }

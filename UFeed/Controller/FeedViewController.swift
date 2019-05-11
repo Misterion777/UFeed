@@ -1,8 +1,8 @@
 import UIKit
 
+import SafariServices
 
-
-class FeedViewController:UIViewController {
+class FeedViewController:UIViewController, SFSafariViewControllerDelegate {
     
     let cellId = "cellId"
     private var viewModel : PostsViewModel!
@@ -25,6 +25,7 @@ class FeedViewController:UIViewController {
         tableView.isHidden = true
         tableView.backgroundColor = UIColor(rgb: 0xECECEC)
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
         
         indicatorView.color = .green
         indicatorView.startAnimating()
@@ -50,7 +51,7 @@ extension FeedViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostTableViewCell
-        
+        cell.configureVideo(with: self)
         if isLoadingCell(for: indexPath) {
             cell.configure(with: .none)
         } else {

@@ -76,6 +76,7 @@ class TwitterApiClient : ApiClient {
             let jsonData = jsonString.data(using: .utf8)!
             
             if let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions()) as? [[String:Any]] {
+                print(dictionary)
                 var posts = TwitterPost.from(dictionary as NSArray)!
                 let lastId = posts[posts.count - 1].id
                 

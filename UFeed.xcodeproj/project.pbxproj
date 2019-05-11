@@ -60,6 +60,7 @@
 		09907C2F22805A6500750D62 /* TwitterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C2E22805A6500750D62 /* TwitterSettings.swift */; };
 		09907C3122805AA600750D62 /* VkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C3022805AA600750D62 /* VkSettings.swift */; };
 		09907C3322836EBE00750D62 /* PostFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09907C3222836EBE00750D62 /* PostFooterView.swift */; };
+		09907C3522839B5600750D62 /* UFeed.zip in Resources */ = {isa = PBXBuildFile; fileRef = 09907C3422839B5500750D62 /* UFeed.zip */; };
 		099506DD227CB33D00E99F6E /* InstagramPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099506DC227CB33D00E99F6E /* InstagramPost.swift */; };
 		099506DF227CCBA900E99F6E /* InstagramAttachmentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099506DE227CCBA900E99F6E /* InstagramAttachmentFactory.swift */; };
 		09B3131C226C73E4004E23F2 /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B31317226C73BD004E23F2 /* SwifteriOS.framework */; };
@@ -157,6 +158,7 @@
 		09907C2E22805A6500750D62 /* TwitterSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettings.swift; sourceTree = "<group>"; };
 		09907C3022805AA600750D62 /* VkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkSettings.swift; sourceTree = "<group>"; };
 		09907C3222836EBE00750D62 /* PostFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFooterView.swift; sourceTree = "<group>"; };
+		09907C3422839B5500750D62 /* UFeed.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = UFeed.zip; sourceTree = "<group>"; };
 		099506DC227CB33D00E99F6E /* InstagramPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramPost.swift; sourceTree = "<group>"; };
 		099506DE227CCBA900E99F6E /* InstagramAttachmentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramAttachmentFactory.swift; sourceTree = "<group>"; };
 		09B31313226C7386004E23F2 /* SwifteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwifteriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -440,6 +442,7 @@
 		843E94EE22205CF90016242F = {
 			isa = PBXGroup;
 			children = (
+				09907C3422839B5500750D62 /* UFeed.zip */,
 				09B31313226C7386004E23F2 /* SwifteriOS.framework */,
 				843E94F922205CF90016242F /* UFeed */,
 				843E94F822205CF90016242F /* Products */,
@@ -591,6 +594,7 @@
 				843E951C22206BE70016242F /* Main.storyboard in Resources */,
 				84CB460D2240225600CD4445 /* GoogleService-Info.plist in Resources */,
 				843E951B22206BE70016242F /* LaunchScreen.storyboard in Resources */,
+				09907C3522839B5600750D62 /* UFeed.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

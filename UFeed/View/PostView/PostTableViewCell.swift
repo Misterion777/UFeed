@@ -24,7 +24,6 @@ class PostTableViewCell : UITableViewCell {
         let imageSlideshow = ImageSlideshow()
         imageSlideshow.activityIndicator = DefaultActivityIndicator(style: .whiteLarge, color: .green)
         imageSlideshow.contentScaleMode = UIView.ContentMode.scaleToFill
-        
         return imageSlideshow
     }()
     
@@ -58,8 +57,9 @@ class PostTableViewCell : UITableViewCell {
             stackView.isHidden = false
             
             fileViews.removeAll()
-            postTextView.text = post.text                    
+            postVideoView.clear()
             
+            postTextView.text = post.text
             postHeader.configure(post: post)
             postFooter.configure(with: post)
             
@@ -68,7 +68,7 @@ class PostTableViewCell : UITableViewCell {
                 for attach in post.attachments! {
                     if let videoAttach = attach as? VideoAttachment{
                         imageInputs.append(SDWebImageSource(urlString: videoAttach.thumbnail.url)!)
-                        postVideoView.configure(videoUrl: videoAttach.url)
+                        postVideoView.addVideo(pageIndex: imageInputs.count - 1, video: videoAttach)
                     }
                     else if let photoAttach = attach as? PhotoAttachment{
                         imageInputs.append(SDWebImageSource(urlString: photoAttach.url)!)
@@ -94,13 +94,14 @@ class PostTableViewCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
-        
+        imageSlideShow.currentPageChanged = postVideoView.slideShowPageChanged
+                
         let mainView = UIView()
         mainView.backgroundColor = UIColor(rgb: 0xFEFFFF)
         mainView.layer.masksToBounds = false;
         mainView.layer.cornerRadius = 10;
         mainView.layer.shadowOffset = CGSize(width: -1, height: -1)
-        mainView.layer.shadowOpacity = 0.5;
+        mainView.layer.shadowOpacity = 1;
         mainView.layer.shadowColor = UIColor.blue.cgColor
         
         stackView = UIStackView()
@@ -131,7 +132,7 @@ class PostTableViewCell : UITableViewCell {
         imageSlideShow.heightAnchor.constraint(equalToConstant: 400.0).isActive = true
         imageSlideShow.addSubview(postVideoView)
         
-        postVideoView.anchor(top: nil, left: imageSlideShow.leftAnchor, bottom: nil, right: imageSlideShow.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 50, height: 50, enableInsets: true)
+        postVideoView.anchor(top: nil, left: imageSlideShow.leftAnchor, bottom: nil, right: imageSlideShow.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100, enableInsets: true)
     
         postVideoView.centerYAnchor.constraint(equalTo: imageSlideShow.centerYAnchor).isActive = true
         
