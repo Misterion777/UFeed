@@ -10,6 +10,8 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    let headerHeight : CGFloat = 50.0
+    
     enum SectionHeader: String, CaseIterable {
         case currentAccount = "Your account"
         case pages = "Pages that will be in your feed"

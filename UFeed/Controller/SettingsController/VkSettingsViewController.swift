@@ -66,8 +66,8 @@ class VkSettingsViewController: SettingsViewController {
 
 extension VkSettingsViewController : UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {        
+        return headerHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

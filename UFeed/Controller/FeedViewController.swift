@@ -104,7 +104,7 @@ extension FeedViewController: PostsViewModelDelegate {
 //        else {
 //            tableView.insertRows(at: indexPathsToReload, with: .automatic)
 //        }
-//
+        
 //        guard let newIndexPathToReload = newIndexPathToReload else {
 //            indicatorView.stopAnimating()
 //            tableView.isHidden = false

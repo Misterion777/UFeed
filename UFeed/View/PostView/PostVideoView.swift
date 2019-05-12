@@ -35,7 +35,10 @@ class PostVideoView : UIView {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "playIcon"), for: .normal)
         button.addTarget(self, action: #selector(playVideo), for: .touchUpInside)
-        button.layer.applySketchShadow(color: UIColor(rgb: 0x8860D0), alpha: 1,x: 2,y: 2)        
+        button.backgroundColor = UIColor(rgb: 0x8860D0, alpha: 0.5)
+        button.layer.cornerRadius = 25
+        button.clipsToBounds = true
+//        button.layer.applySketchShadow(color: UIColor(rgb: 0x8860D0), alpha: 1,x: 2,y: 2)
         button.isHidden = true
         return button
     }()
@@ -55,7 +58,7 @@ class PostVideoView : UIView {
         super.init(frame: CGRect.zero)
         addSubview(playButton)
                 
-        playButton.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 170, paddingBottom: 0, paddingRight: 170, width: 100, height: 100, enableInsets: true)
+        playButton.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 170, paddingBottom: 0, paddingRight: 170, width: 0, height: 0, enableInsets: false)
     }
     
     func clear(){

@@ -65,6 +65,7 @@ final class PostsViewModel {
                         self.posts.append(contentsOf: filtered)
                         self.next[responce.social] = responce.next
                     }
+                    self.posts.sort(by: {return $0.date! > $1.date! })
                         
                     self.delegate?.onFetchCompleted(with: .none)
                     

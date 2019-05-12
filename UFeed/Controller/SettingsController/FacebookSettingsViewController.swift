@@ -14,7 +14,7 @@ class FacebookSettingsViewController: SettingsViewController {
     let headerMarkId = "headerMarkId"
     
 //    var pages : [FacebookPage]?
-    var headerSelected = true
+    var headerSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +80,7 @@ class FacebookSettingsViewController: SettingsViewController {
 extension FacebookSettingsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return headerHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

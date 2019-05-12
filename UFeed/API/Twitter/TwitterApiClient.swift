@@ -12,12 +12,23 @@ import UIKit
 class TwitterApiClient : ApiClient {
     
     lazy var twitterDelegate = SocialManager.shared.getDelegate(forSocial: .twitter) as! TwitterDelegate
-    let settings = SettingsManager.shared.getSettings(for: .vk)
+    let settings = SettingsManager.shared.getSettings(for: .twitter)
     
-    var posts = [Post]()
-    
+    var pagesFetched = 0
+    var maxLastId = 0
+    var posts = [Post]() {
+        didSet {
+            if (pagesFetched == settings.pages!.count) {
+                pagesFetched = 0
+                let responce = PagedResponse(social: .twitter, objects: posts as [Post], next:
+                    String(maxLastId))
+                fetchPostsCompletion!(Result.success(responce))
+            }
+        }
+    }
+    var fetchPostsCompletion : ((Result<PagedResponse<Post>, DataResponseError>) -> Void)?
+    private var error : DataResponseError?
     var parameters: [String : Any]
-    
     var nextFrom: String?
     var hasMorePosts = true
     
@@ -52,10 +63,8 @@ class TwitterApiClient : ApiClient {
             let jsonData = jsonString.data(using: .utf8)!
             
             if let users = try! JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions()) as? [[String:Any]] {
-//                if let users = dictionary["users"] as? [[String:Any] {
                     let pages = TwitterPage.from(users as NSArray)!
                     completion(Result.success(PagedResponse(social: .twitter, objects: pages)))
-//                }
             }
             
         }) { error in
@@ -64,39 +73,38 @@ class TwitterApiClient : ApiClient {
     }
     
     func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
+        fetchPostsCompletion = completion
+        
+        if(!settings.isInitialized() || settings.pages!.count == 0) {
+            return completion(Result.success(PagedResponse(social: .twitter, objects: [])))
+        }
+        
         let ids = settings.pages!.map{$0.id}
-        
-//        for id in ids {
-//            twitterDelegate.swifter.getTimeline(for: .id("\(id)"), count: <#T##Int?#>, sinceID: <#T##String?#>, maxID: <#T##String?#>, trimUser: <#T##Bool?#>, excludeReplies: <#T##Bool?#>, includeRetweets: <#T##Bool?#>, contributorDetails: <#T##Bool?#>, includeEntities: <#T##Bool?#>, tweetMode: <#T##TweetMode#>, success: <#T##Swifter.SuccessHandler?##Swifter.SuccessHandler?##(JSON) -> Void#>, failure: <#T##Swifter.FailureHandler?##Swifter.FailureHandler?##(Error) -> Void#>)
-//        }
-        
-        twitterDelegate.swifter.getHomeTimeline(count: self.parameters["count"] as? Int, maxID: nextFrom, success: {json in
-            
-            let jsonString = String(describing: json)
-            let jsonData = jsonString.data(using: .utf8)!
-            
-            if let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions()) as? [[String:Any]] {
-                print(dictionary)
-                var posts = TwitterPost.from(dictionary as NSArray)!
-                let lastId = posts[posts.count - 1].id
+        maxLastId = 0
+        for id in ids {
+            if (error != nil) {
+                return completion(Result.failure(error!))
+            }
+            twitterDelegate.swifter.getTimeline(for: .id("\(id)"), count: self.parameters["count"] as? Int, maxID: nextFrom, success: { json in
                 
-//                posts = posts.filter{
-//                    let element = $0
-//                    return self.settings.pages!.contains{element.ownerPage!.id == $0.id}
-//                }
+                let jsonString = String(describing: json)
+                let jsonData = jsonString.data(using: .utf8)!
                 
-                let responce = PagedResponse(social: .twitter, objects: posts as [Post], next:
-                    String(lastId))
-                
-                completion(Result.success(responce))
-            }            
-            
-        }, failure: { error in
-            
-            print(error)
-            completion(Result.failure(DataResponseError.network(message: "Error occured while loading twitter posts: \(error)") ))
-            
-        })
+                if let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions()) as? [[String:Any]] {
+                    print(dictionary)
+                    var posts = TwitterPost.from(dictionary as NSArray)!
+                    let lastId = posts[posts.count - 1].id
+                    if (lastId > self.maxLastId) {
+                        self.maxLastId = lastId
+                    }
+                    self.pagesFetched += 1
+                    self.posts.append(contentsOf: posts)
+                }
+            }) { error in
+                print(error)
+                self.error = DataResponseError.network(message: "Error occured while loading twitter posts: \(error)")
+            }
+        }
     }
     
 }

@@ -18,12 +18,11 @@ class PostTableViewCell : UITableViewCell {
     private var stackView : UIStackView!
     
     private var fileViews = [PostFileView]()
-    
-    
+        
     private var imageSlideShow : ImageSlideshow = {
         let imageSlideshow = ImageSlideshow()
-        imageSlideshow.activityIndicator = DefaultActivityIndicator(style: .whiteLarge, color: .green)
-        imageSlideshow.contentScaleMode = UIView.ContentMode.scaleToFill
+        imageSlideshow.activityIndicator = DefaultActivityIndicator(style: .whiteLarge, color: UIColor(rgb: 0x8860D0))
+//        imageSlideshow.contentScaleMode = UIView.ContentMode.scaleToFill
         return imageSlideshow
     }()
     
@@ -132,7 +131,7 @@ class PostTableViewCell : UITableViewCell {
         imageSlideShow.heightAnchor.constraint(equalToConstant: 400.0).isActive = true
         imageSlideShow.addSubview(postVideoView)
         
-        postVideoView.anchor(top: nil, left: imageSlideShow.leftAnchor, bottom: nil, right: imageSlideShow.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100, enableInsets: true)
+        postVideoView.anchor(top: nil, left: imageSlideShow.leftAnchor, bottom: nil, right: imageSlideShow.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 50, height: 50, enableInsets: false)
     
         postVideoView.centerYAnchor.constraint(equalTo: imageSlideShow.centerYAnchor).isActive = true
         

@@ -11,7 +11,7 @@ import SafariServices
 
 class TwitterSettingsViewController: SettingsViewController, SFSafariViewControllerDelegate {
     let headerMarkId = "headerMarkId"
-    var headerSelected = true
+    var headerSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,6 @@ class TwitterSettingsViewController: SettingsViewController, SFSafariViewControl
         tableView.register(MarkAllHeaderView.self, forHeaderFooterViewReuseIdentifier: headerMarkId)
         tableView.dataSource = self
         tableView.delegate = self
-        
         
         self.settings = SettingsManager.shared.getSettings(for: .twitter)
         setupView()
@@ -68,7 +67,7 @@ class TwitterSettingsViewController: SettingsViewController, SFSafariViewControl
 extension TwitterSettingsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return headerHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
