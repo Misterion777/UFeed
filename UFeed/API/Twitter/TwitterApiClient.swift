@@ -81,17 +81,17 @@ class TwitterApiClient : ApiClient {
         
         let ids = settings.pages!.map{$0.id}
         maxLastId = 0
+        self.error = nil
         for id in ids {
-            if (error != nil) {
-                return completion(Result.failure(error!))
-            }
-            twitterDelegate.swifter.getTimeline(for: .id("\(id)"), count: self.parameters["count"] as? Int, maxID: nextFrom, success: { json in
+            twitterDelegate.swifter.getTimeline(for: .id("\(id)"), count: self.parameters["count"] as? Int, maxID: nextFrom, tweetMode: .extended, success: { json in
                 
                 let jsonString = String(describing: json)
                 let jsonData = jsonString.data(using: .utf8)!
                 
                 if let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions()) as? [[String:Any]] {
                     print(dictionary)
+                    print("##############################")
+                    print(dictionary[0])
                     var posts = TwitterPost.from(dictionary as NSArray)!
                     let lastId = posts[posts.count - 1].id
                     if (lastId > self.maxLastId) {
@@ -102,7 +102,13 @@ class TwitterApiClient : ApiClient {
                 }
             }) { error in
                 print(error)
-                self.error = DataResponseError.network(message: "Error occured while loading twitter posts: \(error)")
+                if (self.error == nil) {
+                    self.error = DataResponseError.network(message: "Error occured while loading twitter posts: \(error)")
+                    completion(Result.failure(self.error!))
+                }
+            }
+            if (error != nil) {
+                break
             }
         }
     }

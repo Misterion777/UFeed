@@ -28,6 +28,7 @@ class SettingsViewController: UIViewController {
     
     var tableView : UITableView!
     var indicatorView : UIActivityIndicatorView!
+    var errorView: ErrorView!
     
     var settings : Settings?
     var sections = [Section]()
@@ -39,7 +40,7 @@ class SettingsViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide    
         
         indicatorView = UIActivityIndicatorView(style: .whiteLarge)
-        indicatorView.color = .green
+        indicatorView.color = UIColor(rgb: 0x8860D0)
         indicatorView.hidesWhenStopped = true
         
         view.addSubview(indicatorView)
@@ -53,7 +54,7 @@ class SettingsViewController: UIViewController {
         
         view.addSubview(tableView)
         tableView.anchor(top: safeArea.topAnchor, left: safeArea.leftAnchor, bottom: safeArea.bottomAnchor, right: safeArea.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-        
+        addErrorView()        
         
         let burger = UIBarButtonItem(image: #imageLiteral(resourceName: "burger"), style: .plain, target: self, action: #selector(burgerButtonClicked))
         let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonClicked))       
@@ -64,6 +65,22 @@ class SettingsViewController: UIViewController {
         SocialManager.shared.setViewController(vc: self)
         let reloadbleFeedVC = self.navigationController!.tabBarController!.viewControllers![0] as! Reloadable
         SettingsManager.shared.setReloadable(reloadable: reloadbleFeedVC)        
+    }
+    
+    func addErrorView() {
+        errorView = ErrorView()
+        view.addSubview(errorView)
+        let safeArea = view.safeAreaLayoutGuide
+        errorView.anchor(top:  nil, left: safeArea.leftAnchor, bottom: nil, right: safeArea.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0, enableInsets: false)
+        errorView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
+        errorView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
+        errorView.isHidden = true
+    }
+    
+    func showError(message : String) {
+        tableView.isHidden = true
+        errorView.isHidden = false
+        errorView.setErrorMessage(with: message)
     }
     
     func reloadData(){

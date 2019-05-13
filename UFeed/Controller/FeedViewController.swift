@@ -10,6 +10,9 @@ class FeedViewController:UIViewController, SFSafariViewControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    var errorView: ErrorView!
+    
+    
     private var isFetching = false
     var needToReload = false
     
@@ -26,13 +29,24 @@ class FeedViewController:UIViewController, SFSafariViewControllerDelegate {
         tableView.backgroundColor = UIColor(rgb: 0xECECEC)
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        addErrorView()
         
-        indicatorView.color = .green
+        indicatorView.color = UIColor(rgb: 0x8860D0)
         indicatorView.startAnimating()
         
         viewModel = PostsViewModel(delegate: self)
         isFetching = true
         viewModel.fetchPosts()
+    }
+    
+    func addErrorView() {
+        errorView = ErrorView()
+        view.addSubview(errorView)
+        let safeArea = view.safeAreaLayoutGuide
+        errorView.anchor(top:  nil, left: safeArea.leftAnchor, bottom: nil, right: safeArea.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0, enableInsets: false)
+        errorView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
+        errorView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
+        errorView.isHidden = true
     }
 }
 
@@ -90,10 +104,25 @@ extension FeedViewController : UITableViewDelegate {
 extension FeedViewController: PostsViewModelDelegate {
     func onFetchCompleted(with newIndexPathToReload: [IndexPath]?) {
         indicatorView.stopAnimating()
+        
         tableView.isHidden = false
+        errorView.isHidden = true
+        
         tableView.reloadData()
-        isFetching = false
-        needToReload = viewModel.currentCount == 0
+        
+        if (viewModel.currentCount == 0) {
+            tableView.isHidden = true
+            errorView.isHidden = false
+            
+            errorView.setErrorMessage(with: "Zero posts returned.\nSeems your settings are a bit incorrect...")  
+            needToReload = true
+        }
+        else {
+            needToReload = false
+        }
+        
+        
+        
 //
 //        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathToReload!)
 //        if indexPathsToReload.count == 0 {
@@ -116,16 +145,22 @@ extension FeedViewController: PostsViewModelDelegate {
     func onFetchFailed(with reason: String) {
         indicatorView.stopAnimating()
         tableView.isHidden = true
+        errorView.isHidden = false
+        
+        errorView.setErrorMessage(with: reason)
         needToReload = true
-        let title = "Error"
-        self.alert(title: title, message: reason)
+        if (reason.contains("No internet connection")) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                self.viewModel.fetchPosts()
+            })
+        }
+        
     }
 }
 
 extension FeedViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if (indexPaths.contains(where: isLoadingCell) && !isFetching){
-            isFetching = true
+        if (indexPaths.contains(where: isLoadingCell)){
             viewModel.fetchPosts()
         }
     }

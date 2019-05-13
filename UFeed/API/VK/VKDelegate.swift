@@ -18,7 +18,8 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate, SocialDelegate {
     
     var viewController: UIViewController?
     var onAuthorizeSuccess : (()->Void)?
-    var userId: String? 
+    var userId: String?
+    var wakeUpError :Error?
     
     
     override init() {
@@ -30,8 +31,9 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate, SocialDelegate {
         VKSdk.wakeUpSession(SCOPE, complete: { state, error in
             if state == VKAuthorizationState.authorized {
                 print("Allready authorized")
-            } else if error != nil {
+            } else if error != nil {                
                 print("Error: \(error)")
+                self.wakeUpError = error
             } else {
                 print ("Initialized!")
             }

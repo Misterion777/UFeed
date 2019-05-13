@@ -8,7 +8,6 @@
 
 
 import UIKit
-
 import AVFoundation
 import SDWebImage
 import ImageSlideshow
@@ -16,12 +15,19 @@ import ImageSlideshow
 class PostTableViewCell : UITableViewCell {
     
     private var stackView : UIStackView!
+    private var mainView : UIView!
     
     private var fileViews = [PostFileView]()
         
     private var imageSlideShow : ImageSlideshow = {
         let imageSlideshow = ImageSlideshow()
         imageSlideshow.activityIndicator = DefaultActivityIndicator(style: .whiteLarge, color: UIColor(rgb: 0x8860D0))
+        let pageIndicator = UIPageControl()
+        pageIndicator.currentPageIndicatorTintColor = UIColor(rgb: 0x5680E9)
+        pageIndicator.pageIndicatorTintColor = .lightGray
+        imageSlideshow.pageIndicator = pageIndicator
+        imageSlideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .under)
+        
 //        imageSlideshow.contentScaleMode = UIView.ContentMode.scaleToFill
         return imageSlideshow
     }()
@@ -43,6 +49,8 @@ class PostTableViewCell : UITableViewCell {
         textView.isScrollEnabled = false
         textView.isEditable = false
         textView.backgroundColor = .clear
+        textView.dataDetectorTypes = .link
+        textView.isSelectable = true
         return textView
     }()
     
@@ -50,8 +58,22 @@ class PostTableViewCell : UITableViewCell {
         postVideoView.presentingViewController = viewController
     }
     
+    func setShadowColor(post: Post){
+        if (post.type == "vk") {
+            mainView.layer.shadowColor = UIColor(rgb: 0x5AB9EA).cgColor
+        } else if (post.type == "twitter") {
+            mainView.layer.shadowColor = UIColor(rgb: 0x84CEEB).cgColor
+        } else if (post.type == "facebook") {
+            mainView.layer.shadowColor = UIColor(rgb: 0x5680E9).cgColor
+        } else if (post.type == "instagram") {
+            mainView.layer.shadowColor = UIColor(rgb: 0x8860D0).cgColor
+        }
+    }
+    
     func configure(with post: Post?) {
         if let post = post {
+            setShadowColor(post: post)
+            
             indicatorView.stopAnimating()
             stackView.isHidden = false
             
@@ -95,13 +117,12 @@ class PostTableViewCell : UITableViewCell {
         backgroundColor = .clear
         imageSlideShow.currentPageChanged = postVideoView.slideShowPageChanged
                 
-        let mainView = UIView()
+        mainView = UIView()
         mainView.backgroundColor = UIColor(rgb: 0xFEFFFF)
         mainView.layer.masksToBounds = false;
         mainView.layer.cornerRadius = 10;
         mainView.layer.shadowOffset = CGSize(width: -1, height: -1)
         mainView.layer.shadowOpacity = 1;
-        mainView.layer.shadowColor = UIColor.blue.cgColor
         
         stackView = UIStackView()
         stackView.axis = .vertical

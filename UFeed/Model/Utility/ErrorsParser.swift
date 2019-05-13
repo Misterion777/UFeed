@@ -18,6 +18,9 @@ class ErrorsParser {
         else if ("\(error)".contains("Too many IDs")){
             return "Too many pages! Maximum: 50."
         }
+        else if ("\(error)".contains("offline")){
+            return "Wooooo!\nNo internet connection.\nWaiting for network..."
+        }
         return "\(error)"
     }
 }

@@ -11,6 +11,7 @@ import VK_ios_sdk
 class VKApiClient : ApiClient {
     
     let settings = SettingsManager.shared.getSettings(for: .vk)
+    lazy var delegate = SocialManager.shared.getDelegate(forSocial: .vk) as! VKDelegate
     
     var posts = [Post]()
     var latestTime = Date.distantPast
@@ -27,7 +28,22 @@ class VKApiClient : ApiClient {
         self.parameters = ["filters": "post"]
     }
     
+    private func delegateError() -> Error? {
+        if (delegate.wakeUpError != nil){
+            delegate = VKDelegate()
+            if (delegate.wakeUpError != nil) {
+                return delegate.wakeUpError
+            }
+            SocialManager.shared.socialDelegates[.vk] = delegate
+            return nil
+        }
+        return nil
+    }
+    
     func fetchPages(next: String?, completion: @escaping (Result<PagedResponse<Page>, DataResponseError>) -> Void) {
+        if let delegateError = delegateError() {
+            self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "VK error: \(delegateError)")))
+        }
         let parameters = ["extended": "1", "count" : "200", "fields" : "screen_name,name,photo_50"]
         let getUser = VKRequest(method: "users.getSubscriptions", parameters: parameters)
         
@@ -72,14 +88,16 @@ class VKApiClient : ApiClient {
     }
     
     func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
-        fetchPostsCompletion = completion
-//        self.nextFrom = nextFrom
-//        fetchNextPosts()
+        
+        if let delegateError = delegateError() {
+            completion(Result.failure(DataResponseError.network(message: "VK error: \(delegateError)")))
+        }
+        
         if(!settings.isInitialized() || settings.pages!.count == 0) {
             return completion(Result.success(PagedResponse(social: .vk, objects: [])))
         }
         
-//        var earliestDate = Date.distantFuture
+
         
         self.parameters["source_ids"] = settings.pages!.map{"g\($0.id)"}.joined(separator: ",")
         if nextFrom != nil {
@@ -105,27 +123,14 @@ class VKApiClient : ApiClient {
                     let next = dictionary["next_from"] as? String
                     
                     if let items = dictionary["items"] as? [[String:Any]]{
-                        print(items[3])
+//                        print(items[3])
                         let posts = VKPost.from(items as NSArray)!
                         
                         for post in posts {
                             let filtered = pages.filter{$0.id == abs(post.ownerPage!.id)}
                             post.ownerPage = filtered[0]
                         }
-//                        let minDate = posts.min{a, b in a.date! < b.date!}!.date!
-//                        if (minDate < earliestDate ) {
-//                            earliestDate = minDate
-//                        }
                         completion(Result.success(PagedResponse(social: .vk, objects: posts, next: next)))
-                        
-//                        if (earliestDate == Date.distantFuture) {
-//                            self.hasMorePosts = false
-//                            completion(Result.success(PagedResponse(social: .vk, objects: [])))
-//                        }
-//                        else {
-//                            let next = String(earliestDate.addingTimeInterval(-1).timeIntervalSince1970).components(separatedBy: ".")[0]
-//
-//                        }
                     }
                 }
             }
@@ -133,7 +138,7 @@ class VKApiClient : ApiClient {
         }, errorBlock: { error in
             if error != nil {
                 print(error!)
-                self.fetchPostsCompletion!(Result.failure(DataResponseError.network(message: "Error occured while loading vk posts: \(error)")))
+                completion(Result.failure(DataResponseError.network(message: "Error occured while loading vk posts: \(error)")))
             }
         })
         

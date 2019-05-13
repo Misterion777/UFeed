@@ -34,7 +34,7 @@ class SocialManager {
     
     static let shared = SocialManager()
     
-    private var socialDelegates = [Social : SocialDelegate]()
+    var socialDelegates = [Social : SocialDelegate]()
     private var vc : UIViewController?
     var currentSocial : Social?
     

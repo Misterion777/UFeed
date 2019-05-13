@@ -40,7 +40,7 @@ class InstagramSettingsViewController: SettingsViewController {
             sections.append(Section(header: .pages, objects: self.settings!.pages, cellId: pageCellId))
             reloadData()
         case .failure(let error):
-            self.alert(title: "Error", message: ErrorsParser.parse(error: error))
+            showError(message: ErrorsParser.parse(error: error))
         }
         self.tableView.reloadData()
     }
@@ -52,10 +52,10 @@ extension InstagramSettingsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (sections[section].header == .currentAccount) {
-            return 30
+            return headerHeight
         }
         else {
-            return 70
+            return headerHeight + 30
         }
     }
     
@@ -85,7 +85,7 @@ extension InstagramSettingsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if sections[section].objects == nil {
-            return 1
+            return 0
         }
         return sections[section].objects!.count
     }
@@ -109,11 +109,12 @@ extension InstagramSettingsViewController : UITableViewDataSource {
         else {
             
             let pages = sections[indexPath.section].objects as? [Page]
-            
-            let page = pages![indexPath.row]
-            
-            let cell = cell as! PageTableViewCell
-            cell.configure(with: page,needCheckmark: false)
+            if (pages != nil) {
+                let page = pages![indexPath.row]
+                
+                let cell = cell as! PageTableViewCell
+                cell.configure(with: page,needCheckmark: false)
+            }
         }
         return cell
     }

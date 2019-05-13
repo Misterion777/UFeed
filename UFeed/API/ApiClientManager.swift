@@ -31,6 +31,7 @@ class ApiClientManager {
     }
     
     func updateApiClients(socials : [Social]) {
+        clients.removeAll()
         for social in socials {
             switch social {
             case .vk:
@@ -45,7 +46,6 @@ class ApiClientManager {
                 print("lol")
             }
         }
-        
     }
     
     //TODO: add priority

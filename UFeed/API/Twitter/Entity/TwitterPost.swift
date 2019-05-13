@@ -46,7 +46,7 @@ class TwitterPost : Post {
         else {
             attachments = map.optionalFrom("entities", transformation: extractAttachments)
         }        
-        text = map.optionalFrom("text")        
+        text = map.optionalFrom("full_text")        
     }
 
     private func extractOnwerPage(object: Any?) throws -> Page {

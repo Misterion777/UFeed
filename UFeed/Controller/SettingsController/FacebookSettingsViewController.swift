@@ -45,7 +45,7 @@ class FacebookSettingsViewController: SettingsViewController {
 //                self.tableView.reloadData()
 //            }
         case .failure(let error ):
-            self.alert(title: "Eror", message: error.errorDescription!)
+            showError(message: ErrorsParser.parse(error: error))
         }
         
     }
@@ -70,7 +70,7 @@ class FacebookSettingsViewController: SettingsViewController {
             }            
             reloadData()
         case .failure(let error):
-            self.alert(title: "Eror", message: error.errorDescription!)
+            showError(message: ErrorsParser.parse(error: error))
         }
     }
 }

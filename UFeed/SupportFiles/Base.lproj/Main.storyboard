@@ -184,7 +184,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ud0-HA-cb9" colorLabel="IBBuiltInLabel-Red">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.3529411764705882" green="0.72549019607843135" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="AqJ-TV-Tmx"/>
                     </view>
                     <navigationItem key="navigationItem" id="dfK-7l-oFS"/>
@@ -232,7 +232,7 @@
                     <view key="view" contentMode="scaleToFill" id="jhW-tW-f1e">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.25431156383196962" green="1" blue="0.16587053735575585" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.33725490196078434" green="0.50196078431372548" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="Ea1-WF-YzD"/>
                     </view>
                     <navigationItem key="navigationItem" id="cAF-Kl-nAA"/>
@@ -292,7 +292,7 @@
                     <view key="view" contentMode="scaleToFill" id="VmO-OC-vAH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.29165976874636634" green="0.33056134183875829" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.51764705882352935" green="0.80784313725490198" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="qtW-hj-Skr"/>
                     </view>
                     <navigationItem key="navigationItem" id="EiZ-de-kYh"/>
@@ -413,7 +413,7 @@
                     <view key="view" contentMode="scaleToFill" id="fhI-xr-akp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.71092194019999999" blue="0.085877535810000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.53333333333333333" green="0.37647058823529411" blue="0.81568627450980391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="3DK-k9-zq8"/>
                     </view>
                     <navigationItem key="navigationItem" id="Bro-ls-E2u"/>

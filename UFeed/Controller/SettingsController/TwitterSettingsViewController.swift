@@ -32,8 +32,8 @@ class TwitterSettingsViewController: SettingsViewController, SFSafariViewControl
             sections.append(Section(header: .currentAccount, objects: [response], cellId: pageCellId))
             sections.append(Section(header: .pages, objects: nil, cellId: pageCellId))
             apiClient!.fetchPages(next: nil, completion: updatePages)            
-        case .failure(let error ):
-            self.alert(title: "Eror", message: error.errorDescription!)
+        case .failure(let error):
+            showError(message: ErrorsParser.parse(error: error))
         }
         
     }
@@ -58,7 +58,7 @@ class TwitterSettingsViewController: SettingsViewController, SFSafariViewControl
             }
             reloadData()
         case .failure(let error):
-            self.alert(title: "Eror", message: error.errorDescription!)
+            showError(message: ErrorsParser.parse(error: error))
         }
     }
 

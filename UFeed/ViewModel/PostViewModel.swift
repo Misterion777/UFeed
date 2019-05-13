@@ -46,9 +46,9 @@ final class PostsViewModel {
             
             switch result {
             case .failure(let error) :
-                DispatchQueue.main.async {
+                DispatchQueue.main.async {                    
                     self.isFetchInProgress = false
-                    self.delegate?.onFetchFailed(with: error.errorDescription! )
+                    self.delegate?.onFetchFailed(with: ErrorsParser.parse(error: error))
                 }
             case .success(let responses):
                 DispatchQueue.main.async {

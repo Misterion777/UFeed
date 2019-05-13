@@ -20,6 +20,7 @@
 		0939372F22738C2900394769 /* InstagramSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0939372E22738C2900394769 /* InstagramSettingsViewController.swift */; };
 		09393731227392EA00394769 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09393730227392EA00394769 /* SettingsViewController.swift */; };
 		093BFA63224E4F67003AA08C /* PostAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093BFA62224E4F67003AA08C /* PostAudioView.swift */; };
+		093D28662289618400B35236 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D28652289618400B35236 /* ErrorView.swift */; };
 		093DE78B224A46F2003B7689 /* SingleMediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DE78A224A46F2003B7689 /* SingleMediaPlayer.swift */; };
 		09433CBA22482BC800352CAC /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09433CB922482BC800352CAC /* Extension.swift */; };
 		09433CBC22482CE100352CAC /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09433CBB22482CE100352CAC /* PostTableViewCell.swift */; };
@@ -118,6 +119,7 @@
 		0939372E22738C2900394769 /* InstagramSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramSettingsViewController.swift; sourceTree = "<group>"; };
 		09393730227392EA00394769 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		093BFA62224E4F67003AA08C /* PostAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAudioView.swift; sourceTree = "<group>"; };
+		093D28652289618400B35236 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		093DE78A224A46F2003B7689 /* SingleMediaPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMediaPlayer.swift; sourceTree = "<group>"; };
 		09433CB922482BC800352CAC /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		09433CBB22482CE100352CAC /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 				0903E2FC22771D3D000C9A5B /* PageView */,
 				0903E2FB22771D30000C9A5B /* PostView */,
 				84A140752250D11D0063C31F /* SignInCollectionViewCell.swift */,
+				093D28652289618400B35236 /* ErrorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -712,6 +715,7 @@
 				098FBA95227AE30F00F2E737 /* InstagramAttachments.swift in Sources */,
 				094F9493225345D6008A1B47 /* DateUtility.swift in Sources */,
 				09B3132B226DB9DE004E23F2 /* TwitterAttachments.swift in Sources */,
+				093D28662289618400B35236 /* ErrorView.swift in Sources */,
 				098FBA90227ADFB200F2E737 /* PageHeaderView.swift in Sources */,
 				09B3133922736B83004E23F2 /* SettingsMenuViewController.swift in Sources */,
 				094F949D2253752B008A1B47 /* PagedResponse.swift in Sources */,

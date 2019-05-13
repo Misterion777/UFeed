@@ -33,7 +33,7 @@ class VkSettingsViewController: SettingsViewController {
             sections.append(Section(header: .pages, objects: nil, cellId: pageCellId))
             apiClient!.fetchPages(next: nil, completion: updatePages)
         case .failure(let error ):
-            self.alert(title: "Eror", message: error.errorDescription!)
+            showError(message: ErrorsParser.parse(error: error))
         }
         
     }
@@ -58,7 +58,7 @@ class VkSettingsViewController: SettingsViewController {
             }
             reloadData()
         case .failure(let error):
-            self.alert(title: "Eror", message: error.errorDescription!)
+            showError(message: ErrorsParser.parse(error: error))
         }
     }
     
