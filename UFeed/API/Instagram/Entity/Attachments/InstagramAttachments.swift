@@ -26,5 +26,22 @@ class InstagramPhotoAttachment : PhotoAttachment {
         self.height = height
         self.width = width
     }
+}
+
+class InstagramVideoAttachment : VideoAttachment {
+    var url: String?
+    var platform: String
+    var duration : Int
+    var thumbnail: PhotoAttachment
+    
+    
+    required init(map: Mapper) throws {
+        platform = "file"
+        try self.url = map.from("media_url")
+        duration = 0
+        thumbnail = InstagramPhotoAttachment(url: "", height: 0, width: 0)
+    }
+    
+
     
 }

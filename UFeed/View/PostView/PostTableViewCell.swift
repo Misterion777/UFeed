@@ -70,6 +70,21 @@ class PostTableViewCell : UITableViewCell {
         }
     }
     
+    func generateThumbnail(path: URL) -> UIImage? {
+        do {
+            let asset = AVURLAsset(url: path, options: nil)
+            let imgGenerator = AVAssetImageGenerator(asset: asset)
+            imgGenerator.appliesPreferredTrackTransform = true
+            let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
+            let thumbnail = UIImage(cgImage: cgImage)
+            return thumbnail
+        } catch let error {
+            print("*** Error generating thumbnail: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    
     func configure(with post: Post?) {
         if let post = post {
             setShadowColor(post: post)
@@ -84,11 +99,16 @@ class PostTableViewCell : UITableViewCell {
             postHeader.configure(post: post)
             postFooter.configure(with: post)
             
-            var imageInputs = [SDWebImageSource]()
+            var imageInputs = [InputSource]()
             if post.attachments != nil {
                 for attach in post.attachments! {
                     if let videoAttach = attach as? VideoAttachment{
-                        imageInputs.append(SDWebImageSource(urlString: videoAttach.thumbnail.url)!)
+                        if (post.type == "instagram") {
+                            imageInputs.append(ImageSource(image: generateThumbnail(path: URL(string: videoAttach.url!)!)!))
+                        }
+                        else {
+                            imageInputs.append(SDWebImageSource(urlString: videoAttach.thumbnail.url)!)
+                        }
                         postVideoView.addVideo(pageIndex: imageInputs.count - 1, video: videoAttach)
                     }
                     else if let photoAttach = attach as? PhotoAttachment{
@@ -104,7 +124,7 @@ class PostTableViewCell : UITableViewCell {
             }
             else {
                 imageSlideShow.isHidden = false
-                imageSlideShow.setImageInputs(imageInputs as [InputSource])
+                imageSlideShow.setImageInputs(imageInputs)
             }
         }
         else {

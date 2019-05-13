@@ -83,18 +83,10 @@ class VKFileAttachment : FileAttachment {
 }
 
 class VKVideoAttachment : VideoAttachment {
-    var url: String? {
-        didSet{
-            if (videoDidLoaded != nil){
-                videoDidLoaded!(self.url!)
-            }
-        }
-    }
+    var url: String?
     var platform: String
     var duration : Int
     var thumbnail: PhotoAttachment
-    
-    var videoDidLoaded : ((String) -> Void)?
     
     required init(map: Mapper) throws {
         platform = "web"

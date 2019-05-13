@@ -55,23 +55,15 @@ class InstagramPost : Post {
             let children = (try map.from("children.data", transformation: extractChildren))!
             attachments.append(contentsOf: children)
         }
-        else {
-            let url : String = try map.from("media_url")
-            attachments.append(InstagramPhotoAttachment(url: url, height: 0, width: 0))
+        else if (type == "VIDEO"){
+            try attachments.append(InstagramVideoAttachment.init(map: map))
+        }
+        else if (type == "IMAGE"){
+            try attachments.append(InstagramPhotoAttachment.init(map: map))
         }
         return attachments
     }
-    
-    private func extractDate(object: Any?) throws -> Date {
-        guard let dateValue = object as? String else {
-            throw MapperError.convertibleError(value: object, type: String.self)
-        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         
-        return dateFormatter.date(from: dateValue)!
-    }
-    
     private func extractChildren(object: Any?) throws -> [Attachment?]? {
         guard let attachmentData = object as? [[String:Any]] else {
             throw MapperError.convertibleError(value: object, type: String.self)
@@ -85,5 +77,16 @@ class InstagramPost : Post {
         
         return attachments
     }
+    
+    private func extractDate(object: Any?) throws -> Date {
+        guard let dateValue = object as? String else {
+            throw MapperError.convertibleError(value: object, type: String.self)
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
+        
+        return dateFormatter.date(from: dateValue)!
+    }
+
     
 }

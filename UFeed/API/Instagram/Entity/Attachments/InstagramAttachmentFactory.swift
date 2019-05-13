@@ -15,10 +15,8 @@ class InstagramAttachmentFactory : AttachmentFactory {
         switch type {
         case "IMAGE":
             return InstagramPhotoAttachment.from(json as NSDictionary)
-            //        case "link":
-            //            return TwitterLinkAttachment.from(attach)
-            //        case  "video":
-        //                return 1
+        case "VIDEO":
+            return InstagramVideoAttachment.from(json as NSDictionary)        
         default:
             print("\(type) parsing is not implemented!")
             return nil
