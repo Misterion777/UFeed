@@ -11,69 +11,113 @@ import SideMenuSwift
 
 class GeneralSettingsViewController : SettingsViewController {
     
-    var isDarkModeEnabled = false
-    var themeColor = UIColor.white
-    
+    let toggleCellId = "toggleCellId"
+    private let generalSettings = SettingsManager.shared.getGeneralSettings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "General"
+        tableView.register(ToggleViewCell.self, forCellReuseIdentifier: toggleCellId)
+        tableView.dataSource = self
+        tableView.allowsSelection = false
         
-        isDarkModeEnabled = SideMenuController.preferences.basic.position == .under
-        configureUI()
-//        setNeedsStatusBarAppearanceUpdate()
+        self.sections.append(Section(header: .generalFeed, objects: ["Sort feed by date"], cellId: toggleCellId))
     }
     
-//    @IBAction func menuButtonDidClicked(_ sender: Any) {
-//        sideMenuController?.revealMenu()
-//    }
+    override func toggleSaveButton() {
+        if (generalSettings.hasChanged()){
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+        else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+    }
     
-    private func configureUI() {
-
-//        if isDarkModeEnabled {
-//            themeColor = .mirage
-//            statusBarBehaviorSegment.tintColor = .lobolly
-//            menuPositionSegment.tintColor = .lobolly
-//            menuDirectionSegment.tintColor = .lobolly
-//            orientationSegment.tintColor = .lobolly
-//            for label in indicatorLabels {
-//                label.textColor = .white
-//            }
-//            navigationController?.navigationBar.isTranslucent = false
-//            navigationController?.navigationBar.tintColor = .lobolly
-//            navigationController?.navigationBar.barTintColor = .mirage
-//            navigationController?.navigationBar.titleTextAttributes = [
-//                NSAttributedString.Key.foregroundColor: UIColor.white
-//            ]
-//        } else {
-//            themeColor = .white
-//        }
-//
-//        view.backgroundColor = themeColor
-//        containerView.backgroundColor = themeColor
-//
-//        let preferences = SideMenuController.preferences.basic
-//        guard let behaviorIndex = statusBarBehaviors.firstIndex(of: preferences.statusBarBehavior) else {
-//            fatalError("Conigration is messed up")
-//        }
-//        statusBarBehaviorSegment.selectedSegmentIndex = behaviorIndex
-//
-//        guard let menuPositionIndex = menuPosition.firstIndex(of: preferences.position) else {
-//            fatalError("Conigration is messed up")
-//        }
-//        menuPositionSegment.selectedSegmentIndex = menuPositionIndex
-//
-//        guard let menuDirectionIndex = menuDirections.firstIndex(of: preferences.direction) else {
-//            fatalError("Conigration is messed up")
-//        }
-//        menuDirectionSegment.selectedSegmentIndex = menuDirectionIndex
-//
-//        guard let menuOrientationIndex = menuOrientation.firstIndex(of: preferences.supportedOrientations)else {
-//            fatalError("Conigration is messed up")
-//        }
-//        orientationSegment.selectedSegmentIndex = menuOrientationIndex
+    @objc override func saveButtonClicked() {
+        generalSettings.save()
+        self.alert(title: "Settings successfully saved!", message: "")        
+        toggleSaveButton()
+    }
+    
+    func onToggleOn() {
+        generalSettings.set(key: .feedSortedByDate, value: true)
+        toggleSaveButton()
+    }
+    
+    func onToggleOff() {
+        generalSettings.set(key: .feedSortedByDate, value: false)
+        toggleSaveButton()
     }
 }
 
+extension GeneralSettingsViewController : UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerHeight
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].header.rawValue
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].objects!.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: sections[indexPath.section].cellId, for: indexPath) as! ToggleViewCell
+        
+        cell.configure(with: "Sort feed by date", generalSettings.get(key: .feedSortedByDate), onToggleOn, onToggleOff)
+        return cell
+    }
+    
+}
+
+
+class ToggleViewCell : UITableViewCell {
+    
+    var label = UILabel()
+    var switchOnOff = UISwitch()
+    
+    private var toggleOn : (()->Void)!
+    private var toggleOff : (()->Void)!
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        switchOnOff.setOn(false, animated: false)
+        switchOnOff.onTintColor = UIColor(rgb: 0x5680E9)
+        
+        switchOnOff.addTarget(self, action: #selector(switchStateDidChange), for: .touchUpInside)
+        addSubview(label)
+        addSubview(switchOnOff)
+        
+        label.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 10, paddingLeft: 10, paddingBottom: 10, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        switchOnOff.anchor(top: topAnchor, left: label.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 10, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: 0, height: 0, enableInsets: false)
+    }
+    
+    @objc func switchStateDidChange(_ sender: UISwitch) {
+        if (sender.isOn){
+            toggleOn()
+        }
+        else {
+            toggleOff()
+        }
+    }
+    
+    func configure(with text: String, _ currentOn: Bool, _ onToggleOn: @escaping ()->Void, _ onToggleOff: @escaping ()->Void) {
+        label.text = text
+        switchOnOff.setOn(currentOn, animated: false)
+        self.toggleOn = onToggleOn
+        self.toggleOff = onToggleOff
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 

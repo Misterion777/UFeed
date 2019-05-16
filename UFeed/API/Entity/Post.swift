@@ -18,7 +18,7 @@ protocol Post : class, Mappable {
     var repostsCount : Int { get }
     var date: Date? { get }
     
-    var type: String { get }
+    var type: Social { get }
     var text: String? { get }
     
     var attachments : [Attachment?]? {get}

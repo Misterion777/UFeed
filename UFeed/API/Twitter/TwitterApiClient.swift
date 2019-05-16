@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class TwitterApiClient : ApiClient {
+    func fetchLatestPosts(completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
+//        
+    }
+    
     
     lazy var twitterDelegate = SocialManager.shared.getDelegate(forSocial: .twitter) as! TwitterDelegate
     let settings = SettingsManager.shared.getSettings(for: .twitter)
@@ -82,6 +86,7 @@ class TwitterApiClient : ApiClient {
         let ids = settings.pages!.map{$0.id}
         maxLastId = 0
         self.error = nil
+        self.posts.removeAll()
         for id in ids {
             twitterDelegate.swifter.getTimeline(for: .id("\(id)"), count: self.parameters["count"] as? Int, maxID: nextFrom, tweetMode: .extended, success: { json in
                 

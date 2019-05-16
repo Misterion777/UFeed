@@ -65,6 +65,9 @@ class FacebookSettingsViewController: SettingsViewController {
                     return pages!.contains{$0.id == element.id}
                 }
             }
+            if (self.settings!.pages!.count == pages?.count) {
+                headerSelected = true
+            }
             if (settings!.hasChanged()) {
                 self.settings!.save()
             }            
@@ -75,8 +78,6 @@ class FacebookSettingsViewController: SettingsViewController {
     }
 }
 
-// ДЕФОЛТНЫЕ СИНИЕ ГАЛОЧКИ ОТСТОЙ!!!!
-// ДЕФОЛТНЫЕ СИНИЕ ГАЛОЧКИ ОТСТОЙ!!!!
 extension FacebookSettingsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -87,7 +88,8 @@ extension FacebookSettingsViewController : UITableViewDataSource {
         
         if (sections[section].header == .pages) {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerMarkId) as! MarkAllHeaderView
-            header.configure(buttonPressed: toggleMarkHeader)
+            let selected = settings!.pages!.count == sections[section].objects!.count
+            header.configure(selected: selected, buttonPressed: toggleMarkHeader)
             return header
         }
         return nil
@@ -136,7 +138,7 @@ extension FacebookSettingsViewController : UITableViewDataSource {
         
         if (sections[indexPath.section].header == .currentAccount) {
             if let cell = cell as? SetupSocialViewCell {
-                cell.configure(with: "Setup your Facebook!")
+                cell.configure(with: .facebook)
                 cell.onButtonClick = setupButtonClicked
                 return cell
             }
@@ -144,11 +146,12 @@ extension FacebookSettingsViewController : UITableViewDataSource {
                 let cell = cell as! PageTableViewCell
                 let page = sections[indexPath.section].objects![0] as! Page
                 cell.configure(with: page, mainPageLogout: logout)
+                cell.selectionStyle = .none
             }
         }
         else {
             if let cell = cell as? SetupSocialViewCell {
-                cell.configure(with: "Load liked pages from Facebook")
+                cell.configure(with: .facebook, text: "Load liked pages from Facebook")
                 cell.onButtonClick = onLoadLikes
                 return cell
             }
@@ -177,6 +180,7 @@ extension FacebookSettingsViewController : UITableViewDataSource {
 
 extension FacebookSettingsViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         if (indexPath.section == 0) {
             return
         }

@@ -11,35 +11,46 @@ import UIKit
 
 class SetupSocialViewCell : UITableViewCell {
     
-    var buttonTitle : String?
+    var button = UIButton(type: .custom)
     
     var onButtonClick : (()->Void)?
     var beforeLogIn : (()->Void)?
-    func configure(with title: String) {
-        
-        self.buttonTitle = title
-        subviewFields()
-        
+    
+    func configure(with social: Social, text: String? = nil) {
+        if (text != nil) {
+            button.setTitle(text, for: .normal)
+            return
+        }
+        switch social {
+        case .facebook:
+            button.setImage(#imageLiteral(resourceName: "facebook (1)"), for: .normal)
+        case .vk:
+            button.setImage(#imageLiteral(resourceName: "vk-login"), for: .normal)
+        case .twitter:
+            button.setImage(#imageLiteral(resourceName: "twitter_login_button"), for: .normal)
+        default:            
+            button.setTitle("Setup your instagram!", for: .normal)
+        }
     }
     
     @objc func click() {
         onButtonClick!()
     }
     
-    func subviewFields() {
-        
-        let button = UIButton(type: .custom)
-        
-        button.setTitle(buttonTitle!, for: .normal)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         button.addTarget(self, action: #selector(click), for: .touchUpInside)
-        
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .lightGray
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.black.cgColor
+//        button.backgroundColor = .lightGray
+//        button.layer.cornerRadius = 5
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.black.cgColor
         addSubview(button)
         
-        button.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 30, paddingBottom: 0, paddingRight: 30, width: 0, height: 0, enableInsets: false)
+        button.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 30, paddingBottom: 0, paddingRight: 30, width: 0, height: 40, enableInsets: false)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

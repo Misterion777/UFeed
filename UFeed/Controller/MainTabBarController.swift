@@ -23,7 +23,6 @@ class MainTabBarController: UITabBarController {
             self.tabBar.isHidden = true
         }
     }
-
 }
 
 extension MainTabBarController: UITabBarControllerDelegate {

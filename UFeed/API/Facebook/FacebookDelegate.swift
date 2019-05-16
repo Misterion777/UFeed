@@ -54,6 +54,7 @@ class FacebookDelegate: SocialDelegate {
         AccessToken.current = nil
         userId = nil
         UserDefaults.standard.removeObject(forKey: userIdKey)
+        SocialManager.shared.getDelegate(forSocial: .instagram).logOut()
     }
     
     func isAuthorized() -> Bool {        

@@ -15,7 +15,8 @@ protocol ApiClient : class {
     var nextFrom : String? { get }
     var hasMorePosts : Bool { get }
     
-    func fetchPosts(nextFrom: String?, completion: @escaping (Result<PagedResponse<Post>, DataResponseError>)->Void)
+    func fetchPosts(nextFrom: String?,  completion: @escaping (Result<PagedResponse<Post>, DataResponseError>)->Void)
+    func fetchLatestPosts(completion: @escaping (Result<PagedResponse<Post>, DataResponseError>)->Void)
     func fetchPages(next: String?, completion: @escaping (Result<PagedResponse<Page>, DataResponseError>) -> Void)
     func fetchOwnerPage(completion: @escaping (Result<Page, DataResponseError>) -> Void)
 }

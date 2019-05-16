@@ -45,7 +45,7 @@ class VkSettingsViewController: SettingsViewController {
             sections[1].objects = pages
             sections[1].cellId = pageCellId
             if (!self.settings!.isInitialized()){
-                self.settings!.pages = pages!
+                self.settings!.pages = pages!                
             }
             else {
                 self.settings!.pages! = self.settings!.pages!.filter {
@@ -74,7 +74,8 @@ extension VkSettingsViewController : UITableViewDataSource {
         
         if (sections[section].header == .pages) {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerMarkId) as! MarkAllHeaderView
-            header.configure(buttonPressed: toggleMarkHeader)
+            let selected = settings!.pages!.count == sections[section].objects!.count            
+            header.configure(selected: selected, buttonPressed: toggleMarkHeader)
             return header
         }
         return nil
@@ -87,9 +88,7 @@ extension VkSettingsViewController : UITableViewDataSource {
                 headerSelected = false
             }
             else {
-                for page in sections[1].objects as! [VKPage] {
-                    settings!.appendPage(page: page)
-                }
+                settings!.pages = sections[1].objects as! [VKPage]
                 headerSelected = true
             }
             toggleSaveButton()
@@ -110,20 +109,13 @@ extension VkSettingsViewController : UITableViewDataSource {
             return 1
         }
         return sections[section].objects!.count
-    }
-    
-    private func onLoadLikes () {
-        (SocialManager.shared.getDelegate(forSocial: .facebook) as! FacebookDelegate).getUserLikesPermissions {
-            self.apiClient!.fetchPages(next: nil, completion: self.updatePages)
-        }
-    }
+    }    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: sections[indexPath.section].cellId, for: indexPath)
-        
         if (sections[indexPath.section].header == .currentAccount) {
             if let cell = cell as? SetupSocialViewCell {
-                cell.configure(with: "Setup your Vk!")
+                cell.configure(with: .vk)
                 cell.onButtonClick = setupButtonClicked
                 return cell
             }
@@ -131,6 +123,7 @@ extension VkSettingsViewController : UITableViewDataSource {
                 let cell = cell as! PageTableViewCell
                 let page = sections[indexPath.section].objects![0] as! Page
                 cell.configure(with: page, mainPageLogout: logout)
+                cell.selectionStyle = .none
             }
         }
         else {
@@ -157,6 +150,7 @@ extension VkSettingsViewController : UITableViewDataSource {
 
 extension VkSettingsViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         if (indexPath.section == 0) {
             return
         }

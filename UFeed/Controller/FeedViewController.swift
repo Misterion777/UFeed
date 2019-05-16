@@ -23,7 +23,7 @@ class FeedViewController:UIViewController, SFSafariViewControllerDelegate {
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellId)
         
         tableView.dataSource = self
-        tableView.prefetchDataSource = self
+//        tableView.prefetchDataSource = self
         tableView.delegate = self
         tableView.isHidden = true
         tableView.backgroundColor = UIColor(rgb: 0xECECEC)
@@ -72,24 +72,30 @@ extension FeedViewController : UITableViewDataSource {
             cell.configure(with: viewModel.post(at: indexPath.row))
         }
         cell.layoutIfNeeded()
+        
+        
         return cell
     }
     
     func reload() {
         if (needToReload) {
             indicatorView.startAnimating()
-            tableView.isHidden = true
-            viewModel.fetchPosts()
+            tableView.isHidden = true            
+            viewModel.fetchPosts(reload: true)
         }
     }
-    
 }
 
 extension FeedViewController : UITableViewDelegate {
 
-
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
          print("Cell height: \(cell.frame.size.height)")
+        
+        if (indexPath.row == viewModel.currentCount - 2 && !isFetching) {
+            isFetching = true
+            viewModel.fetchPosts()
+        }
+        
         self.cellHeightsDictionary[indexPath] = cell.frame.size.height
     }
 
@@ -102,6 +108,14 @@ extension FeedViewController : UITableViewDelegate {
 }
 
 extension FeedViewController: PostsViewModelDelegate {
+    
+    func getIndexToInsertNewPosts() -> Int {
+        if (tableView.indexPathsForVisibleRows == nil) {
+            return 0
+        }
+        return tableView.indexPathsForVisibleRows!.last!.row
+    }
+    
     func onFetchCompleted(with newIndexPathToReload: [IndexPath]?) {
         indicatorView.stopAnimating()
         
@@ -120,7 +134,7 @@ extension FeedViewController: PostsViewModelDelegate {
         else {
             needToReload = false
         }
-        
+        isFetching = false
         
         
 //
@@ -154,14 +168,18 @@ extension FeedViewController: PostsViewModelDelegate {
                 self.viewModel.fetchPosts()
             })
         }
-        
+        isFetching = false
     }
 }
 
 extension FeedViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if (indexPaths.contains(where: isLoadingCell)){
-            viewModel.fetchPosts()
+        let index = indexPaths.firstIndex {$0.row == viewModel.currentCount}
+        if (index != nil) {
+            if (index! < viewModel.currentCount / 2 && !isFetching) {
+                isFetching = true
+                viewModel.fetchPosts()
+            }
         }
     }
 }

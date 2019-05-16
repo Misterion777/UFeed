@@ -11,6 +11,7 @@ import Foundation
 protocol PostsViewModelDelegate : class {
     func onFetchCompleted(with newIndexPathToReload: [IndexPath]?)
     func onFetchFailed(with reason: String)
+    func getIndexToInsertNewPosts() -> Int
 }
 
 final class PostsViewModel {
@@ -18,13 +19,16 @@ final class PostsViewModel {
     
     private var posts: [Post] = []
     private var isFetchInProgress = false
+    private let generalSettings = SettingsManager.shared.getGeneralSettings()
     
     private var next = [Social:String]()
     
     let apiClient = SocialManager.shared.apiManager!
+    let timer = RepeatingTimer(timeInterval: 30)
     
     init(delegate: PostsViewModelDelegate) {
         self.delegate = delegate
+        timer.eventHandler = fetchNewPosts
     }
     
     var currentCount: Int {
@@ -35,18 +39,41 @@ final class PostsViewModel {
         return posts[index]
     }
     
-    func fetchPosts() {
+    func fetchNewPosts() {
+        apiClient.fetchNewPosts(completion: { result in
+            switch result {
+            case .failure(_):
+                print("fail")
+            case .success(let response):
+                let index = self.delegate!.getIndexToInsertNewPosts()
+                let filtered = response.objects.filter {
+                    let element = $0
+                    return !self.posts.contains{$0.id == element.id}
+                }
+                self.posts.insert(contentsOf: filtered, at: index)
+                self.delegate!.onFetchCompleted(with: .none)
+            }
+            
+        })
+        
+    }
+    
+    func fetchPosts(reload: Bool = false) {
         guard !isFetchInProgress else {
             return
         }
-        
         isFetchInProgress = true
+        
+        if (reload) {
+            print(posts.map{$0.type})
+            posts = SettingsManager.shared.removeDeletedPages(posts: posts)
+        }        
         
         apiClient.fetchPosts(next: next) { result in
             
             switch result {
             case .failure(let error) :
-                DispatchQueue.main.async {                    
+                DispatchQueue.main.async {
                     self.isFetchInProgress = false
                     self.delegate?.onFetchFailed(with: ErrorsParser.parse(error: error))
                 }
@@ -56,32 +83,33 @@ final class PostsViewModel {
                     self.isFetchInProgress = false
                                         
 //                    self.posts.append(contentsOf: responses.flatMap {$0.objects} )
+                    var newPosts = [Post]()
                     for responce in responses {
                         let filtered = responce.objects.filter {
                             let element = $0
                             return !self.posts.contains{$0.id == element.id}
                         }
-                        
-                        self.posts.append(contentsOf: filtered)
+                        newPosts.append(contentsOf: filtered)
                         self.next[responce.social] = responce.next
                     }
-                    self.posts.sort(by: {return $0.date! > $1.date! })
-                        
-                    self.delegate?.onFetchCompleted(with: .none)
                     
-                    // 3
-//                    if self.next.isEmpty {
-//                        self.next = response.next
-//                        self.delegate?.onFetchCompleted(with: .none)
-//                    } else {
-//                        self.next = response.next
-//                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.posts)
-//                        self.delegate?.onFetchCompleted(with: indexPathsToReload)
-//                    }
+                    if (self.generalSettings.get(key: .feedSortedByDate)) {
+                        self.posts.append(contentsOf: newPosts)
+                        self.posts.sort(by: {return $0.date! > $1.date! })
+                    }
+                    else {
+                        newPosts.sort(by: {return $0.date! > $1.date! })
+                        self.posts.append(contentsOf: newPosts)
+                    }
+                    
+                    self.timer.resume()
+                    self.delegate?.onFetchCompleted(with: .none)
                 }
             }
         }
     }
+    
+    
     
     private func calculateIndexPathsToReload(from newPosts: [Post]) -> [IndexPath] {
         let startIndex = posts.count - newPosts.count

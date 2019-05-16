@@ -1,6 +1,5 @@
 import UIKit
 
-import NAKPlaybackIndicatorView
 import AVFoundation
 
 class PostAudioView: UIView {
@@ -18,12 +17,6 @@ class PostAudioView: UIView {
         button.addTarget(self, action: #selector(playAudio), for: .touchUpInside)
         
         return button
-    }()
-    
-    lazy var indicatorView: NAKPlaybackIndicatorView = {
-        let indicator = NAKPlaybackIndicatorView(style: NAKPlaybackIndicatorViewStyle.iOS10())
-        
-        return indicator!
     }()
     
     lazy var audioNameLabel : UILabel = {

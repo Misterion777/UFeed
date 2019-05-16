@@ -21,6 +21,9 @@ class ErrorsParser {
         else if ("\(error)".contains("offline")){
             return "Wooooo!\nNo internet connection.\nWaiting for network..."
         }
+        else if ("\(error)".contains("You are not signed in any social network!")){
+            return "You are not signed in any social network!"
+        }
         return "\(error)"
     }
 }

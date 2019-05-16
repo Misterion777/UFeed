@@ -84,6 +84,10 @@ extension InstagramSettingsViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (sections[section].header == .currentAccount) {
+            return 1
+        }
+        
         if sections[section].objects == nil {
             return 0
         }
@@ -93,10 +97,10 @@ extension InstagramSettingsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: sections[indexPath.section].cellId, for: indexPath)
-        
+        cell.selectionStyle = .none
         if (sections[indexPath.section].header == .currentAccount) {
             if let cell = cell as? SetupSocialViewCell {
-                cell.configure(with: "Setup your Instagram!")
+                cell.configure(with: .instagram)
                 cell.onButtonClick = setupButtonClicked
                 return cell
             }

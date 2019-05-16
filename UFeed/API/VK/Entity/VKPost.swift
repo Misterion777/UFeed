@@ -21,12 +21,13 @@ class VKPost : Post {
     var likesCount: Int
     var repostsCount: Int
     var date: Date?
-    var type: String
+    var type: Social
     var text: String?    
     var attachments: [Attachment?]?
     
     
     required init(map: Mapper) throws {            
+        type = .vk
         
         try id = map.from("post_id")
         let ownerId : Int = try map.from("source_id")
@@ -35,7 +36,7 @@ class VKPost : Post {
         try commentsCount = map.from("comments.count")
         try likesCount = map.from("likes.count")
         try repostsCount = map.from("reposts.count")
-        type = "vk"
+        
         try date = map.from("date", transformation: extractDate)
         text = map.optionalFrom("text")
         let copyHistory = map.optionalFrom("copy_history", transformation: extractHistoryAttachments)

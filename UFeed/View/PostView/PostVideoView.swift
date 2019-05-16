@@ -58,7 +58,7 @@ class PostVideoView : UIView {
         super.init(frame: CGRect.zero)
         addSubview(playButton)
                 
-        playButton.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 170, paddingBottom: 0, paddingRight: 170, width: 0, height: 0, enableInsets: false)
+        playButton.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)     
     }
     
     func clear(){

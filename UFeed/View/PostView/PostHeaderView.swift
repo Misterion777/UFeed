@@ -17,6 +17,8 @@ class PostHeaderView: UIView {
         ownerName.textColor = .black
         ownerName.font = UIFont.boldSystemFont(ofSize: 16)
         ownerName.textAlignment = .left
+        ownerName.numberOfLines = 0
+        ownerName.lineBreakMode = NSLineBreakMode.byWordWrapping
         return ownerName
     }()
 
@@ -40,9 +42,9 @@ class PostHeaderView: UIView {
         addSubview(dateLabel)
         addSubview(mediaIcon)
                 
-        ownerImage.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 50, height: 50, enableInsets: false)
+        ownerImage.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 50, height: 50, enableInsets: false)
         
-        ownerNameLabel.anchor(top: topAnchor, left: ownerImage.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        ownerNameLabel.anchor(top: topAnchor, left: ownerImage.rightAnchor, bottom: nil, right: mediaIcon.leftAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
         dateLabel.anchor(top: ownerNameLabel.bottomAnchor, left: ownerImage.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
                 
@@ -55,16 +57,16 @@ class PostHeaderView: UIView {
         ownerNameLabel.text = post.ownerPage!.name
         
         dateLabel.text = parseDate(date: post.date!)
-        if (post.type == "vk"){
+        if (post.type == .vk){
             mediaIcon.image = #imageLiteral(resourceName: "icons8-vk-circled-50")
         }
-        else if (post.type == "twitter"){
+        else if (post.type == .twitter){
             mediaIcon.image = #imageLiteral(resourceName: "icons8-twitter-circled-50")
         }
-        else if (post.type == "facebook"){
+        else if (post.type == .facebook){
             mediaIcon.image = #imageLiteral(resourceName: "icons8-facebook-circled-50")
         }
-        else if (post.type == "instagram"){
+        else if (post.type == .instagram){
             mediaIcon.image = #imageLiteral(resourceName: "icons8-instagram-50")
         }
     }

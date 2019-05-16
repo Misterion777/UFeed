@@ -37,6 +37,8 @@ class PostTableViewCell : UITableViewCell {
     private var postVideoView = PostVideoView()
     private var indicatorView : UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView()
+        
+        
         indicatorView.hidesWhenStopped = true
         indicatorView.color = .green
         return indicatorView
@@ -59,13 +61,13 @@ class PostTableViewCell : UITableViewCell {
     }
     
     func setShadowColor(post: Post){
-        if (post.type == "vk") {
+        if (post.type == .vk) {
             mainView.layer.shadowColor = UIColor(rgb: 0x5AB9EA).cgColor
-        } else if (post.type == "twitter") {
+        } else if (post.type == .twitter) {
             mainView.layer.shadowColor = UIColor(rgb: 0x84CEEB).cgColor
-        } else if (post.type == "facebook") {
+        } else if (post.type == .facebook) {
             mainView.layer.shadowColor = UIColor(rgb: 0x5680E9).cgColor
-        } else if (post.type == "instagram") {
+        } else if (post.type == .instagram) {
             mainView.layer.shadowColor = UIColor(rgb: 0x8860D0).cgColor
         }
     }
@@ -103,7 +105,7 @@ class PostTableViewCell : UITableViewCell {
             if post.attachments != nil {
                 for attach in post.attachments! {
                     if let videoAttach = attach as? VideoAttachment{
-                        if (post.type == "instagram") {
+                        if (post.type == .instagram) {
                             imageInputs.append(ImageSource(image: generateThumbnail(path: URL(string: videoAttach.url!)!)!))
                         }
                         else {
@@ -114,9 +116,9 @@ class PostTableViewCell : UITableViewCell {
                     else if let photoAttach = attach as? PhotoAttachment{
                         imageInputs.append(SDWebImageSource(urlString: photoAttach.url)!)
                     }
-                    else if let fileAttach = attach as? FileAttachment{
-                        fileViews.append(PostFileView(fileName: fileAttach.title, fileSize:   fileAttach.size, fileLink: fileAttach.url))
-                    }
+//                    else if let fileAttach = attach as? FileAttachment{
+//                        fileViews.append(PostFileView(fileName: fileAttach.title, fileSize:   fileAttach.size, fileLink: fileAttach.url))
+//                    }
                 }
             }
             if imageInputs.count == 0 {
@@ -128,6 +130,7 @@ class PostTableViewCell : UITableViewCell {
             }
         }
         else {
+            stackView.isHidden = true
             indicatorView.startAnimating()
         }
     }
@@ -172,8 +175,8 @@ class PostTableViewCell : UITableViewCell {
         imageSlideShow.heightAnchor.constraint(equalToConstant: 400.0).isActive = true
         imageSlideShow.addSubview(postVideoView)
         
-        postVideoView.anchor(top: nil, left: imageSlideShow.leftAnchor, bottom: nil, right: imageSlideShow.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 50, height: 50, enableInsets: false)
-    
+        postVideoView.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 50, height: 50, enableInsets: false)
+        postVideoView.centerXAnchor.constraint(equalTo: imageSlideShow.centerXAnchor).isActive = true
         postVideoView.centerYAnchor.constraint(equalTo: imageSlideShow.centerYAnchor).isActive = true
         
         stackView.addArrangedSubview(postFooter)

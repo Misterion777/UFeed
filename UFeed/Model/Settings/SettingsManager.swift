@@ -13,6 +13,7 @@ class SettingsManager {
     static let shared = SettingsManager()
     
     private var socialSettings = [Social : Settings]()
+    private var generalSettings = GeneralSettings()
     
     private init(){
         socialSettings[.facebook] = FacebookSettings()
@@ -21,8 +22,11 @@ class SettingsManager {
         socialSettings[.vk] = VkSettings()
     }
     
-    func getSettings(for social: Social) ->Settings {
+    func getSettings(for social: Social) -> Settings {
         return socialSettings[social]!
+    }
+    func getGeneralSettings() -> GeneralSettings {
+        return generalSettings
     }
     
     func save(for social: Social) {
@@ -33,14 +37,26 @@ class SettingsManager {
         for (_,v) in socialSettings{
             v.reloadable = reloadable
         }
+        generalSettings.reloadable = reloadable
     }
     
-//    func getSavedPagesId(for social: Social) -> [Int]?{
-//        return socialSettings[social]!.pages
-//    }
-//    
-//    func setPagesId(for social: Social, pagesId : [Int]) {
-//        socialSettings[social]!.pagesId = pagesId
-//    }
+    func removeDeletedPages(posts: [Post]) -> [Post]{
+        var filteredPosts = posts
+        for (social, setting) in socialSettings {
+            if (setting.isInitialized()) {                
+                filteredPosts = filteredPosts.filter {
+                    let element = $0
+                    if (social == element.type){
+                        return setting.pages!.contains {
+                            $0.id == element.ownerPage!.id
+                        }
+                    }else {
+                        return true
+                    }
+                }
+            }            
+        }
+        return filteredPosts
+    }
     
 }

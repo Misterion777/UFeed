@@ -16,6 +16,8 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate, SocialDelegate {
     //https://vk.com/dev/versions
     private let LATEST_VERSION = "5.92"
     
+    
+    
     var viewController: UIViewController?
     var onAuthorizeSuccess : (()->Void)?
     var userId: String?
@@ -27,18 +29,18 @@ class VKDelegate : NSObject, VKSdkDelegate, VKSdkUIDelegate, SocialDelegate {
         let vkInstance = VKSdk.initialize(withAppId: VK_APP_ID, apiVersion: LATEST_VERSION)
         vkInstance?.register(self)
         vkInstance?.uiDelegate = self
-                
-        VKSdk.wakeUpSession(SCOPE, complete: { state, error in
+        
+        VKSdk.wakeUpSession(self.SCOPE, complete: { state, error in
             if state == VKAuthorizationState.authorized {
                 print("Allready authorized")
-            } else if error != nil {                
+            } else if error != nil {
                 print("Error: \(error)")
                 self.wakeUpError = error
             } else {
                 print ("Initialized!")
             }
-            
         })
+        
     }
     
     func authorize(onSuccess: @escaping () -> Void) {

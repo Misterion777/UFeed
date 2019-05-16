@@ -9,7 +9,7 @@
 import UIKit
 import FacebookCore
 import VK_ios_sdk
-import SwifteriOS
+import Swifter
 import SideMenuSwift
     
 @UIApplicationMain
@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        Swifter.handleOpenURL(url, callbackURL: URL(string: "ufeed://")!)
+        Swifter.handleOpenURL(url)
         let app = options[.sourceApplication] as? String
         VKSdk.processOpen(url, fromApplication: app)
         SDKApplicationDelegate.shared.application(application, open: url, options: options)

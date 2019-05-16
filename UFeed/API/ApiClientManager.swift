@@ -71,6 +71,10 @@ class ApiClientManager {
             
         }
     }
+    
+    func fetchNewPosts(completion: @escaping (Result<PagedResponse<Post>, DataResponseError>)->Void) {
+        self.clients[.vk]!.fetchLatestPosts(completion: completion)
+    }
 
     private func getActiveClients() -> Int {
         var activeClients = 0

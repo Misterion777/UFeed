@@ -11,6 +11,7 @@ import VK_ios_sdk
 class VKApiClient : ApiClient {
     
     let settings = SettingsManager.shared.getSettings(for: .vk)
+    
     lazy var delegate = SocialManager.shared.getDelegate(forSocial: .vk) as! VKDelegate
     
     var posts = [Post]()
@@ -96,9 +97,6 @@ class VKApiClient : ApiClient {
         if(!settings.isInitialized() || settings.pages!.count == 0) {
             return completion(Result.success(PagedResponse(social: .vk, objects: [])))
         }
-        
-
-        
         self.parameters["source_ids"] = settings.pages!.map{"g\($0.id)"}.joined(separator: ",")
         if nextFrom != nil {
             self.parameters["start_from"] = nextFrom
@@ -113,7 +111,6 @@ class VKApiClient : ApiClient {
                     
                     var pages = [Page]()
                     
-                    
                     if let groups = dictionary["groups"] as? [[String:Any]]{
                         pages.append(contentsOf: VKPage.from(groups as NSArray)!)
                     }
@@ -123,13 +120,21 @@ class VKApiClient : ApiClient {
                     let next = dictionary["next_from"] as? String
                     
                     if let items = dictionary["items"] as? [[String:Any]]{
-//                        print(items[3])
                         let posts = VKPost.from(items as NSArray)!
                         
                         for post in posts {
                             let filtered = pages.filter{$0.id == abs(post.ownerPage!.id)}
                             post.ownerPage = filtered[0]
                         }
+                        if (self.latestTime == Date.distantPast) {
+                            for post in posts {
+                                if post.date! > self.latestTime {
+                                    self.latestTime = post.date!
+                                }
+                            }
+                            self.latestTime.addTimeInterval(1)
+                        }
+                        
                         completion(Result.success(PagedResponse(social: .vk, objects: posts, next: next)))
                     }
                 }
@@ -141,8 +146,6 @@ class VKApiClient : ApiClient {
                 completion(Result.failure(DataResponseError.network(message: "Error occured while loading vk posts: \(error)")))
             }
         })
-        
-        
     }
 
     
@@ -172,52 +175,64 @@ class VKApiClient : ApiClient {
         })
     }
     
-//    private func fetchLatestPosts() {
-//        var newParameters = parameters!
-//        if latestTime != Date.distantPast {
-//            newParameters["start_time"] = latestTime.addingTimeInterval(1).timeIntervalSince1970
-//        }
-//
-//        let getFeed = VKRequest(method: "newsfeed.get", parameters:newParameters)
-//
-//        getFeed?.execute(resultBlock: { response in
-//
-//            if let jsonResponse = response?.json {
-//                if let dictionary = jsonResponse as? [String:Any] {
-//
-//                    if self.latestTime == Date.distantPast {
-//                        if let nextFrom = dictionary["next_from"] as? String {
-//                            self.nextFrom = nextFrom
-//                        }
-//                    }
-//
-//                    if let items = dictionary["items"] as? [[String:Any]]{
-//                        self.posts = VKPost.from(items as NSArray)
-//
-//                        if self.posts!.count == 0 {
-//                            self.fetchNextPosts()
-//                        }
-//                        else {
-//
-//                            for post in self.posts! {
-//                                if post.date! > self.latestTime {
-//                                    self.latestTime = post.date!
-//                                }
-//                                self.getOwnerInfo(post: post, onResponse: self.setupPostOwnerInfo)
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }
-//
-//        }, errorBlock: { error in
-//            if error != nil {
-//                print(error!)
-//                self.fetchPostsCompletion!(Result.failure(DataResponseError.network))
-//            }
-//        })
-//    }
+    
+    func fetchLatestPosts(completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
+        if(!settings.isInitialized() || settings.pages!.count == 0) {
+            return
+        }
+        self.parameters["source_ids"] = settings.pages!.map{"g\($0.id)"}.joined(separator: ",")
+                
+        self.parameters["start_time"] = String(latestTime.timeIntervalSince1970)
+        
+        let getFeed = VKRequest(method: "newsfeed.get", parameters:self.parameters)
+        
+        getFeed?.execute(resultBlock: { response in
+            
+            if let jsonResponse = response?.json {
+                if let dictionary = jsonResponse as? [String:Any] {
+                    
+                    var pages = [Page]()
+                    
+                    if let groups = dictionary["groups"] as? [[String:Any]]{
+                        pages.append(contentsOf: VKPage.from(groups as NSArray)!)
+                    }
+                    if let users = dictionary["profiles"] as? [[String:Any]]{
+                        pages.append(contentsOf: VKPage.from(users as NSArray)!)
+                    }                    
+                    
+                    if let items = dictionary["items"] as? [[String:Any]]{
+                        let posts = VKPost.from(items as NSArray)!
+                        
+                        if (posts.count != 0) {
+                        
+                            for post in posts {
+                                let filtered = pages.filter{$0.id == abs(post.ownerPage!.id)}
+                                post.ownerPage = filtered[0]
+                            }
+//                            posts.max{ $0.date! > $1.date!}
+                            for post in posts {
+                                if post.date! > self.latestTime {
+                                    self.latestTime = post.date!
+                                }
+                            }
+                            
+                            print("Some new posts found! Displaying...")
+                            completion(Result.success(PagedResponse(social: .vk, objects: posts)))
+                        }
+                        else {
+                            print("No new posts!")
+                        }
+                    }
+                }
+            }
+            
+        }, errorBlock: { error in
+            if error != nil {
+                print(error!)
+                completion(Result.failure(DataResponseError.network(message: "Error occured while loading vk posts: \(error)")))
+            }
+        })
+    }
 }
 
 

@@ -23,14 +23,14 @@ class FacebookPost : Post {
     
     var date: Date?
     
-    var type: String
+    var type: Social
     
     var text: String?
     
     var attachments: [Attachment?]?
     
     required init(map: Mapper) throws {
-        type = "facebook"
+        type = .facebook
         
         let joinedId : String = try map.from("id")
         let splitted = joinedId.components(separatedBy: "_")

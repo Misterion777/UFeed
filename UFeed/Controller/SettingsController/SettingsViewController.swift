@@ -15,6 +15,7 @@ class SettingsViewController: UIViewController {
     enum SectionHeader: String, CaseIterable {
         case currentAccount = "Your account"
         case pages = "Pages that will be in your feed"
+        case generalFeed = "Feed settings"
     }
     
     struct Section {
@@ -63,7 +64,12 @@ class SettingsViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = burger
         self.navigationItem.rightBarButtonItem = saveButton
         SocialManager.shared.setViewController(vc: self)
-        let reloadbleFeedVC = self.navigationController!.tabBarController!.viewControllers![0] as! Reloadable
+        let tabBarController = self.navigationController!.tabBarController!
+        if tabBarController.viewControllers![0] is SignInViewController {
+            tabBarController.viewControllers?.removeFirst(1)
+            tabBarController.tabBar.isHidden = false
+        }
+        let reloadbleFeedVC = tabBarController.viewControllers![0] as! Reloadable
         SettingsManager.shared.setReloadable(reloadable: reloadbleFeedVC)        
     }
     

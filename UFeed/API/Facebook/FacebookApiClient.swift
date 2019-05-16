@@ -11,6 +11,10 @@ import FacebookCore
 
 
 class FacebookApiClient: ApiClient {
+    func fetchLatestPosts(completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
+//     
+    }
+    
     
 //    let connection = GraphRequestConnection()
     let settings = SettingsManager.shared.getSettings(for: .facebook)

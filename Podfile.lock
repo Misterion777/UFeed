@@ -26,12 +26,11 @@ PODS:
   - ModelMapper (10.0.0):
     - ModelMapper/Core (= 10.0.0)
   - ModelMapper/Core (10.0.0)
-  - NAKPlaybackIndicatorView (0.1.1)
-  - ReadMoreTextView (3.0.1)
   - SDWebImage (4.4.6):
     - SDWebImage/Core (= 4.4.6)
   - SDWebImage/Core (4.4.6)
   - SideMenuSwift (2.0.0)
+  - Swifter (2.3.0)
   - VK-ios-sdk (1.4.6)
 
 DEPENDENCIES:
@@ -40,10 +39,9 @@ DEPENDENCIES:
   - ImageSlideshow
   - ImageSlideshow/SDWebImage
   - ModelMapper
-  - NAKPlaybackIndicatorView
-  - ReadMoreTextView
   - SDWebImage
   - SideMenuSwift
+  - Swifter (from `https://github.com/mattdonnelly/Swifter.git`, tag `2.3.0`)
   - VK-ios-sdk
 
 SPEC REPOS:
@@ -55,11 +53,19 @@ SPEC REPOS:
     - FBSDKLoginKit
     - ImageSlideshow
     - ModelMapper
-    - NAKPlaybackIndicatorView
-    - ReadMoreTextView
     - SDWebImage
     - SideMenuSwift
     - VK-ios-sdk
+
+EXTERNAL SOURCES:
+  Swifter:
+    :git: https://github.com/mattdonnelly/Swifter.git
+    :tag: 2.3.0
+
+CHECKOUT OPTIONS:
+  Swifter:
+    :git: https://github.com/mattdonnelly/Swifter.git
+    :tag: 2.3.0
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -69,12 +75,11 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 54ae59987f2a8703021557c90a9aebb9e5c2bef6
   ImageSlideshow: f8eec5e37a980f60923b585ff23b0e140fd24018
   ModelMapper: a8dbf2a2003bf626627b9fe7c9a22b3405a30404
-  NAKPlaybackIndicatorView: f1468937ae3828ef6e9a50feda0781fdfa67dce8
-  ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
   SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
   SideMenuSwift: 1bee5a0e54c6df7d8106f749b82567eae5c6d974
+  Swifter: dbdc8b8d35efb46d5a636502545b6dd95eea6285
   VK-ios-sdk: 7fd48bc5aaa6b96c3197c1987eb6593f2ea67331
 
-PODFILE CHECKSUM: eddb8ec5cc99f9e3ff42290f50bc48f3550bf1bb
+PODFILE CHECKSUM: ffc94921f8d09d66ccc1432b7f097bf876b4617a
 
 COCOAPODS: 1.6.1

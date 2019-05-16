@@ -22,7 +22,7 @@ class InstagramPost : Post {
     
     var date: Date?
     
-    var type: String
+    var type: Social
     
     var text: String?
     
@@ -30,7 +30,7 @@ class InstagramPost : Post {
     
     required init(map: Mapper) throws {
         
-        type = "instagram"
+        type = .instagram
         
         let stringId : String = try map.from("id")
         id = Int(stringId)!        

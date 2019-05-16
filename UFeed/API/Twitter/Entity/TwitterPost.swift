@@ -23,14 +23,14 @@ class TwitterPost : Post {
     
     var date: Date?
     
-    var type: String
+    var type: Social
     
     var text: String?
     
     var attachments: [Attachment?]?
     
     required init(map: Mapper) throws {
-        type = "twitter"
+        type = .twitter
         try id = map.from("id")
         
 //        try commentsCount = map.from("reply_count")

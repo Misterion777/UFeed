@@ -28,7 +28,8 @@ class MarkAllHeaderView : UITableViewHeaderFooterView {
     
     var buttonPressed : (()->Void)!
     
-    func configure(buttonPressed : @escaping ()->Void) {
+    func configure(selected: Bool, buttonPressed : @escaping ()->Void) {
+        markButton.isSelected = selected
         self.buttonPressed = buttonPressed
         self.markButton.addTarget(self, action: #selector(toggleButton), for: .touchUpInside)
         subviewFields()

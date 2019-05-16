@@ -69,13 +69,14 @@ class SocialManager {
     
     
     func authorize(via key: Social) {
-        if (!socialDelegates[key]!.isAuthorized()) {
-            self.currentSocial = key
-            socialDelegates[key]!.authorize(onSuccess: onAuthorizeSuccess)
-        }
-        else {
-            self.vc?.tabBarController?.selectedIndex = 1
-        }        
+        self.currentSocial = key
+        socialDelegates[key]!.authorize(onSuccess: onAuthorizeSuccess)
+//        if (!socialDelegates[key]!.isAuthorized()) {
+//            
+//        }
+//        else {
+//            self.vc?.tabBarController?.selectedIndex = 2
+//        }        
     }
     
     func getAuthorizedSocials() -> [Social]{
@@ -93,13 +94,14 @@ class SocialManager {
             for (_,delegate) in socialDelegates {
                 delegate.logOut()
             }
+            self.apiManager.updateApiClients(socials: [])
         }
         else{
             if (socialDelegates[key!]!.isAuthorized()) {
                 socialDelegates[key!]!.logOut()
+                self.apiManager.clients.removeValue(forKey: key!)
             }
         }
-        updateClients()
     }
     private func onAuthorizeSuccess() {
         updateClients()

@@ -11,7 +11,9 @@ import FacebookCore
 
 class InstagramApiClient: ApiClient {
     
-    
+    func fetchLatestPosts(completion: @escaping (Result<PagedResponse<Post>, DataResponseError>) -> Void) {
+//
+    }    
     
     var parameters = [String : Any]()
     

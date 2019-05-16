@@ -38,9 +38,18 @@ class PostFooterView : UIView {
         likesLabel.attributedText = createAttributedText(with: #imageLiteral(resourceName: "icons8-heart-outline-64"), text: String(post.likesCount))
         commentsLabel.attributedText = createAttributedText(with: #imageLiteral(resourceName: "icons8-topic-64 (1)"), text: String(post.commentsCount))
         repostsLabel.attributedText = createAttributedText(with: #imageLiteral(resourceName: "icons8-undo-64"), text: String(post.repostsCount))
-        if (post.type == "instagram") {
+        if (post.type == .instagram) {
             repostsLabel.isHidden = true
-        }        
+        }
+        else {
+            repostsLabel.isHidden = false
+        }
+        if (post.type == .twitter) {
+            commentsLabel.isHidden = true
+        }
+        else {
+            commentsLabel.isHidden = false
+        }
     }
     
     private func createAttributedText(with image : UIImage, text: String) -> NSMutableAttributedString{

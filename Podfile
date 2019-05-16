@@ -8,14 +8,13 @@ target 'UFeed' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'VK-ios-sdk'
+  pod 'Swifter', :git => 'https://github.com/mattdonnelly/Swifter.git', :tag => '2.3.0'
   pod 'ModelMapper'
   
   pod 'SDWebImage'
-  pod 'ReadMoreTextView'
   pod 'ImageSlideshow'
   pod 'ImageSlideshow/SDWebImage'
   
-  pod 'NAKPlaybackIndicatorView'
   pod 'SideMenuSwift'
   
 end
