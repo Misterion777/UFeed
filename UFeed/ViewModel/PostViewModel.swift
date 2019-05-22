@@ -70,7 +70,6 @@ final class PostsViewModel {
         }        
         
         apiClient.fetchPosts(next: next) { result in
-            
             switch result {
             case .failure(let error) :
                 DispatchQueue.main.async {
@@ -79,9 +78,7 @@ final class PostsViewModel {
                 }
             case .success(let responses):
                 DispatchQueue.main.async {
-                    
                     self.isFetchInProgress = false
-                                        
 //                    self.posts.append(contentsOf: responses.flatMap {$0.objects} )
                     var newPosts = [Post]()
                     for responce in responses {

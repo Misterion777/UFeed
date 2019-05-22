@@ -29,7 +29,7 @@ class SetupSocialViewCell : UITableViewCell {
         case .twitter:
             button.setImage(#imageLiteral(resourceName: "twitter_login_button"), for: .normal)
         default:            
-            button.setTitle("Setup your instagram!", for: .normal)
+            button.setImage(#imageLiteral(resourceName: "инста"), for: .normal)
         }
     }
     

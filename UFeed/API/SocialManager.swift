@@ -71,12 +71,6 @@ class SocialManager {
     func authorize(via key: Social) {
         self.currentSocial = key
         socialDelegates[key]!.authorize(onSuccess: onAuthorizeSuccess)
-//        if (!socialDelegates[key]!.isAuthorized()) {
-//            
-//        }
-//        else {
-//            self.vc?.tabBarController?.selectedIndex = 2
-//        }        
     }
     
     func getAuthorizedSocials() -> [Social]{

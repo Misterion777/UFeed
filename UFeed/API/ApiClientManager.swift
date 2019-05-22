@@ -101,7 +101,6 @@ class ApiClientManager {
         
         if (threadsCompleted == self.activeClients ) {
             if (self.errors == nil || self.errors?.count == 0) {
-                
                 self.fetchPostsCompletion!(Result.success(responses))
             }
             else {

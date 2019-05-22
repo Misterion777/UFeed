@@ -13,7 +13,7 @@ protocol ApiClient : class {
     var posts : [Post] { get }
     var parameters : [String : Any] { get set}
     var nextFrom : String? { get }
-    var hasMorePosts : Bool { get }
+    var hasMorePosts : Bool { get}
     
     func fetchPosts(nextFrom: String?,  completion: @escaping (Result<PagedResponse<Post>, DataResponseError>)->Void)
     func fetchLatestPosts(completion: @escaping (Result<PagedResponse<Post>, DataResponseError>)->Void)

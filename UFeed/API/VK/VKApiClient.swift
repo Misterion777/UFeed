@@ -101,6 +101,9 @@ class VKApiClient : ApiClient {
         if nextFrom != nil {
             self.parameters["start_from"] = nextFrom
         }
+        else {
+            self.parameters.removeValue(forKey: "start_from")
+        }
         
         let getFeed = VKRequest(method: "newsfeed.get", parameters:self.parameters)
         
@@ -181,8 +184,10 @@ class VKApiClient : ApiClient {
             return
         }
         self.parameters["source_ids"] = settings.pages!.map{"g\($0.id)"}.joined(separator: ",")
-                
-        self.parameters["start_time"] = String(latestTime.timeIntervalSince1970)
+        
+        if (latestTime != Date.distantPast) {
+            self.parameters["start_time"] = String(latestTime.timeIntervalSince1970)
+        }
         
         let getFeed = VKRequest(method: "newsfeed.get", parameters:self.parameters)
         
@@ -208,14 +213,10 @@ class VKApiClient : ApiClient {
                             for post in posts {
                                 let filtered = pages.filter{$0.id == abs(post.ownerPage!.id)}
                                 post.ownerPage = filtered[0]
-                            }
-//                            posts.max{ $0.date! > $1.date!}
-                            for post in posts {
                                 if post.date! > self.latestTime {
                                     self.latestTime = post.date!
                                 }
-                            }
-                            
+                            }                            
                             print("Some new posts found! Displaying...")
                             completion(Result.success(PagedResponse(social: .vk, objects: posts)))
                         }
